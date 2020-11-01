@@ -45,19 +45,11 @@
                     <div class="navbar-collapse collapse ">
                         <ul class="nav navbar-nav">
                             <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                            <li class="dropdown">
-                                <a href="#" data-toggle="dropdown" class="dropdown-toggle waves-effect waves-dark">About Us <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="waves-effect waves-dark" href="about.html">Company</a></li>
-                                    <li><a class="waves-effect waves-dark" href="#">Our Team</a></li>
-                                    <li><a class="waves-effect waves-dark" href="#">News</a></li>
-                                    <li><a class="waves-effect waves-dark" href="#">Investors</a></li>
-                                </ul>
-                            </li>
+                          
                             <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Test" asp-action="Test">Services</a></li>
                             <li><a class="waves-effect waves-dark" href="portfolio.html">Gallery</a></li>
-                            <li><a class="waves-effect waves-dark" href="pricing.html">Pricing</a></li>
-                            <li><a class="waves-effect waves-dark" href="contact.html">Contact</a></li>
+                            <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Workouts" asp-action="All">Workouts</a></li>
+                            <li><a class="waves-effect waves-dark" href="contact.html">Meal plans</a></li>
                             @if (!this.SignInManager.IsSignedIn(this.User))
                             {
                             <li><a class="waves-effect waves-dark" asp-area="Identity" asp-controller="Account" asp-action="Login">Login</a></li>
@@ -66,9 +58,20 @@
                             }
                             else
                             {
-                        <form style="color:red"  asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
-                            <li><button class="btn-theme" id="LogOut" style="position: absolute; padding: 5px 20px; margin-top: 14px;" background-color="Transparent" type="submit" >Logout</button></li>
-                        </form>
+                                <li class="dropdown">
+                                    <a href="#" data-toggle="dropdown" class="dropdown-toggle waves-effect waves-dark">Profile <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="waves-effect waves-dark" href="about.html">My workouts</a></li>
+                                        <li><a class="waves-effect waves-dark" href="#">My meal plans</a></li>
+                                      
+                                    </ul>
+                                </li>
+
+                                <form style="color:red"  asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
+                                    <li><button class="btn-theme" id="LogOut" style="position: absolute; padding: 5px 20px; margin-top: 14px;" background-color="Transparent" type="submit" >Logout</button></li>
+                                </form>
+
+                              
                             }
 
 
@@ -138,7 +141,7 @@
                         <div class="col-lg-6">
                             <div class="copyright">
                                 <p>
-                                    <span>&copy; Fitness 2018 All right reserved. </span> <a href="https://webthemez.com/free-bootstrap-templates/" target="_blank">Free Bootstrap Template</a> by WebThemez.com
+                                    <span>&copy; Fitness @DateTime.Now.Year All right reserved. </span> <a href="https://webthemez.com/free-bootstrap-templates/" target="_blank">Free Bootstrap Template</a> by WebThemez.com
                                 </p>
                             </div>
                         </div>

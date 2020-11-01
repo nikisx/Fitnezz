@@ -1,0 +1,87 @@
+﻿@using Fitnezz.Web.Web.ViewModels.Workouts
+@using Microsoft.AspNetCore.Identity
+@using Fitnezz.Web.Data.Models
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model AllWourkoutsViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+<style>
+    #workoutBtn {
+        border-style: none; 
+        padding: 15px 30px; 
+        background: #ec4141;
+        font-size:30px;
+        color: white;
+      
+        text-decoration: none;
+    }
+    .divBtn {
+        position: absolute;
+        top: 80px;
+        left: 70%;
+       
+    }
+    #workoutBtn:hover {
+        background: transparent;
+        border: 4px #ec4141 solid;
+    }
+
+
+    
+</style>
+<div style="margin-bottom: 300px;" class="row"> 
+    <div class="col-md-10">
+        <div class="about-logo" style="margin: auto ;width: 50%">
+            <h1 class="col-md-3">Our Best <span class="color">Workouts</span></h1>
+            
+            @if (this.User.IsInRole("Trainer"))
+            {
+            <div class="divBtn">
+                <a href="#" id="workoutBtn"> Create a Workout</a>
+            </div>
+
+            }
+
+            
+            <div class="container-fluid ml-5">
+
+            
+        
+                    <table  style="width: 1000px" class="table">
+                        <thead>
+                        <tr class="row">
+                            <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Name</th>
+                            <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Count</th>
+                            <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Details</th>
+                        </tr>                             
+                        </thead>
+                        <tbody>
+                        <tr class="row">
+                            <td class="col-lg-6 suls-text-color">Name</td>
+                            <td class="col-lg-6 suls-text-color">Exercises.Count</td>
+                            <td class="col-lg-6">
+                                <div class="button-holder">
+                                    <a href="/Problems/Details?id=Id" class="btn btn-warning">Details</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="row">
+                            <td class="col-lg-6 suls-text-color">Name</td>
+                            <td class="col-lg-6 suls-text-color">Exercises.Count</td>
+                            <td class="col-lg-6">
+                                <div class="button-holder">
+                                    <a href="/Problems/Details?id=Id" class="btn btn-warning">Details</a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                
+            </div>
+            
+        </div>  
+    </div>
+</div>

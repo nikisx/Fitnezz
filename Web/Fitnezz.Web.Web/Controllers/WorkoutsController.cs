@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Fitnezz.Web.Web.Controllers
 {
-    public class TestController : Controller
+    public class WorkoutsController : Controller
     {
-        public IActionResult Test()
+        public IActionResult All()
         {
             return View();
         }
