@@ -1,0 +1,65 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@*@model DetailsVIewModel*@ //TODO add view model with the name of the workout, the id of the workout and list of exercises
+
+<style>
+    .divBtn {
+        position: absolute;
+        top: 50%;
+        left: 45%;
+       
+    }
+
+    #workoutBtn {
+        border-style: none; 
+        padding: 15px 30px; 
+        background: #ec4141;
+        font-size:30px;
+        color: white;
+      
+        text-decoration: none;
+    }
+
+    #workoutBtn:hover {
+        background: transparent;
+        border: 4px #ec4141 solid;
+    }
+</style>
+
+<div style="margin-bottom: 450px">
+<h1 style="text-align: center; ">Workout.Name</h1>
+
+    <table style="width: 1000px; position: absolute; left: 25%;" class="table table-striped">
+        <thead>
+        <tr  style="width: 500px">
+            <th  style="font-size: 30px;color:#e62026">Name</th>
+            <th  style="font-size: 30px;color:#e62026">sets</th>
+            <th  style="font-size: 30px;color:#e62026">reps</th>
+            <th  style="font-size: 30px;color:#e62026">distance</th>
+            <th  style="font-size: 30px;color:#e62026">time</th>
+        </tr>
+        </thead>
+        <tbody>
+        @for (int i = 0; i < 5; i++)
+        {
+
+            <tr>
+                <td >Name</td>
+                <td >Sets</td>
+                <td >Reps</td>
+                <td >Distance</td>
+                <td >Time</td>
+
+            </tr>
+        }
+        </tbody>
+    </table>
+    
+    <div class="divBtn">
+        <a href="/Workouts/AddExerciseToWorkout?workoutId=2" type="button" id="workoutBtn"> Add Exercise</a>
+    </div>
+
+</div>

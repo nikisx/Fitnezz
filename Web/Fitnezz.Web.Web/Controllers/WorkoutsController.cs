@@ -33,5 +33,34 @@ namespace Fitnezz.Web.Web.Controllers
 
             return this.RedirectToAction("All");
         }
+
+        public IActionResult Details(int id)
+        {
+
+
+            return this.View();
+        }
+
+        public IActionResult Delete(int id)
+        {
+
+
+            return this.RedirectToAction("All");
+        }
+
+        public IActionResult AddExerciseToWorkout(int workoutId)
+        {
+            // maybe a exercise controller
+            // todo: returns a workoutName string viewmodel
+            return this.View();
+        }
+        [HttpPost]
+        public IActionResult AddExerciseToWorkout(int workoutId, string exerciseName, string exerciseSets, string exerciseReps, string exerciseDistance, string exerciseTime)
+        {
+            // maybe a exercise controller
+            // todo: create a new exercise and add it to the current workoutId
+            return this.RedirectToAction("All");
+        }
     }
 }
+
