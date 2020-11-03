@@ -72,7 +72,7 @@
                             <td class="col-lg-6 suls-text-color">Exercises.Count</td>
                             <td class="col-lg-6">
                                 <div class="button-holder">
-                                    <a href="/Workouts/Details?id=@(i++)" class="btn btn-warning">Details</a>
+                                    <a href="/Workouts/Details?id=@(i)" class="btn btn-warning">Details</a>
                                 </div>
                             </td>
                             
@@ -82,6 +82,9 @@
                                     <input type="text" name="username" placeholder="Username" style="width: 100px"/>
                                     <button asp-area="" asp-controller="Workouts" asp-action="AddWorkoutToUser" type="submit" class="btn btn-sm"> Add to User</button>
                                 </form>
+                            </td>
+                            <td>
+                                <a href="/Workouts/Delete?id=@(i)" class="btn btn-danger">Delete</a>
                             </td>
                         </tr>
                         }
