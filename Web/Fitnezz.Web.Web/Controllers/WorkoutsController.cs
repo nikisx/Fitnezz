@@ -55,7 +55,7 @@ namespace Fitnezz.Web.Web.Controllers
             return this.View();
         }
         [HttpPost]
-        public IActionResult AddExerciseToWorkout(int workoutId, string exerciseName, string exerciseSets, string exerciseReps, string exerciseDistance, string exerciseTime)
+        public IActionResult AddExerciseToWorkout(int workoutId, string exerciseName, string exerciseSets, string exerciseReps, string exerciseDistance, string exerciseTime, string exerciseLink)
         {
             // maybe a exercise controller
             // todo: create a new exercise and add it to the current workoutId

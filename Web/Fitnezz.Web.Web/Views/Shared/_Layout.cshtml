@@ -49,7 +49,7 @@
                             <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Test" asp-action="Test">Services</a></li>
                             <li><a class="waves-effect waves-dark" href="portfolio.html">Gallery</a></li>
                             <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Workouts" asp-action="All">Workouts</a></li>
-                            <li><a class="waves-effect waves-dark" href="contact.html">Meal plans</a></li>
+                            <li><a class="waves-effect waves-dark" asp-area="" asp-controller="MealPlans" asp-action="All">Meal plans</a></li>
                             @if (!this.SignInManager.IsSignedIn(this.User))
                             {
                             <li><a class="waves-effect waves-dark" asp-area="Identity" asp-controller="Account" asp-action="Login">Login</a></li>
