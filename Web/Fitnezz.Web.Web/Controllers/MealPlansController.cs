@@ -12,5 +12,15 @@ namespace Fitnezz.Web.Web.Controllers
         {
             return View();
         }
+
+        public IActionResult Details(int id)
+        {
+            return this.View();
+        }
+
+        public IActionResult AddMealPlanToUser(string username, int mealPlanId)
+        {
+            return this.RedirectToAction("All");
+        }
     }
 }

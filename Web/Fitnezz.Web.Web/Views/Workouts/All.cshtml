@@ -46,6 +46,7 @@
                 <form method="post">
                     <input name="workoutName" type="text" style="width: 300px" placeholder="Workout Name">
                     <button type="submit" asp-area="" asp-controller="Workouts" asp-action="Create" class="btn btn-warning "> Create</button>
+                    <button style="margin-left:30px"  id="canceltBtn" type="submit" class="btn btn-warning "> Cancel</button>
                 </form>
 
             </div>
@@ -100,14 +101,12 @@
 <script>
     let btn = document.getElementById("workoutBtn");
     let form = document.getElementById("createWorkout");
+    let cancelBtn = document.getElementById("canceltBtn");
 
     btn.addEventListener(("click"),()=>{
-        console.log(btn);
-        if (form.style.display === "block") {
-            form.style.display = "none";
-        } else {
-            form.style.display = "block";
-        }
-       
+        form.style.display = "block";
+    });
+    cancelBtn.addEventListener(("click"), () => {
+        form.style.display = "none";
     });
 </script>
