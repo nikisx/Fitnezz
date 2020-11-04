@@ -1,0 +1,31 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+ //TODO ADD a viewModel with meal id and meal name
+
+
+    <h1 style="text-align: center">Add Food to @ViewBag.Name</h1>
+
+    <div style="margin-bottom: 700px">
+        <form style="position: absolute; top: 25%; left: 30%" method="post">
+            <div class="form-group; ">
+                <label style="font-size: 3.8rem">Name of the Food</label>
+                <input name="foodName" type="text" class="form-control" style="width: 800px" placeholder="Name">
+                <label style="font-size: 3.8rem">Calories of the Food</label>
+                <input name="foodCalories" type="text" class="form-control" style="width: 800px" placeholder="Calories">
+                <label style="font-size: 3.8rem">Grams of the Food</label>
+                <input name="foodGrams" type="text" class="form-control" style="width: 800px" placeholder="Grams">
+                <label style="font-size: 3.8rem">Proteins of the Food</label>
+                <input name="foodProteins" type="text" class="form-control" style="width: 800px" placeholder="Proteins">
+                <label style="font-size: 3.8rem">Carbs of the Food</label>
+                <input name="foodCarbs" type="text" class="form-control" style="width: 800px" placeholder="Carbs">
+                <label style="font-size: 3.8rem">Fats of the Food</label>
+                <input name="foodFats" type="text" class="form-control" style="width: 800px" placeholder="Fats">
+            </div>
+
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>

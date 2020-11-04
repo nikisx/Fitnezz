@@ -30,7 +30,7 @@
 </style>
 
 <div style="margin-bottom: 450px">
-<h1 style="text-align: center; ">Workout.Name</h1>
+<h1 style="text-align: center; ">Workout.Name : @ViewBag.Id</h1>
 
     <table style="width: 1000px; position: absolute; left: 25%;" class="table table-striped">
         <thead>
@@ -60,7 +60,7 @@
     </table>
     
     <div class="divBtn">
-        <a href="/Workouts/AddExerciseToWorkout?workoutId=4@*@Model.Id*@" type="button" id="workoutBtn"> Add Exercise</a>
+        <a href="/Workouts/AddExerciseToWorkout?workoutId=@ViewBag.Id" type="button" id="workoutBtn"> Add Exercise</a>
     </div>
 
 </div>

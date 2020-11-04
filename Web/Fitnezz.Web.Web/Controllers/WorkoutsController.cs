@@ -37,7 +37,7 @@ namespace Fitnezz.Web.Web.Controllers
         public IActionResult Details(int id)
         {
 
-
+            this.ViewBag.Id = id;
             return this.View();
         }
 
