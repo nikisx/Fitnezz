@@ -5,6 +5,10 @@
     int count = 0;
 }
 @*@model DetailsMealPLansVIewModel*@ //TODO add view model with the name of the mealplan, the id of the mealplan and list of meals with every meal there is list of foods
+
+    <style>
+
+    </style>
 <h1 style="text-align: center">MealPLan.Name</h1>
 
 <div style="margin-left:20%">
@@ -24,11 +28,12 @@
                     <div class="panel-body">
                         @for (int j = 0; j < 3; j++)
                         {
-                            <p>Food.NAme   Food.Calories   Food.Proteins  Food.Carbs   Food.Fats</p>
+                            <p>Food.NAme   Food.Calories Food.Grams  Food.Proteins  Food.Carbs   Food.Fats <span><a style="margin-left:40% " class="btn btn-sm">Delete</a></span></p>
+                            <hr />
                         }
                         
-                            @*<input style="display: none" name ="mealId" value="@i"/>*@
-                            <a type="submit" href="/MealPlans/CreateFood?mealId=@i" class="btn btn-warning "> Add food</a>
+                        @*<input style="display: none" name ="mealId" value="@i"/>*@
+                        <a type="submit" href="/MealPlans/CreateFood?mealId=@i" class="btn btn-warning "> Add food</a>
                         
                     </div>
                 </div>

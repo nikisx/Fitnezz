@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Fitnezz.Web.Web.ViewModels.Workouts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fitnezz.Web.Web.Controllers
@@ -25,11 +26,9 @@ namespace Fitnezz.Web.Web.Controllers
             return this.RedirectToAction("All");
         }
 
-        
         [HttpPost]
         public IActionResult AddWorkoutToUser(string username, int workoutId)
         {
-         
 
             return this.RedirectToAction("All");
         }
@@ -52,11 +51,16 @@ namespace Fitnezz.Web.Web.Controllers
         {
             // maybe a exercise controller
             // todo: returns a workoutName string viewmodel
-            return this.View();
+            var input = new AddExerciseToWorkoutInputModel();
+            return this.View(input);
         }
         [HttpPost]
-        public IActionResult AddExerciseToWorkout(int workoutId, string exerciseName, string exerciseSets, string exerciseReps, string exerciseDistance, string exerciseTime, string exerciseLink)
+        public IActionResult AddExerciseToWorkout(AddExerciseToWorkoutInputModel input)
         {
+            if (!ModelState.IsValid)
+            {
+                return this.View(input);
+            }
             // maybe a exercise controller
             // todo: create a new exercise and add it to the current workoutId
             return this.RedirectToAction("All");

@@ -3,27 +3,44 @@
 *@
 @{
 }
-
+@model Fitnezz.Web.Web.ViewModels.Workouts.AddExerciseToWorkoutInputModel
 <h1 style="text-align: center">Add Exercise to Workout.Name</h1>
 
 <div style="margin-bottom: 700px">
-    <form style="position: absolute; top: 25%; left: 30%" method="post">
+    <form asp-controller="Workouts" asp-action="AddExerciseToWorkout" style="position: absolute; top: 25%; left: 30%" method="post">
         <div class="form-group; ">
-            <label style="font-size: 3.8rem">Name of the Exercise</label>
-            <input name="exerciseName" type="text" class="form-control" style="width: 800px" placeholder="Name">
-            <label style="font-size: 3.8rem">Sets of the Exercise</label>
-            <input name="exerciseSets" type="text" class="form-control" style="width: 800px" placeholder="Sets">
-            <label style="font-size: 3.8rem">Repetitions of the Exercise</label>
-            <input name="exerciseReps" type="text" class="form-control" style="width: 800px" placeholder="Reps">
-            <label style="font-size: 3.8rem">Distance of the Exercise</label>
-            <input name="exerciseDistance" type="text" class="form-control" style="width: 800px" placeholder="Distance">
-            <label style="font-size: 3.8rem">Time of the Exercise</label>
-            <input name="exerciseTime" type="text" class="form-control" style="width: 800px" placeholder="Time">
-            <label style="font-size: 3.8rem">Link of the Exercise</label>
-            <input name="exerciseLink" type="text" class="form-control" style="width: 800px" placeholder="Link">
+            <div>
+                <label asp-for="@Model.Name" style="font-size: 3.8rem">Name of the Exercise</label>
+                <input asp-for="@Model.Name" type="text" class="form-control" style="width: 800px" placeholder="Name">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="@Model.Sets" style="font-size: 3.8rem">Sets of the Exercise</label>
+                <input asp-for="@Model.Sets" type="text" class="form-control" style="width: 800px" placeholder="Sets">
+                <span asp-validation-for="Sets" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="@Model.Reps" style="font-size: 3.8rem">Repetitions of the Exercise</label>
+                <input asp-for="@Model.Reps" type="text" class="form-control" style="width: 800px" placeholder="Reps">
+                <span asp-validation-for="Reps" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="@Model.Distance" style="font-size: 3.8rem">Distance of the Exercise</label>
+                <input asp-for="@Model.Distance" type="text" class="form-control" style="width: 800px" placeholder="Distance in meters">
+                <span asp-validation-for="Distance" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="@Model.Time" style="font-size: 3.8rem">Time of the Exercise</label>
+                <input asp-for="@Model.Time" type="text" class="form-control" style="width: 800px" placeholder="Time">
+                <span asp-validation-for="Time" class="text-danger"></span>
+            </div>
+            <label asp-for="@Model.Link" style="font-size: 3.8rem">Link of the Exercise</label>
+            <input asp-for="@Model.Link" type="text" class="form-control" style="width: 800px" placeholder="Link">
+            <span asp-validation-for="Link" class="text-danger"></span>
         </div>
 
 
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
+
