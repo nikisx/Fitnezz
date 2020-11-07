@@ -12,9 +12,9 @@ namespace Fitnezz.Web.Web.ViewModels.Workouts
         [MaxLength(20)]
         public string Name { get; set; }
 
-        [Range(0,12)]
+        [Range(1,12)]
         [Required]
-        public int? Sets { get; set; }
+        public int Sets { get; set; }
 
         [Range(0, 30)]
         public int? Reps { get; set; }
@@ -26,6 +26,7 @@ namespace Fitnezz.Web.Web.ViewModels.Workouts
         public decimal? Time { get; set; }
 
         [Required]
+        [Url]
         public string Link { get; set; }
 
         public int WorkoutId { get; set; }
