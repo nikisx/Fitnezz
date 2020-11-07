@@ -1,0 +1,53 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    int count = 0;
+}
+@*@model DetailsMealPLansVIewModel*@ //TODO add view model with the name of the mealplan, the id of the mealplan and list of meals with every meal there is list of foods
+
+<style>
+</style>
+<h1 style="text-align: center">MealPLan.Name : @ViewBag.Id</h1>
+
+<div style="margin-left:20%">
+    @for (int i = 0; i < 3; i++)
+    {
+
+        <div class="panel-group" id="accordion_@count" style="width: 75%">
+            <div class="panel panel-default" id="panel_@count">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-target="#collapseOne_@count" href="#collapseOne_@count">
+                            MEal.Name - Meal.Calories: Meal.Proteins, MEal.Carbs, Meal.Fats
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne_@count" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        @for (int j = 0; j < 3; j++)
+                        {
+                            <p>Food.NAme   Food.Calories Food.Grams  Food.Proteins  Food.Carbs   Food.Fats</p>
+                            <hr />
+                        }
+
+                        @*<input style="display: none" name ="mealId" value="@i"/>*@
+              
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        count++;
+
+    }
+
+
+
+</div>

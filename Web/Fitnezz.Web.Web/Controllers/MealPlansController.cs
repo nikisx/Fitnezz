@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Fitnezz.Web.Web.ViewModels.MealPlans;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fitnezz.Web.Web.Controllers
@@ -31,15 +32,20 @@ namespace Fitnezz.Web.Web.Controllers
         public IActionResult CreateFood(string mealId)
         {
             this.ViewBag.Name = mealId;
+            var input = new AddFoodInputModel();
             //maybe a food controller
-            return this.View();
+            return this.View(input);
         }
 
         [HttpPost]
-        public IActionResult CreateFood(string mealId, string foodName, string foodCalories, string foodGrams, string foodProteins, string foodCarbs, string foodFats)
+        public IActionResult CreateFood(AddFoodInputModel input)
         {
+            if (!ModelState.IsValid)
+            {
+                return this.View(input);
+            }
             //maybe a food controller
-            return this.View();
+            return RedirectToAction("All");
         }
 
         [HttpPost]

@@ -3,28 +3,53 @@
 *@
 @{
 }
+@model Fitnezz.Web.Web.ViewModels.MealPlans.AddFoodInputModel
  //TODO ADD a viewModel with meal id and meal name
 
 
     <h1 style="text-align: center">Add Food to @ViewBag.Name</h1>
 
     <div style="margin-bottom: 700px">
-        <form style="position: absolute; top: 25%; left: 30%" method="post">
+        <form asp-controller="MealPlans" asp-action="CreateFood" style="position: absolute; top: 25%; left: 30%" method="post">
             <div class="form-group; ">
-                <label style="font-size: 3.8rem">Name of the Food</label>
-                <input name="foodName" type="text" class="form-control" style="width: 800px" placeholder="Name">
-                <label style="font-size: 3.8rem">Calories of the Food</label>
-                <input name="foodCalories" type="text" class="form-control" style="width: 800px" placeholder="Calories">
-                <label style="font-size: 3.8rem">Grams of the Food</label>
-                <input name="foodGrams" type="text" class="form-control" style="width: 800px" placeholder="Grams">
-                <label style="font-size: 3.8rem">Proteins of the Food</label>
-                <input name="foodProteins" type="text" class="form-control" style="width: 800px" placeholder="Proteins">
-                <label style="font-size: 3.8rem">Carbs of the Food</label>
-                <input name="foodCarbs" type="text" class="form-control" style="width: 800px" placeholder="Carbs">
-                <label style="font-size: 3.8rem">Fats of the Food</label>
-                <input name="foodFats" type="text" class="form-control" style="width: 800px" placeholder="Fats">
-            </div>
+                <div>
+                    <label asp-for="Name" style="font-size: 3.8rem">Name of the Food</label>
+                    <input asp-for="Name" class="form-control" style="width: 800px" placeholder="Name">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                
+                <div>
+                    <label asp-for="Calories" style="font-size: 3.8rem">Calories of the Food</label>
+                    <input asp-for="Calories" class="form-control" style="width: 800px" placeholder="Calories">
+                    <span asp-validation-for="Calories" class="text-danger"></span>
+                </div>
+                
+                <div>
+                    <label asp-for="Grams" style="font-size: 3.8rem">Grams of the Food</label>
+                    <input asp-for="Grams" class="form-control" style="width: 800px" placeholder="Grams">
+                    <span asp-validation-for="Grams" class="text-danger"></span>
+                </div>
+                
+                <div>
+                    <label asp-for="Proteins" style="font-size: 3.8rem">Proteins of the Food</label>
+                    <input asp-for="Proteins" class="form-control" style="width: 800px" placeholder="Proteins">
+                    <span asp-validation-for="Proteins" class="text-danger"></span>
+                </div>
+                
+                <div>
+                    <label asp-for="Carbs" style="font-size: 3.8rem">Carbs of the Food</label>
+                    <input asp-for="Carbs" class="form-control" style="width: 800px" placeholder="Carbs">
+                    <span asp-validation-for="Carbs" class="text-danger"></span>
+                </div>
 
+                <div>
+                    <label asp-for="Fats" style="font-size: 3.8rem">Fats of the Food</label>
+                    <input asp-for="Fats" class="form-control" style="width: 800px" placeholder="Fats">
+                    <span asp-validation-for="Fats" class="text-danger"></span>
+                </div>
+            </div>
+            
+            <input asp-for="MealId"style="display: none" />
 
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
