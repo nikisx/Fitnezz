@@ -47,7 +47,7 @@
                             <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                           
                             <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Test" asp-action="Test">Services</a></li>
-                            <li><a class="waves-effect waves-dark" href="portfolio.html">Gallery</a></li>
+                            <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Trainers" asp-action="All">Trainers</a></li>
                             <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Workouts" asp-action="All">Workouts</a></li>
                             <li><a class="waves-effect waves-dark" asp-area="" asp-controller="MealPlans" asp-action="All">Meal plans</a></li>
                             @if (!this.SignInManager.IsSignedIn(this.User))
@@ -63,6 +63,7 @@
                                     <ul class="dropdown-menu">
                                         <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Users" asp-action="Workouts">My workouts</a></li>
                                         <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Users" asp-action="MealPlans">My meal plans</a></li>
+                                        <li><a class="waves-effect waves-dark" asp-area="" asp-controller="" asp-action="">My Trainers</a></li>
                                       
                                     </ul>
                                 </li>

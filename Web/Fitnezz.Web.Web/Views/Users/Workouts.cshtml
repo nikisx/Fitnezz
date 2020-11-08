@@ -34,47 +34,49 @@
         border: 4px #ec4141 solid;
     }
 </style>
-<div style="margin-bottom: 100px;" class="row">
-    <div class="col-md-10">
-        <div class="about-logo" style="margin: auto ;width: 50%">
-            <h1 class="col-md-3">Your Personal <span class="color">Workouts</span></h1>
+<div style="overflow: hidden">
+    <div style="margin-bottom: 100px;" class="row">
+        <div class="col-md-10">
+            <div class="about-logo" style="margin: auto ;width: 50%">
+                <h1 class="col-md-3">Your Personal <span class="color">Workouts</span></h1>
 
 
 
 
-            <div class="container-fluid ml-5">
+                <div class="container-fluid ml-5">
 
 
 
-                <table style="width: 1000px" class="table">
-                    <thead>
-                        <tr class="row">
-                            <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Name</th>
-                            <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Count</th>
-                            <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Details</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (int i = 0; i < 5; i++)
-                        {
-
+                    <table style="width: 1000px" class="table">
+                        <thead>
                             <tr class="row">
-                                <td class="col-lg-6 suls-text-color">Name</td>
-                                <td class="col-lg-6 suls-text-color">Exercises.Count</td>
-                                <td class="col-lg-6">
-                                    <div class="button-holder">
-                                        <a href="/Users/Workout/@i" class="btn btn-warning">Details</a>
-                                    </div>
-                                </td>
-
+                                <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Name</th>
+                                <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Count</th>
+                                <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Details</th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < 5; i++)
+                            {
+
+                                <tr class="row">
+                                    <td class="col-lg-6 suls-text-color">Name</td>
+                                    <td class="col-lg-6 suls-text-color">Exercises.Count</td>
+                                    <td class="col-lg-6">
+                                        <div class="button-holder">
+                                            <a href="/Users/Workout/@i" class="btn btn-warning">Details</a>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
 
             </div>
-
         </div>
     </div>
-</div>
+    </div>
 

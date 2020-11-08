@@ -32,72 +32,73 @@
 
     
 </style>
-<div style="margin-bottom: 100px;" class="row"> 
-    <div class="col-md-10">
-        <div class="about-logo" style="margin: auto ;width: 50%">
-            <h1 class="col-md-3">Our Best <span class="color">Workouts</span></h1>
-            
-         
-              <div class="divBtn">
-                  <button id="workoutBtn"> Create a Workout</button>
-              </div>
-            
-            <div style="display: none; position: absolute; left: 95%; top: 19%" id="createWorkout">
-                <form method="post">
-                    <input name="workoutName" type="text" style="width: 300px" placeholder="Workout Name">
-                    <button type="submit" asp-area="" asp-controller="Workouts" asp-action="Create" class="btn btn-warning "> Create</button>
-                    <button style="margin-left:30px"  id="canceltBtn" type="submit" class="btn btn-warning "> Cancel</button>
-                </form>
-
-            </div>
+<div style="overflow: hidden">
+    <div style="margin-bottom: 100px;" class="row">
+        <div class="col-md-10">
+            <div class="about-logo" style="margin: auto ;width: 50%">
+                <h1 class="col-md-3">Our Best <span class="color">Workouts</span></h1>
 
 
-            <div class="container-fluid ml-5">
+                <div class="divBtn">
+                    <button id="workoutBtn"> Create a Workout</button>
+                </div>
 
-            
-        
-                    <table  style="width: 1000px" class="table">
+                <div style="display: none; position: absolute; left: 95%; top: 19%" id="createWorkout">
+                    <form method="post">
+                        <input name="workoutName" type="text" style="width: 300px" placeholder="Workout Name">
+                        <button type="submit" asp-area="" asp-controller="Workouts" asp-action="Create" class="btn btn-warning "> Create</button>
+                        <button style="margin-left:30px" id="canceltBtn" type="submit" class="btn btn-warning "> Cancel</button>
+                    </form>
+
+                </div>
+
+
+                <div class="container-fluid ml-5">
+
+
+
+                    <table style="width: 1000px" class="table">
                         <thead>
-                        <tr class="row">
-                            <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Name</th>
-                            <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Count</th>
-                            <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Details</th>
-                        </tr>                             
+                            <tr class="row">
+                                <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Name</th>
+                                <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Count</th>
+                                <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Details</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @for (int i = 0; i < 5; i++)
-                        {
-                            
-                        <tr class="row">
-                            <td class="col-lg-6 suls-text-color">Name</td>
-                            <td class="col-lg-6 suls-text-color">Exercises.Count</td>
-                            <td class="col-lg-6">
-                                <div class="button-holder">
-                                    <a href="/Workouts/Details?id=@i" class="btn btn-warning">Details</a>
-                                </div>
-                            </td>
-                            
-                            <td style="position: absolute; left: 5%">
-                                <form method="post">
-                                    <input style="display: none" name="workoutId" value="@i"/>
-                                    <input type="text" name="username" placeholder="Username" style="width: 100px"/>
-                                    <button asp-area="" asp-controller="Workouts" asp-action="AddWorkoutToUser" type="submit" class="btn btn-sm"> Add to User</button>
-                                </form>
-                            </td>
-                            <td>
-                                <a href="/Workouts/Delete?id=@(i)" class="btn btn-danger">Delete</a>
-                            </td>
-                        </tr>
-                        }
+                            @for (int i = 0; i < 5; i++)
+                            {
+
+                                <tr class="row">
+                                    <td class="col-lg-6 suls-text-color">Name</td>
+                                    <td class="col-lg-6 suls-text-color">Exercises.Count</td>
+                                    <td class="col-lg-6">
+                                        <div class="button-holder">
+                                            <a href="/Workouts/Details?id=@i" class="btn btn-warning">Details</a>
+                                        </div>
+                                    </td>
+
+                                    <td style="position: absolute; left: 5%">
+                                        <form method="post">
+                                            <input style="display: none" name="workoutId" value="@i" />
+                                            <input type="text" name="username" placeholder="Username" style="width: 100px" />
+                                            <button asp-area="" asp-controller="Workouts" asp-action="AddWorkoutToUser" type="submit" class="btn btn-sm"> Add to User</button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <a href="/Workouts/Delete?id=@(i)" class="btn btn-danger">Delete</a>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
-                
+
+                </div>
+
             </div>
-            
-        </div>  
+        </div>
     </div>
 </div>
-
 <script>
     let btn = document.getElementById("workoutBtn");
     let form = document.getElementById("createWorkout");
