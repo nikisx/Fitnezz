@@ -6,16 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Fitnezz.Web.Web.Controllers
 {
-    public class TrainersController : Controller
+    public class ClassesController : Controller
     {
         public IActionResult All()
         {
             return View();
-        }
-
-        public IActionResult Hire(string id)
-        {
-            return RedirectToAction("All");
         }
     }
 }

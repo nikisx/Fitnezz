@@ -1,0 +1,30 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<section id="mainservice" >
+    <div class="container">
+        <div class="row">
+            @for (int i = 0; i < 3; i++)
+            {
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <img class="img-responsive" src="/template/img/dev1.png" alt="">
+                        <div class="caption">
+                            <h3 style="color:red">Aerobic</h3>
+                            
+                            @for (int j = 0; j < 3; j++)
+                            {
+                                <p>Trainer.Name</p>
+                            }
+
+                            <p ><h4 style="color:black">$90.00/mo</h4></p>
+                        </div>
+                    </div>
+                </div>
+            }
+           
+        </div>
+    </div>
+</section>
