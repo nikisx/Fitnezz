@@ -12,7 +12,7 @@
     }
 
     .card {
-        width: 400px;
+        width: 700px;
         border: none;
         border-radius: 10px;
         background-color: #fff
@@ -24,7 +24,7 @@
     }
 
     .articles {
-        font-size: 10px;
+        font-size: 30px;
         color: #a1aab9
     }
 
@@ -33,7 +33,7 @@
     }
 
     .followers {
-        font-size: 10px;
+        font-size: 20px;
         color: #a1aab9
     }
 
@@ -42,7 +42,7 @@
     }
 
     .rating {
-        font-size: 10px;
+        font-size: 15px;
         color: #a1aab9
     }
 
@@ -50,22 +50,25 @@
         font-weight: 500
     }
 </style>
-<div style="margin-left: 40%; overflow:hidden">
+
+<h1 class="col-md-3">Our <span class="color">Professionals</span></h1>
+
+<div style="margin-left: 30%; overflow:hidden">
     @for (int i = 0; i < 5; i++)
     {
 
         <div class="container mt-5">
             <div class="card p-3">
-                <div>
+                <div style="display: flex">
                     <div class="image"> <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" class="rounded" width="155"> </div>
-                    <div class="ml-3 w-100">
-                        <span>Senior Journalist</span>
+                    <div class="ml-3 w-100" style="margin-left: 50px; width: 400px">
+                        <span style="font-size: 25px">Trainers Name</span>
                         <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
-                            <div class="d-flex flex-column"> <span class="articles">Articles</span> <span class="number1">38</span> </div>
-                            <div class="d-flex flex-column"> <span class="followers">Followers</span> <span class="number2">980</span> </div>
-                            <div class="d-flex flex-column"> <span class="rating">Rating</span> <span class="number3">8.9</span> </div>
+                            <div class="d-flex flex-column"> <span class="articles">Clients</span> - <span style="font-size: 25px" class="number1">5</span> </div>
+                            <div class="d-flex flex-column"> <span class="followers">Specialty</span>: <span style="font-size: 20px" class="number2">Fitness</span> </div>
+                            <div class="d-flex flex-column"> <span class="rating">Age</span>: <span class="number3">26</span> </div>
                         </div>
-                        <div class="button mt-2 d-flex flex-row align-items-center"> <button class="btn btn-sm btn-outline-primary w-100">Chat</button> <button class="btn btn-sm btn-primary w-100 ml-2">Follow</button> </div>
+                        <div class="button mt-2 d-flex flex-row align-items-center"> <button class="btn btn-sm btn-outline-primary w-100">Chat</button> <button class="btn btn-sm btn-primary w-100 ml-2">Hire</button> </div>
                     </div>
                 </div>
             </div>
