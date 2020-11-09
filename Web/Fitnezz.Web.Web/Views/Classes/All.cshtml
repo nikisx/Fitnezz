@@ -9,7 +9,7 @@
 <section style="margin-top:100px" id="mainservice" >
     <div class="container">
         <div class="row">
-            @for (int i = 0; i < 4; i++)
+            @for (int i = 0; i < 3; i++)
             {
                 <div class="col-sm-6 col-md-4">
                     <div class="thumbnail">
@@ -28,6 +28,14 @@
                 </div>
             }
            
+        </div>
+        
+        <div style="margin-left: 35%;" id="createWorkout">
+            <form method="post">
+                <input name="mealPlanName" type="text" style="width: 300px" placeholder="Class name">
+                <button type="submit" asp-area="" asp-controller="MealPlans" asp-action="Create" class="btn btn-warning "> Create</button>
+            </form>
+
         </div>
     </div>
 </section>
