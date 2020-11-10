@@ -11,6 +11,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20201110222821_AddWorkoutAndExerciseModels.cs" />
+    <Compile Remove="Migrations\20201110222821_AddWorkoutAndExerciseModels.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
 

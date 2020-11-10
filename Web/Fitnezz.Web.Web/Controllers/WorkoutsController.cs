@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Fitnezz.Web.Services.Data;
 using Fitnezz.Web.Web.ViewModels.Workouts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,19 +10,28 @@ namespace Fitnezz.Web.Web.Controllers
 {
     public class WorkoutsController : Controller
     {
+        private readonly IWorkoutsService workoutsService;
+
+        public WorkoutsController(IWorkoutsService workoutsService)
+        {
+            this.workoutsService = workoutsService;
+        }
         public IActionResult All()
         {
-            return View();
+            var viewModel = this.workoutsService.GetAll();
+            return this.View(viewModel);
         }
 
 
         [HttpPost]
-        public IActionResult Create(string workoutName)
+        public async  Task<IActionResult> Create(string workoutName)
         {
-            if (workoutName == null)
+            if (workoutName == null || string.IsNullOrEmpty(workoutName))
             {
                 return this.Redirect("/");
             }
+
+            await this.workoutsService.Create(workoutName);
 
             return this.RedirectToAction("All");
         }
@@ -36,7 +46,8 @@ namespace Fitnezz.Web.Web.Controllers
         public IActionResult Details(int id)
         {
 
-            this.ViewBag.Id = id;
+            var name = this.workoutsService.GetWorkoutName(id);
+            this.ViewBag.Name = name;
             return this.View();
         }
 

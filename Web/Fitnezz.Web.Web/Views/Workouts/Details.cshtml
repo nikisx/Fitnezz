@@ -4,7 +4,6 @@
 @{
 }
 @*@model DetailsWorkoutsVIewModel*@ //TODO add view model with the name of the workout, the id of the workout and list of exercises
-
 <style>
     .divBtn {
         position: absolute;
@@ -30,7 +29,7 @@
 </style>
 
 <div style="margin-bottom: 450px">
-<h1 style="text-align: center; ">Workout.Name : @ViewBag.Id</h1>
+<h1 style="text-align: center; ">@ViewBag.Name</h1>
 
     <table style="width: 1000px; position: absolute; left: 25%;" class="table table-striped">
         <thead>

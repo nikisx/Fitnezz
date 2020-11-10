@@ -6,7 +6,7 @@
 *@
 @{
 }
-@model AllWourkoutsViewModel
+@model IEnumerable<AllWourkoutsViewModel>
 @inject SignInManager<ApplicationUser> SignInManager
 <style>
     #workoutBtn {
@@ -66,27 +66,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @for (int i = 0; i < 5; i++)
-                            {
-
+                           @foreach(var workout in Model)
+                           {
                                 <tr class="row">
-                                    <td class="col-lg-6 suls-text-color">Name</td>
-                                    <td class="col-lg-6 suls-text-color">Exercises.Count</td>
+                                    <td class="col-lg-6 suls-text-color">@workout.Name</td>
+                                    <td class="col-lg-6 suls-text-color">@workout.ExercisesCount</td>
                                     <td class="col-lg-6">
                                         <div class="button-holder">
-                                            <a href="/Workouts/Details?id=@i" class="btn btn-warning">Details</a>
+                                            <a href="/Workouts/Details?id=@workout.Id" class="btn btn-warning">Details</a>
                                         </div>
                                     </td>
 
                                     <td style="position: absolute; left: 5%">
                                         <form method="post">
-                                            <input style="display: none" name="workoutId" value="@i" />
+                                            <input style="display: none" name="workoutId" value="@workout.Id" />
                                             <input type="text" name="username" placeholder="Username" style="width: 100px" />
                                             <button asp-area="" asp-controller="Workouts" asp-action="AddWorkoutToUser" type="submit" class="btn btn-sm"> Add to User</button>
                                         </form>
                                     </td>
                                     <td>
-                                        <a href="/Workouts/Delete?id=@(i)" class="btn btn-danger">Delete</a>
+                                        <a href="/Workouts/Delete?id=@workout.Id" class="btn btn-danger">Delete</a>
                                     </td>
                                 </tr>
                             }

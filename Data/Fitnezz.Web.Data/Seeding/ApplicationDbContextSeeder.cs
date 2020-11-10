@@ -27,6 +27,7 @@
                           {
                               new RolesSeeder(),
                               new SettingsSeeder(),
+                              new WorkoutSeeder(),
                           };
 
             foreach (var seeder in seeders)

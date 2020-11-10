@@ -25,6 +25,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Fitnezz.Web.Data.Common\Fitnezz.Web.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\Fitnezz.Web.Data.Models\Fitnezz.Web.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Web\Fitnezz.Web.Web.ViewModels\Fitnezz.Web.Web.ViewModels.csproj" />
     <ProjectReference Include="..\Fitnezz.Web.Services.Mapping\Fitnezz.Web.Services.Mapping.csproj" />
   </ItemGroup>
 
