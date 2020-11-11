@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Fitnezz.Web.Services.Data;
 using Fitnezz.Web.Web.ViewModels.MealPlans;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,18 +10,40 @@ namespace Fitnezz.Web.Web.Controllers
 {
     public class MealPlansController : Controller
     {
+        private readonly IMealPlansService mealPlansService;
+
+        public MealPlansController(IMealPlansService mealPlansService)
+        {
+            this.mealPlansService = mealPlansService;
+        }
+
         public IActionResult All()
         {
-            return View();
+          var viewModel = new ComplexViewModelForMealPlans()
+          {
+              InputModel = new AddMealPlanInputModel(),
+
+              ViewModel = this.mealPlansService.GetAll(),
+          };
+
+          return View(viewModel);
         }
 
         public IActionResult Details(int id)
         {
             return this.View();
         }
+
         [HttpPost]
-        public IActionResult Create(string mealPlanName)
+        public async Task<IActionResult> Create(AddMealPlanInputModel input)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return RedirectToAction("All");
+            }
+
+            await this.mealPlansService.CreateMealPLan(input);
+
             return RedirectToAction("All");
         }
 
