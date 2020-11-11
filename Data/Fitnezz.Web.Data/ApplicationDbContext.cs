@@ -30,6 +30,12 @@
 
         public DbSet<Exercise> Exercises { get; set; }
 
+        public DbSet<MealPlan> MealPlans { get; set; }
+
+        public DbSet<Meal> Meals { get; set; }
+
+        public DbSet<Food> Foods { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
