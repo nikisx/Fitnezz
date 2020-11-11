@@ -12,5 +12,7 @@ namespace Fitnezz.Web.Services.Data
         Task Create(string name);
 
         string GetWorkoutName(int id);
+
+        DetailsWorkoutsVIewModel GetWorkoutDetails(int id);
     }
 }

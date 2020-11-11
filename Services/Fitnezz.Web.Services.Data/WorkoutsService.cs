@@ -41,5 +41,15 @@ namespace Fitnezz.Web.Services.Data
         {
             return this.workoutsRepository.All().Where(x => x.Id == id).Select(x => x.Name).FirstOrDefault();
         }
+
+        public DetailsWorkoutsVIewModel GetWorkoutDetails(int id)
+        {
+            return this.workoutsRepository.All().Where(x => x.Id == id).Select(x => new DetailsWorkoutsVIewModel
+            {
+                Name = x.Name,
+                Id = x.Id,
+                Exercises = x.Exercises,
+            }).FirstOrDefault();
+        }
     }
 }

@@ -45,10 +45,9 @@ namespace Fitnezz.Web.Web.Controllers
 
         public IActionResult Details(int id)
         {
+            var model = this.workoutsService.GetWorkoutDetails(id);
 
-            var name = this.workoutsService.GetWorkoutName(id);
-            this.ViewBag.Name = name;
-            return this.View();
+            return this.View(model);
         }
 
         public IActionResult Delete(int id)
