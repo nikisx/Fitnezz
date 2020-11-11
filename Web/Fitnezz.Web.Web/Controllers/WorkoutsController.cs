@@ -24,7 +24,7 @@ namespace Fitnezz.Web.Web.Controllers
 
 
         [HttpPost]
-        public async  Task<IActionResult> Create(string workoutName)
+        public async Task<IActionResult> Create(string workoutName)
         {
             if (workoutName == null || string.IsNullOrEmpty(workoutName))
             {
@@ -50,28 +50,30 @@ namespace Fitnezz.Web.Web.Controllers
             return this.View(model);
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-
+            await this.workoutsService.DeleteWorkout(id);
 
             return this.RedirectToAction("All");
         }
 
         public IActionResult AddExerciseToWorkout(int workoutId)
         {
+            this.ViewBag.WorkoutName = this.workoutsService.GetWorkoutName(workoutId);
             // maybe a exercise controller
             // todo: returns a workoutName string viewmodel
             var input = new AddExerciseToWorkoutInputModel();
             return this.View(input);
         }
         [HttpPost]
-        public IActionResult AddExerciseToWorkout(AddExerciseToWorkoutInputModel input)
+        public async Task<IActionResult> AddExerciseToWorkout(AddExerciseToWorkoutInputModel input)
         {
             if (!ModelState.IsValid)
             {
                 return this.View(input);
             }
             // maybe a exercise controller
+           await this.workoutsService.CreateExercise(input);
             // todo: create a new exercise and add it to the current workoutId
             return this.RedirectToAction("All");
         }

@@ -4,7 +4,7 @@
 @{
 }
 @model Fitnezz.Web.Web.ViewModels.Workouts.AddExerciseToWorkoutInputModel
-<h1 style="text-align: center">Add Exercise to Workout.Name</h1>
+<h1 style="text-align: center">Add Exercise to @ViewBag.WorkoutName</h1>
 
 <div style="margin-bottom: 700px">
     <form asp-controller="Workouts" asp-action="AddExerciseToWorkout" style="position: absolute; top: 25%; left: 30%" method="post">
@@ -38,7 +38,8 @@
             <input asp-for="Link" class="form-control" style="width: 800px" placeholder="Link">
             <span asp-validation-for="Link" class="text-danger"></span>
         </div>
-
+        
+        <input style="display: none" asp-for="WorkoutId"/>
 
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

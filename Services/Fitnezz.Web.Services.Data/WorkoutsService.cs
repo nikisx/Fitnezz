@@ -10,10 +10,12 @@ namespace Fitnezz.Web.Services.Data
     public class WorkoutsService : IWorkoutsService
     {
         private readonly IDeletableEntityRepository<Workout> workoutsRepository;
+        private readonly IDeletableEntityRepository<Exercise> exerciseRepository;
 
-        public WorkoutsService(IDeletableEntityRepository<Workout> workoutsRepository)
+        public WorkoutsService(IDeletableEntityRepository<Workout> workoutsRepository, IDeletableEntityRepository<Exercise> exerciseRepository)
         {
             this.workoutsRepository = workoutsRepository;
+            this.exerciseRepository = exerciseRepository;
         }
 
         public IEnumerable<AllWourkoutsViewModel> GetAll()
@@ -50,6 +52,31 @@ namespace Fitnezz.Web.Services.Data
                 Id = x.Id,
                 Exercises = x.Exercises,
             }).FirstOrDefault();
+        }
+
+
+        public async Task CreateExercise(AddExerciseToWorkoutInputModel input)
+        {
+            var exercise = new Exercise()
+            {
+                Name = input.Name,
+                Sets = input.Sets,
+                Reps = input.Reps,
+                Distance = input.Distance,
+                Time = input.Time,
+                Link = input.Link,
+                WorkoutId = input.WorkoutId,
+            };
+
+            await this.exerciseRepository.AddAsync(exercise);
+            await this.exerciseRepository.SaveChangesAsync();
+        }
+
+        public async Task DeleteWorkout(int id)
+        {
+            var workout = this.workoutsRepository.All().FirstOrDefault(x => x.Id == id);
+            this.workoutsRepository.Delete(workout);
+            await this.workoutsRepository.SaveChangesAsync();
         }
     }
 }

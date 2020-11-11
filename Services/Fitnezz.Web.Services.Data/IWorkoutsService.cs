@@ -14,5 +14,9 @@ namespace Fitnezz.Web.Services.Data
         string GetWorkoutName(int id);
 
         DetailsWorkoutsVIewModel GetWorkoutDetails(int id);
+
+        Task CreateExercise(AddExerciseToWorkoutInputModel input);
+
+        Task DeleteWorkout(int id);
     }
 }

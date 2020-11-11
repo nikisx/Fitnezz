@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Fitnezz.Web.Web.ViewModels.Workouts
 {
+  
    public class AddExerciseToWorkoutInputModel
     {
         [Required]
