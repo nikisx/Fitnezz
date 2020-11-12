@@ -10,5 +10,7 @@ namespace Fitnezz.Web.Services.Data
         IEnumerable<AllMealPLansViewModel> GetAll();
 
         Task CreateMealPLan(AddMealPlanInputModel input);
+
+        Task DeleteMealPLan(int id);
     }
 }

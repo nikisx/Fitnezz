@@ -77,5 +77,11 @@ namespace Fitnezz.Web.Web.Controllers
             //maybe a food controller
             return RedirectToAction("All");
         }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            await this.mealPlansService.DeleteMealPLan(id);
+            return RedirectToAction("All");
+        }
     }
 }

@@ -42,5 +42,12 @@ namespace Fitnezz.Web.Services.Data
             await this.mealPlanRepository.SaveChangesAsync();
         }
 
+        public async Task DeleteMealPLan(int id)
+        {
+            var mealPlan = mealPlanRepository.All().FirstOrDefault(x => x.Id == id);
+
+            this.mealPlanRepository.Delete(mealPlan);
+            await this.mealPlanRepository.SaveChangesAsync();
+        }
     }
 }
