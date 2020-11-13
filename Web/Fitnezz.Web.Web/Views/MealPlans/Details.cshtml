@@ -25,15 +25,16 @@
                 </div>
                 <div id="collapseOne_@count" class="panel-collapse collapse in">
                     <div class="panel-body">
-                       @foreach(var food in meal.Foods)
-                       {
-                           <p >@food.Name - Calories: @food.Calories - @food.Grams grams: Proteins: @food.Proteins, Carbs: @food.Carbs, Fats: @food.Fats <span><a style="margin-left:40% " class="btn btn-sm">Delete</a></span></p>
+                        @foreach (var food in meal.Foods)
+                        {
+                        <p style="font-size: 20px">@food.Name - @food.Grams grams, Calories: @food.Calories, Proteins: @food.Proteins, Carbs: @food.Carbs, Fats: @food.Fats </p>
+                            <a style="margin-left: 80%;margin-top: -3%" class="btn btn-sm">Delete</a>
                             <hr />
                         }
-                        
+
                         @*<input style="display: none" name ="mealId" value="@i"/>*@
                         <a type="submit" href="/MealPlans/CreateFood?mealId=@meal.Id" class="btn btn-warning "> Add food</a>
-                        
+
                     </div>
                 </div>
             </div>
