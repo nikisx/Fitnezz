@@ -19,10 +19,10 @@
             </div>
             <div class="card-content">
                 <p>
-                    Calories: @mealPlan.Calories
+                    Calories: @mealPlan.Calories.Sum()
                 </p>
                 <p>
-                   Proteins: @mealPlan.Proteins, Carbs: @mealPlan.Carbs, Fats: @mealPlan.Fats
+                   Proteins: @mealPlan.Proteins.Sum(), Carbs: @mealPlan.Carbs.Sum(), Fats: @mealPlan.Fats.Sum()
                 </p>
                 <div>
                     <a href="/MealPLans/Delete/@mealPlan.Id" style="width: 410px;" class="btn">Delete</a>

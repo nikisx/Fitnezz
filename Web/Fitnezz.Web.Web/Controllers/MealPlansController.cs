@@ -31,7 +31,8 @@ namespace Fitnezz.Web.Web.Controllers
 
         public IActionResult Details(int id)
         {
-            return this.View();
+            var viewModel = this.mealPlansService.GetDetails(id);
+            return this.View(viewModel);
         }
 
         [HttpPost]
@@ -39,6 +40,7 @@ namespace Fitnezz.Web.Web.Controllers
         {
             if (!this.ModelState.IsValid)
             {
+                this.TempData["Message"] = this.ModelState.Values.SelectMany(modelState => modelState.Errors).FirstOrDefault().ErrorMessage;
                 return RedirectToAction("All");
             }
 
@@ -61,21 +63,24 @@ namespace Fitnezz.Web.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateFood(AddFoodInputModel input)
+        public async Task<IActionResult> CreateFood(AddFoodInputModel input)
         {
             if (!ModelState.IsValid)
             {
                 return this.View(input);
             }
+
             //maybe a food controller
+            await this.mealPlansService.CreateFood(input);
             return RedirectToAction("All");
         }
 
         [HttpPost]
-        public IActionResult CreateMeal(string mealName, string mealPlanId)
+        public async Task<IActionResult> CreateMeal(string mealName, int mealPlanId)
         {
+            await this.mealPlansService.CreateMeal(mealName, mealPlanId);
             //maybe a food controller
-            return RedirectToAction("All");
+            return Redirect($"/MealPlans/Details?id={mealPlanId}");
         }
 
         public async Task<IActionResult> Delete(int id)
