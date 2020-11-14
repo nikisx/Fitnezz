@@ -1,13 +1,8 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿
 @model Fitnezz.Web.Web.ViewModels.MealPlans.AddFoodInputModel
- //TODO ADD a viewModel with meal id and meal name
 
 
-    <h1 style="text-align: center">Add Food to @ViewBag.Name</h1>
+<h1 style="text-align: center">Add Food to @ViewBag.MealName</h1>
 
     <div style="margin-bottom: 700px">
         <form asp-controller="MealPlans" asp-action="CreateFood" style="position: absolute; top: 25%; left: 30%" method="post">

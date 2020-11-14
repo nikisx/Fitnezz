@@ -18,5 +18,9 @@ namespace Fitnezz.Web.Services.Data
         Task CreateMeal(string mealName, int mealPlanId);
 
         Task CreateFood(AddFoodInputModel input);
+
+        Task DeleteFood(int id);
+
+        string GetMealName(int id);
     }
 }

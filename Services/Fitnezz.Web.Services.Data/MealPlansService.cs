@@ -25,7 +25,7 @@
         {
             var calories = this.mealRepository.All().Where(a => a.MealPlanId == 3).Select(c => c.Foods.Sum(f=>f.Calories)).ToList();
 
-            return this.mealPlanRepository.All().Select(x=> new AllMealPLansViewModel
+            return this.mealPlanRepository.All().OrderByDescending(x=>x.CreatedOn).Select(x=> new AllMealPLansViewModel
             {
                 Name = x.Name,
                 Img = x.Img,
@@ -109,6 +109,19 @@
 
             await this.foodRepository.AddAsync(food);
             await this.foodRepository.SaveChangesAsync();
+        }
+
+        public async Task DeleteFood(int id)
+        {
+            var food = this.foodRepository.All().FirstOrDefault(x => x.Id == id);
+
+            this.foodRepository.Delete(food);
+            await this.foodRepository.SaveChangesAsync();
+        }
+
+        public string GetMealName(int id)
+        {
+            return this.mealRepository.All().Where(x => x.Id == id).Select(x => x.Name).FirstOrDefault();
         }
     }
 }

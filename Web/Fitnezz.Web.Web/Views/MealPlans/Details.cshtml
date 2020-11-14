@@ -28,7 +28,7 @@
                         @foreach (var food in meal.Foods)
                         {
                         <p style="font-size: 20px">@food.Name - @food.Grams grams, Calories: @food.Calories, Proteins: @food.Proteins, Carbs: @food.Carbs, Fats: @food.Fats </p>
-                            <a style="margin-left: 80%;margin-top: -3%" class="btn btn-sm">Delete</a>
+                            <a href="/MealPlans/DeleteFood/?mealPlanId=@Model.Id&foodId=@food.Id" style="margin-left: 80%;margin-top: -3%" class="btn btn-sm">Delete</a>
                             <hr />
                         }
 

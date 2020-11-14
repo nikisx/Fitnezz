@@ -20,7 +20,7 @@ namespace Fitnezz.Web.Services.Data
 
         public IEnumerable<AllWourkoutsViewModel> GetAll()
         {
-            return this.workoutsRepository.All().Select(x=> new AllWourkoutsViewModel
+            return this.workoutsRepository.All().OrderByDescending(x=>x.CreatedOn).Select(x=> new AllWourkoutsViewModel
             {
                 Name = x.Name,
                 ExercisesCount = x.Exercises.Count,
