@@ -10,27 +10,24 @@
 @inject SignInManager<ApplicationUser> SignInManager
 <style>
     #workoutBtn {
-        border-style: none; 
-        padding: 15px 30px; 
+        border-style: none;
+        padding: 15px 30px;
         background: #ec4141;
-        font-size:30px;
+        font-size: 30px;
         color: white;
-      
         text-decoration: none;
     }
+
     .divBtn {
         position: absolute;
         top: 80px;
         left: 70%;
-       
     }
+
     #workoutBtn:hover {
         background: transparent;
         border: 4px #ec4141 solid;
     }
-
-
-    
 </style>
 <div style="overflow: hidden">
     <div style="margin-bottom: 100px;" class="row">
@@ -43,10 +40,11 @@
                     <button id="workoutBtn"> Create a Workout</button>
                 </div>
 
+
                 <div style="display: none; position: absolute; left: 95%; top: 19%" id="createWorkout">
                     <form method="post">
-                        <input name="workoutName" type="text" style="width: 300px" placeholder="Workout Name">
-                        <button type="submit" asp-area="" asp-controller="Workouts" asp-action="Create" class="btn btn-warning "> Create</button>
+                        <input name="workoutName" id="workoutName" type="text" style="width: 300px" placeholder="Workout Name">
+                        <button onclick="Alert()" type="submit" asp-area="" asp-controller="Workouts" asp-action="Create" class="btn btn-warning "> Create</button>
                         <button style="margin-left:30px" id="canceltBtn" type="submit" class="btn btn-warning "> Cancel</button>
                     </form>
 
@@ -66,8 +64,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                           @foreach(var workout in Model)
-                           {
+                            @foreach (var workout in Model)
+                            {
                                 <tr class="row">
                                     <td class="col-lg-6 suls-text-color">@workout.Name</td>
                                     <td class="col-lg-6 suls-text-color">@workout.ExercisesCount</td>
@@ -98,15 +96,6 @@
         </div>
     </div>
 </div>
-<script>
-    let btn = document.getElementById("workoutBtn");
-    let form = document.getElementById("createWorkout");
-    let cancelBtn = document.getElementById("canceltBtn");
-
-    btn.addEventListener(("click"),()=>{
-        form.style.display = "block";
-    });
-    cancelBtn.addEventListener(("click"), () => {
-        form.style.display = "none";
-    });
-</script>
+@section Scripts {
+    <script src="/js/allWorkouts.js"></script>
+}
