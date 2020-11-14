@@ -7,49 +7,54 @@
 <h1 style="position: absolute; left: 40%" class="col-md-3">Our Meal <span class="color">Plans</span></h1>
 
 <div style="overflow: hidden">
-<div style="margin-top: 100px; margin-bottom: 50px;" class="row service-v1 margin-bottom-40">
-    
-   @foreach(var mealPlan in Model.ViewModel)
-   {
-    <div class="col-md-3 md-margin-bottom-40">
-        <div class="card small" >
-            <div class="card-image" style="height: 330px;" >
-                <img class="img-responsive" src="@mealPlan.Img"  style="height: 300px; width: 500px" alt="">
-                <a href="/MealPlans/Details?id=@mealPlan.Id" class="card-title">@mealPlan.Name</a>
-            </div>
-            <div class="card-content">
-                <p>
-                    Calories: @mealPlan.Calories.Sum()
-                </p>
-                <p>
-                   Proteins: @mealPlan.Proteins.Sum(), Carbs: @mealPlan.Carbs.Sum(), Fats: @mealPlan.Fats.Sum()
-                </p>
-                <div>
-                    <a href="/MealPLans/Delete/@mealPlan.Id" style="width: 410px;" class="btn">Delete</a>
+    <div style="margin-top: 100px; margin-bottom: 50px;" class="row service-v1 margin-bottom-40">
+
+        @foreach (var mealPlan in Model.ViewModel)
+        {
+            <div class="col-md-3 md-margin-bottom-40">
+                <div class="card small">
+                    <div class="card-image" style="height: 330px;">
+                        <img class="img-responsive" src="@mealPlan.Img" style="height: 300px; width: 500px" alt="">
+                        <a href="/MealPlans/Details?id=@mealPlan.Id" class="card-title">@mealPlan.Name</a>
+                    </div>
+                    <div class="card-content">
+                        <p>
+                            Calories: @mealPlan.Calories.Sum()
+                        </p>
+                        <p>
+                            Proteins: @mealPlan.Proteins.Sum(), Carbs: @mealPlan.Carbs.Sum(), Fats: @mealPlan.Fats.Sum()
+                        </p>
+                        <div>
+                            <a href="/MealPLans/Delete/@mealPlan.Id" style="width: 410px;" class="btn">Delete</a>
+                        </div>
+                    </div>
+
                 </div>
+                <form method="post">
+                    <input style="display: none" name="mealPlanId" value="@mealPlan.Id" />
+                    <input type="text" name="username" placeholder="Username" style="width: 100px" />
+                    <button asp-area="" asp-controller="MealPlans" asp-action="AddMealPlanToUser" type="submit" class="btn btn-sm"> Add to User</button>
+                </form>
             </div>
+        }
+
+        <div style="margin-left: 35%;">
+            <form asp-controller="MealPlans" asp-action="Create" method="post">
+                <label asp-for="InputModel.MealPlanName">Name</label>
+                <input asp-for="InputModel.MealPlanName" name="mealPlanName" style="width: 300px" id="mealPlanNameInput" placeholder="Meal plan name">
+                <span asp-validation-for="InputModel.MealPlanName" class="text-danger"></span>
+
+                <label asp-for="InputModel.Img">Image</label>
+                <input asp-for="InputModel.Img" name="img" style="width: 300px" id="imgInput" placeholder="Meal plan image">
+                <span asp-validation-for="InputModel.Img" class="text-danger"></span>
+                <button onclick="Validate()" type="submit" class="btn btn-warning "> Create</button>
+            </form>
 
         </div>
-        <form method="post">
-            <input style="display: none" name="mealPlanId" value="@mealPlan.Id" />
-            <input type="text" name="username" placeholder="Username" style="width: 100px" />
-            <button asp-area="" asp-controller="MealPlans" asp-action="AddMealPlanToUser" type="submit" class="btn btn-sm"> Add to User</button>
-        </form>
-    </div>
-    }
-    
-    <div style="margin-left: 35%;">
-        <form asp-controller="MealPlans" asp-action="Create" method="post">
-            <label asp-for="InputModel.MealPlanName" >Name</label>
-            <input asp-for="InputModel.MealPlanName" name="mealPlanName" style="width: 300px" placeholder="Meal plan name">
-            <span asp-validation-for="InputModel.MealPlanName" class="text-danger"></span>
-
-            <label asp-for="InputModel.Img">Image</label>
-            <input asp-for="InputModel.Img" name="img" style="width: 300px" placeholder="Meal plan image">
-            <span asp-validation-for="InputModel.Img" class="text-danger"></span>
-            <button type="submit" class="btn btn-warning "> Create</button>
-        </form>
-
     </div>
 </div>
-</div>
+
+@section Scripts {
+  
+    <script src="/js/allMealPlans.js"></script>
+}

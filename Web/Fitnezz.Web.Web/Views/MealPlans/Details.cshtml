@@ -4,16 +4,15 @@
 @{
     int count = 0;
 }
-@model Fitnezz.Web.Web.ViewModels.MealPlans.MealPlanDetailsViewModel 
+@model Fitnezz.Web.Web.ViewModels.MealPlans.MealPlanDetailsViewModel
 
-    <style>
-
-    </style>
+<style>
+</style>
 <h1 style="text-align: center">@Model.Name</h1>
 
 <div style="margin-left:20%">
-   @foreach(var meal in Model.Meals)
-   {
+    @foreach (var meal in Model.Meals)
+    {
         <div class="panel-group" id="accordion_@count" style="width: 75%">
             <div class="panel panel-default" id="panel_@count">
                 <div class="panel-heading">
@@ -27,7 +26,7 @@
                     <div class="panel-body">
                         @foreach (var food in meal.Foods)
                         {
-                        <p style="font-size: 20px">@food.Name - @food.Grams grams, Calories: @food.Calories, Proteins: @food.Proteins, Carbs: @food.Carbs, Fats: @food.Fats </p>
+                            <p style="font-size: 20px">@food.Name - @food.Grams grams, Calories: @food.Calories, Proteins: @food.Proteins, Carbs: @food.Carbs, Fats: @food.Fats </p>
                             <a href="/MealPlans/DeleteFood/?mealPlanId=@Model.Id&foodId=@food.Id" style="margin-left: 80%;margin-top: -3%" class="btn btn-sm">Delete</a>
                             <hr />
                         }
@@ -43,13 +42,18 @@
         count++;
 
     }
-    
-<div style="margin-left: 20%;" id="createWorkout">
-    <form method="post">
-        <input name ="mealPlanId" value="@Model.Id"  style="display: none" />
-        <input name="mealName" type="text" style="width: 300px" placeholder="Meal name">
-        <button type="submit" asp-area="" asp-controller="MealPlans" asp-action="CreateMeal" class="btn btn-warning "> Add meal</button>
-    </form>
-</div>
+
+    <div style="margin-left: 20%;" id="createWorkout">
+        <form method="post">
+            <input name="mealPlanId" value="@Model.Id" style="display: none" />
+            <input name="mealName" id="mealName" type="text" style="width: 300px" placeholder="Meal name">
+            <button type="submit" onclick="Validate()" asp-area="" asp-controller="MealPlans" asp-action="CreateMeal" class="btn btn-warning "> Add meal</button>
+        </form>
+    </div>
 
 </div>
+
+@section Scripts {
+
+    <script src="/js/detailsMealPlans.js"></script>
+}

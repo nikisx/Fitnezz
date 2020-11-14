@@ -26,7 +26,7 @@ namespace Fitnezz.Web.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(string workoutName)
         {
-            if (workoutName == null || string.IsNullOrEmpty(workoutName) || workoutName.TrimEnd().Length < 5 || workoutName.TrimEnd().Length > 30)
+            if (workoutName == null || string.IsNullOrWhiteSpace(workoutName.TrimEnd()) || workoutName.TrimEnd().Length < 5 || workoutName.TrimEnd().Length > 30)
             {
                 return this.RedirectToAction("All");
             }

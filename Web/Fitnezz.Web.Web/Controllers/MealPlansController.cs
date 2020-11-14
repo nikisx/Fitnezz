@@ -80,6 +80,10 @@ namespace Fitnezz.Web.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateMeal(string mealName, int mealPlanId)
         {
+            if ( mealName == null || mealName.Length < 6 || mealName.Length > 40 || string.IsNullOrWhiteSpace(mealName.TrimEnd()))
+            {
+                return Redirect($"/MealPlans/Details?id={mealPlanId}");
+            }
             await this.mealPlansService.CreateMeal(mealName, mealPlanId);
             //maybe a food controller
             return Redirect($"/MealPlans/Details?id={mealPlanId}");
