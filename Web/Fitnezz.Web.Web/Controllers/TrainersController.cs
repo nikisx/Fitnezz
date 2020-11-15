@@ -17,5 +17,12 @@ namespace Fitnezz.Web.Web.Controllers
         {
             return RedirectToAction("All");
         }
+
+        [HttpPost]
+        public IActionResult AddWorkoutToUser(string username, int workoutId)
+        {
+
+            return this.RedirectToAction("All");
+        }
     }
 }
