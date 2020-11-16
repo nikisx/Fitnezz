@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.Encodings.Web;
@@ -44,6 +45,7 @@ namespace Fitnezz.Web.Web.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            [DisplayName("Username")]
             public string UserName { get; set; }
 
             [Required]

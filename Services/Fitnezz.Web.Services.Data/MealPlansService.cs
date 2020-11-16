@@ -1,4 +1,6 @@
-﻿namespace Fitnezz.Web.Services.Data
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace Fitnezz.Web.Services.Data
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -23,6 +25,7 @@
 
         public IEnumerable<AllMealPLansViewModel> GetAll()
         {
+       
             var calories = this.mealRepository.All().Where(a => a.MealPlanId == 3).Select(c => c.Foods.Sum(f=>f.Calories)).ToList();
 
             return this.mealPlanRepository.All().OrderByDescending(x=>x.CreatedOn).Select(x=> new AllMealPLansViewModel

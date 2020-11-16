@@ -5,5 +5,7 @@
         public const string SystemName = "Fitnezz.Web";
 
         public const string AdministratorRoleName = "Administrator";
+
+        public const string TrainerRoleName = "Trainer";
     }
 }
