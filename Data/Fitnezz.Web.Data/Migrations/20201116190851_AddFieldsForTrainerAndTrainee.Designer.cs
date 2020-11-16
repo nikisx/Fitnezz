@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fitnezz.Web.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201110223024_AddWorkoutAndExerciseModels")]
-    partial class AddWorkoutAndExerciseModels
+    [Migration("20201116190851_AddFieldsForTrainerAndTrainee")]
+    partial class AddFieldsForTrainerAndTrainee
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -70,6 +70,9 @@ namespace Fitnezz.Web.Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -87,6 +90,15 @@ namespace Fitnezz.Web.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Goal")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Height")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Img")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -98,6 +110,9 @@ namespace Fitnezz.Web.Data.Migrations
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasColumnType("nvarchar(256)")
@@ -119,12 +134,21 @@ namespace Fitnezz.Web.Data.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Specialty")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TrainerId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
+
+                    b.Property<double>("Weight")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -137,6 +161,8 @@ namespace Fitnezz.Web.Data.Migrations
                         .IsUnique()
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("TrainerId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -190,6 +216,121 @@ namespace Fitnezz.Web.Data.Migrations
                     b.ToTable("Exercises");
                 });
 
+            modelBuilder.Entity("Fitnezz.Web.Data.Models.Food", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Calories")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Carbs")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Fats")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Grams")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("MealId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Proteins")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("MealId");
+
+                    b.ToTable("Foods");
+                });
+
+            modelBuilder.Entity("Fitnezz.Web.Data.Models.Meal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("MealPlanId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("MealPlanId");
+
+                    b.ToTable("Meals");
+                });
+
+            modelBuilder.Entity("Fitnezz.Web.Data.Models.MealPlan", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Img")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("MealPlans");
+                });
+
             modelBuilder.Entity("Fitnezz.Web.Data.Models.Setting", b =>
                 {
                     b.Property<int>("Id")
@@ -220,6 +361,78 @@ namespace Fitnezz.Web.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("Settings");
+                });
+
+            modelBuilder.Entity("Fitnezz.Web.Data.Models.TraineesMealPlans", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("MealPlanId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TraineeId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("MealPlanId");
+
+                    b.HasIndex("TraineeId");
+
+                    b.ToTable("TraineesMealPlans");
+                });
+
+            modelBuilder.Entity("Fitnezz.Web.Data.Models.TraineesWorkouts", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TraineeId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("WorkoutId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("TraineeId");
+
+                    b.HasIndex("WorkoutId");
+
+                    b.ToTable("TraineesWorkouts");
                 });
 
             modelBuilder.Entity("Fitnezz.Web.Data.Models.Workout", b =>
@@ -355,10 +568,61 @@ namespace Fitnezz.Web.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Fitnezz.Web.Data.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("Fitnezz.Web.Data.Models.ApplicationUser", "Trainer")
+                        .WithMany("Clients")
+                        .HasForeignKey("TrainerId");
+                });
+
             modelBuilder.Entity("Fitnezz.Web.Data.Models.Exercise", b =>
                 {
                     b.HasOne("Fitnezz.Web.Data.Models.Workout", "Workout")
                         .WithMany("Exercises")
+                        .HasForeignKey("WorkoutId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Fitnezz.Web.Data.Models.Food", b =>
+                {
+                    b.HasOne("Fitnezz.Web.Data.Models.Meal", "Meal")
+                        .WithMany("Foods")
+                        .HasForeignKey("MealId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Fitnezz.Web.Data.Models.Meal", b =>
+                {
+                    b.HasOne("Fitnezz.Web.Data.Models.MealPlan", "MealPlan")
+                        .WithMany("Meals")
+                        .HasForeignKey("MealPlanId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Fitnezz.Web.Data.Models.TraineesMealPlans", b =>
+                {
+                    b.HasOne("Fitnezz.Web.Data.Models.MealPlan", "MealPlan")
+                        .WithMany("Trainees")
+                        .HasForeignKey("MealPlanId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Fitnezz.Web.Data.Models.ApplicationUser", "Trainee")
+                        .WithMany("MealPlans")
+                        .HasForeignKey("TraineeId");
+                });
+
+            modelBuilder.Entity("Fitnezz.Web.Data.Models.TraineesWorkouts", b =>
+                {
+                    b.HasOne("Fitnezz.Web.Data.Models.ApplicationUser", "Trainee")
+                        .WithMany("Workouts")
+                        .HasForeignKey("TraineeId");
+
+                    b.HasOne("Fitnezz.Web.Data.Models.Workout", "Workout")
+                        .WithMany("Trainees")
                         .HasForeignKey("WorkoutId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();

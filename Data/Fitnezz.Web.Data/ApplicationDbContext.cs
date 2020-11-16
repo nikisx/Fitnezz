@@ -36,6 +36,10 @@
 
         public DbSet<Food> Foods { get; set; }
 
+        public DbSet<TraineesWorkouts> TraineesWorkouts { get; set; }
+
+        public DbSet<TraineesMealPlans> TraineesMealPlans { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

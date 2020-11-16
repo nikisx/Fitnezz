@@ -18,12 +18,12 @@
 
 </style>
 
+<div style="overflow:hidden">
+    <div class="row" style="margin-bottom: 500px;">
 
-<div class="row" style="margin-bottom: 500px;">
-    
-        <section  class="col-md-10">
+        <section class="col-md-10">
             <form class="account col-md-5" method="post">
-                <h1  id="Log">@ViewData["Title"]</h1>
+                <h1 id="Log">@ViewData["Title"]</h1>
                 <h4>Use a local account to log in.</h4>
                 <hr />
                 <div asp-validation-summary="All" class="text-danger"></div>
@@ -41,14 +41,6 @@
                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
                     <label class="form-check-label" for="exampleCheck1"><input asp-for="Input.RememberMe" />Remember me</label>
                 </div>
-                @*<div class="form-group">
-                    <div style="display: block; " class="checkbox">
-                        <label style="font-size: 1.8rem;" asp-for="Input.RememberMe">
-                            <input asp-for="Input.RememberMe" />
-                            @Html.DisplayNameFor(m => m.Input.RememberMe)
-                        </label>
-                    </div>
-                </div>*@
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">Log in</button>
                 </div>
@@ -63,8 +55,8 @@
             </form>
         </section>
 
+    </div>
 </div>
-
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

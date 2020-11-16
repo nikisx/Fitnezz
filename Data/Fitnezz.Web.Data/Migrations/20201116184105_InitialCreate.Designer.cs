@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fitnezz.Web.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201111221842_CreateModelsForMEalPlans")]
-    partial class CreateModelsForMEalPlans
+    [Migration("20201116184105_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -337,6 +337,78 @@ namespace Fitnezz.Web.Data.Migrations
                     b.ToTable("Settings");
                 });
 
+            modelBuilder.Entity("Fitnezz.Web.Data.Models.TraineesMealPlans", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("MealPlanId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TraineeId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("MealPlanId");
+
+                    b.HasIndex("TraineeId");
+
+                    b.ToTable("TraineesMealPlans");
+                });
+
+            modelBuilder.Entity("Fitnezz.Web.Data.Models.TraineesWorkouts", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TraineeId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("WorkoutId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("TraineeId");
+
+                    b.HasIndex("WorkoutId");
+
+                    b.ToTable("TraineesWorkouts");
+                });
+
             modelBuilder.Entity("Fitnezz.Web.Data.Models.Workout", b =>
                 {
                     b.Property<int>("Id")
@@ -493,6 +565,32 @@ namespace Fitnezz.Web.Data.Migrations
                     b.HasOne("Fitnezz.Web.Data.Models.MealPlan", "MealPlan")
                         .WithMany("Meals")
                         .HasForeignKey("MealPlanId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Fitnezz.Web.Data.Models.TraineesMealPlans", b =>
+                {
+                    b.HasOne("Fitnezz.Web.Data.Models.MealPlan", "MealPlan")
+                        .WithMany("Trainees")
+                        .HasForeignKey("MealPlanId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Fitnezz.Web.Data.Models.ApplicationUser", "Trainee")
+                        .WithMany("MealPlans")
+                        .HasForeignKey("TraineeId");
+                });
+
+            modelBuilder.Entity("Fitnezz.Web.Data.Models.TraineesWorkouts", b =>
+                {
+                    b.HasOne("Fitnezz.Web.Data.Models.ApplicationUser", "Trainee")
+                        .WithMany("Workouts")
+                        .HasForeignKey("TraineeId");
+
+                    b.HasOne("Fitnezz.Web.Data.Models.Workout", "Workout")
+                        .WithMany("Trainees")
+                        .HasForeignKey("WorkoutId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

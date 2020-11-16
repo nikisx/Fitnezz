@@ -11,7 +11,7 @@ namespace Fitnezz.Web.Data.Models
         public MealPlan()
         {
             this.Meals = new HashSet<Meal>();
-            
+            this.Trainees = new HashSet<TraineesMealPlans>();
         }
 
         public int Calories => this.Meals.Sum(x => x.Calories);
@@ -27,5 +27,7 @@ namespace Fitnezz.Web.Data.Models
         public int Fats => this.Meals.Sum(x => x.Fats);
 
         public string Img { get; set; }
+
+        public ICollection<TraineesMealPlans> Trainees { get; set; }
     }
 }

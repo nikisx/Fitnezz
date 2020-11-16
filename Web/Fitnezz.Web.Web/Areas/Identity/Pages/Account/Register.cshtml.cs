@@ -48,6 +48,19 @@ namespace Fitnezz.Web.Web.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            public int Age { get; set; }
+
+            [Required]
+            public double Weight { get; set; }
+
+            [Required]
+            public double Height { get; set; }
+
+            [Required]
+            [StringLength(30, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            public string Goal { get; set; }
+
+            [Required]
             [DisplayName("Username")]
             [StringLength(20, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             public string UserName { get; set; }
@@ -81,10 +94,16 @@ namespace Fitnezz.Web.Web.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.UserName, Email = Input.Email};
+                var user = new ApplicationUser { UserName = Input.UserName, Email = Input.Email, Age = Input.Age, Weight = Input.Weight, Height = Input.Height, Goal = Input.Goal};
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    var users = this._userManager.Users.Count();
+                    if (users == 1)
+                    {
+                        await this._userManager.AddToRoleAsync(user, "Administrator");
+                    }
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

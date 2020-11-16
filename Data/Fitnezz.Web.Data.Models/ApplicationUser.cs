@@ -16,12 +16,39 @@ namespace Fitnezz.Web.Data.Models
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
+            this.Workouts = new HashSet<TraineesWorkouts>();
+            this.MealPlans = new HashSet<TraineesMealPlans>();
+            this.Clients = new HashSet<ApplicationUser>();
         }
 
         // Audit info
         public DateTime CreatedOn { get; set; }
 
         public DateTime? ModifiedOn { get; set; }
+
+        public int Age { get; set; }
+
+        public double Weight { get; set; }
+
+        public string TrainerId { get; set; }
+
+        public ApplicationUser Trainer { get; set; }
+
+        public string Goal { get; set; }
+
+        public double Height { get; set; }
+
+        public string Name { get; set; }
+
+        public string Specialty { get; set; }
+
+        public ICollection<ApplicationUser> Clients { get; set; }
+
+        public string Img { get; set; }
+
+        public ICollection<TraineesWorkouts> Workouts { get; set; }
+
+        public ICollection<TraineesMealPlans> MealPlans { get; set; }
 
         // Deletable entity
         public bool IsDeleted { get; set; }
