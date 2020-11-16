@@ -12,6 +12,12 @@
             </div>
 
             <div>
+                <label asp-for="Password" style="font-size: 3.8rem">Password for the Trainer</label>
+                <input asp-for="Password" type="password" class="form-control" style="width: 800px" placeholder="Password">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div>
                 <label asp-for="Age" style="font-size: 3.8rem">Age of the Trainer</label>
                 <input asp-for="Age" class="form-control" style="width: 800px" placeholder="Age">
                 <span asp-validation-for="Age" class="text-danger"></span>

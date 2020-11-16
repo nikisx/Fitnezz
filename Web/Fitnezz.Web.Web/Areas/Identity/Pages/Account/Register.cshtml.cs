@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using Fitnezz.Web.Common;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Fitnezz.Web.Data.Models;
@@ -101,7 +102,7 @@ namespace Fitnezz.Web.Web.Areas.Identity.Pages.Account
                     var users = this._userManager.Users.Count();
                     if (users == 1)
                     {
-                        await this._userManager.AddToRoleAsync(user, "Administrator");
+                        await this._userManager.AddToRoleAsync(user, GlobalConstants.AdministratorRoleName);
                     }
 
                     _logger.LogInformation("User created a new account with password.");

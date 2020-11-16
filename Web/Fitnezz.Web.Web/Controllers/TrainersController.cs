@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Fitnezz.Web.Services.Data;
 using Fitnezz.Web.Web.ViewModels.Trainers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +10,13 @@ namespace Fitnezz.Web.Web.Controllers
 {
     public class TrainersController : Controller
     {
+        private readonly ITrainersService trainersService;
+
+        public TrainersController(ITrainersService trainersService)
+        {
+            this.trainersService = trainersService;
+        }
+
         public IActionResult All()
         {
             return View();
@@ -32,7 +40,10 @@ namespace Fitnezz.Web.Web.Controllers
             {
                 return this.View(input);
             }
-            return this.View();
+
+            await this.trainersService.Create(input);
+
+            return RedirectToAction("All");
         }
 
         [HttpPost]

@@ -10,6 +10,9 @@ namespace Fitnezz.Web.Web.ViewModels.Trainers
         public string Name { get; set; }
 
         [Required]
+        public string Password { get; set; }
+
+        [Required]
         [Range(18,55)]
         public int Age { get; set; }
 
