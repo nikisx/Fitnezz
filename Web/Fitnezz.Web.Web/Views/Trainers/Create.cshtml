@@ -1,0 +1,35 @@
+﻿@model Fitnezz.Web.Web.ViewModels.Trainers.TrainerCreateInputModel
+
+<h1 style="text-align: center">Create Trainer</h1>
+
+<div style="margin-bottom: 700px">
+    <form asp-controller="Trainers" asp-action="Create" style="position: absolute; top: 25%; left: 30%" method="post">
+        <div class="form-group; ">
+            <div>
+                <label asp-for="Name" style="font-size: 3.8rem">Name of the Trainer</label>
+                <input asp-for="Name" class="form-control" style="width: 800px" placeholder="Name">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div>
+                <label asp-for="Age" style="font-size: 3.8rem">Age of the Trainer</label>
+                <input asp-for="Age" class="form-control" style="width: 800px" placeholder="Age">
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div>
+
+            <div>
+                <label asp-for="Specialty" style="font-size: 3.8rem">Specialty of the Trainer</label>
+                <input asp-for="Specialty" class="form-control" style="width: 800px" placeholder="Specialty">
+                <span asp-validation-for="Specialty" class="text-danger"></span>
+            </div>
+
+            <div>
+                <label asp-for="Img" style="font-size: 3.8rem">Image</label>
+                <input asp-for="Img" class="form-control" style="width: 800px" placeholder="Image">
+                <span asp-validation-for="Img" class="text-danger"></span>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

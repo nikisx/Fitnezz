@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Fitnezz.Web.Data.Models
+@using Fitnezz.Web.Common
 @inject SignInManager<ApplicationUser> SignInManager
 <!DOCTYPE html>
 <html lang="en">
@@ -72,7 +73,10 @@
                                 <form style="color:red"  asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
                                     <li><button class="btn-theme" id="LogOut" style="position: absolute; padding: 5px 20px; margin-top: 14px;" background-color="Transparent" type="submit" >Logout</button></li>
                                 </form>
-
+                                if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                                {
+                                    <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Trainers" asp-action="Create">Create Trainer</a></li>
+                                }
                               
                             }
 
