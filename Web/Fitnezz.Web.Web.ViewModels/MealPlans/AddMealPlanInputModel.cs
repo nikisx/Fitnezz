@@ -6,7 +6,7 @@ namespace Fitnezz.Web.Web.ViewModels.MealPlans
     {
         [MinLength(5,ErrorMessage = "Name should be minimum of 5 letter!")]
         [MaxLength(30, ErrorMessage = "Name should be maximum of 30 letter!")]
-        [Required]
+        [Required(ErrorMessage = "Meal plan name is required")]
         public string MealPlanName { get; set; }
 
         [Required]

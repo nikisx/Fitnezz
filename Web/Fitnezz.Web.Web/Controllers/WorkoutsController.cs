@@ -16,6 +16,7 @@ namespace Fitnezz.Web.Web.Controllers
         {
             this.workoutsService = workoutsService;
         }
+
         public IActionResult All()
         {
             var viewModel = this.workoutsService.GetAll();
@@ -28,7 +29,7 @@ namespace Fitnezz.Web.Web.Controllers
         {
             if (workoutName == null || string.IsNullOrWhiteSpace(workoutName.TrimEnd()) || workoutName.TrimEnd().Length < 5 || workoutName.TrimEnd().Length > 30)
             {
-                this.TempData["sErrMsg"] = "Workout name cannot be empty";
+                this.TempData["sErrMsg"] = "Workout name cannot be empty and should be between 5 and 30 characters";
                 return this.View("All", this.workoutsService.GetAll());
             }
 
@@ -36,7 +37,6 @@ namespace Fitnezz.Web.Web.Controllers
 
             return this.RedirectToAction("All");
         }
-
 
         public IActionResult Details(int id)
         {
@@ -60,6 +60,7 @@ namespace Fitnezz.Web.Web.Controllers
             var input = new AddExerciseToWorkoutInputModel();
             return this.View(input);
         }
+
         [HttpPost]
         public async Task<IActionResult> AddExerciseToWorkout(AddExerciseToWorkoutInputModel input)
         {
@@ -67,17 +68,16 @@ namespace Fitnezz.Web.Web.Controllers
             {
                 return this.View(input);
             }
+
             // maybe a exercise controller
-           await this.workoutsService.CreateExercise(input);
+            await this.workoutsService.CreateExercise(input);
             // todo: create a new exercise and add it to the current workoutId
             return this.RedirectToAction("All");
         }
 
-
         public PartialViewResult ShowError(string sErrorMessage)
         {
-            return PartialView("_ErrorPopup");
+            return this.PartialView("_ErrorPopup");
         }
     }
 }
-

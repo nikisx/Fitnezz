@@ -38,10 +38,16 @@ namespace Fitnezz.Web.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(AddMealPlanInputModel input)
         {
+            var viewModel = new ComplexViewModelForMealPlans()
+            {
+                InputModel = input,
+                ViewModel = this.mealPlansService.GetAll(),
+            };
+
             if (!this.ModelState.IsValid)
             {
-                this.TempData["Message"] = this.ModelState.Values.SelectMany(modelState => modelState.Errors).FirstOrDefault().ErrorMessage;
-                return RedirectToAction("All");
+                this.TempData["sErrMsg"] = this.ModelState.Values.SelectMany(modelState => modelState.Errors).FirstOrDefault().ErrorMessage;
+                return this.View("All", viewModel);
             }
 
             await this.mealPlansService.CreateMealPLan(input);
@@ -65,8 +71,6 @@ namespace Fitnezz.Web.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateFood(AddFoodInputModel input)
         {
-            
-
             if (!ModelState.IsValid)
             {
                 return this.View(input);
@@ -100,6 +104,11 @@ namespace Fitnezz.Web.Web.Controllers
             await this.mealPlansService.DeleteFood(foodId);
 
             return this.Redirect($"/MealPlans/Details?id={mealPlanId}");
+        }
+
+        public PartialViewResult ShowError(string sErrorMessage)
+        {
+            return this.PartialView("_ErrorPopup");
         }
     }
 }

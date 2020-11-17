@@ -19,7 +19,8 @@ namespace Fitnezz.Web.Web.Controllers
 
         public IActionResult All()
         {
-            return View();
+            var viewModel = this.trainersService.GetAll();
+            return View(viewModel);
         }
 
         public IActionResult Hire(string id)
@@ -50,7 +51,7 @@ namespace Fitnezz.Web.Web.Controllers
         public IActionResult AddWorkoutToUser(string username, int workoutId)
         {
 
-            return this.RedirectToAction("All");
+            return this.Redirect("/Workouts/All");
         }
 
     }

@@ -7,7 +7,7 @@
 <h1 style="position: absolute; left: 40%" class="col-md-3">Our Meal <span class="color">Plans</span></h1>
 
 <div style="overflow: hidden">
-    <div style="margin-top: 100px; margin-bottom: 50px;" class="row service-v1 margin-bottom-40">
+    <div style="margin-top: 100px; margin-bottom: 350px;" class="row service-v1 margin-bottom-40">
 
         @foreach (var mealPlan in Model.ViewModel)
         {
@@ -38,6 +38,11 @@
             </div>
         }
 
+        @if (TempData["sErrMsg"] != null)
+        {
+            Html.RenderPartial("_ErrorPopup", TempData["sErrMsg"]);
+        }
+
         <div style="margin-left: 35%;">
             <form asp-controller="MealPlans" asp-action="Create" method="post">
                 <label asp-for="InputModel.MealPlanName">Name</label>
@@ -47,14 +52,9 @@
                 <label asp-for="InputModel.Img">Image</label>
                 <input asp-for="InputModel.Img" name="img" style="width: 300px" id="imgInput" placeholder="Meal plan image">
                 <span asp-validation-for="InputModel.Img" class="text-danger"></span>
-                <button onclick="Validate()" type="submit" class="btn btn-warning "> Create</button>
+                <button type="submit" class="btn btn-warning "> Create</button>
             </form>
 
         </div>
     </div>
 </div>
-
-@section Scripts {
-  
-    <script src="/js/allMealPlans.js"></script>
-}

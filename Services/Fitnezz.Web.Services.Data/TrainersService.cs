@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Fitnezz.Web.Data.Common.Repositories;
 using Fitnezz.Web.Data.Models;
 using Fitnezz.Web.Web.ViewModels.Trainers;
@@ -34,6 +36,19 @@ namespace Fitnezz.Web.Services.Data
             {
                 await this.userManager.AddToRoleAsync(trainer, "Trainer");
             }
+        }
+
+        public IEnumerable<AllTrainersViewModel> GetAll()
+        {
+            return this.traineRepository.All().Where(x => x.Img != null).Select(x => new AllTrainersViewModel()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Clients = x.Clients.Count,
+                Specialty = x.Specialty,
+                Age = x.Age,
+                Img = x.Img,
+            }).ToList();
         }
     }
 }
