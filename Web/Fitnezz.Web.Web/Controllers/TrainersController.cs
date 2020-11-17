@@ -52,5 +52,6 @@ namespace Fitnezz.Web.Web.Controllers
 
             return this.RedirectToAction("All");
         }
+
     }
 }

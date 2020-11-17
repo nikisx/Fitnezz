@@ -44,11 +44,22 @@
                 <div style="display: none; position: absolute; left: 95%; top: 19%" id="createWorkout">
                     <form method="post">
                         <input name="workoutName" id="workoutName" type="text" style="width: 300px" placeholder="Workout Name">
-                        <button onclick="Alert()" type="submit" asp-area="" asp-controller="Workouts" asp-action="Create" class="btn btn-warning "> Create</button>
+                        <button  type="submit" asp-area="" asp-controller="Workouts" asp-action="Create" class="btn btn-warning "> Create</button>
                         <button style="margin-left:30px" id="canceltBtn" type="submit" class="btn btn-warning "> Cancel</button>
                     </form>
 
                 </div>
+                
+                @*@using (Html.BeginForm("Create", "Workouts", FormMethod.Post, new { id = "myform" }))
+                {
+                    @Html.TextBox("name", null, new { style = "width:500px;" })
+                    <input type="submit" value="Add" />
+                }*@
+
+                @if (TempData["sErrMsg"] != null)
+                {
+                    Html.RenderPartial("_ErrorPopup", TempData["sErrMsg"]);
+                }
 
 
                 <div class="container-fluid ml-5">

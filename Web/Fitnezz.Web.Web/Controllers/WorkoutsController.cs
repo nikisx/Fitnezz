@@ -28,7 +28,8 @@ namespace Fitnezz.Web.Web.Controllers
         {
             if (workoutName == null || string.IsNullOrWhiteSpace(workoutName.TrimEnd()) || workoutName.TrimEnd().Length < 5 || workoutName.TrimEnd().Length > 30)
             {
-                return this.RedirectToAction("All");
+                this.TempData["sErrMsg"] = "Workout name cannot be empty";
+                return this.View("All", this.workoutsService.GetAll());
             }
 
             await this.workoutsService.Create(workoutName);
@@ -70,6 +71,12 @@ namespace Fitnezz.Web.Web.Controllers
            await this.workoutsService.CreateExercise(input);
             // todo: create a new exercise and add it to the current workoutId
             return this.RedirectToAction("All");
+        }
+
+
+        public PartialViewResult ShowError(string sErrorMessage)
+        {
+            return PartialView("_ErrorPopup");
         }
     }
 }
