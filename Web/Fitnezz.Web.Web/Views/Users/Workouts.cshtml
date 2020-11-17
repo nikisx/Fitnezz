@@ -11,7 +11,7 @@
 *@
 @{
 }
-@model AllWourkoutsViewModel
+@model IEnumerable<AllWourkoutsViewModel>
 @inject SignInManager<ApplicationUser> SignInManager
 <style>
     #workoutBtn {
@@ -56,15 +56,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @for (int i = 0; i < 5; i++)
-                            {
-
+                           @foreach(var workout in Model)
+                           {
                                 <tr class="row">
-                                    <td class="col-lg-6 suls-text-color">Name</td>
-                                    <td class="col-lg-6 suls-text-color">Exercises.Count</td>
+                                    <td class="col-lg-6 suls-text-color">@workout.Name</td>
+                                    <td class="col-lg-6 suls-text-color">@workout.ExercisesCount</td>
                                     <td class="col-lg-6">
                                         <div class="button-holder">
-                                            <a href="/Users/Workout/@i" class="btn btn-warning">Details</a>
+                                            <a href="/Users/Workout/@workout.Id" class="btn btn-warning">Details</a>
                                         </div>
                                     </td>
 

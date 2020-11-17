@@ -18,5 +18,7 @@ namespace Fitnezz.Web.Services.Data
         Task CreateExercise(AddExerciseToWorkoutInputModel input);
 
         Task DeleteWorkout(int id);
+
+        Task AddWorkoutToUserAsync(string userId, int workoutId);
     }
 }

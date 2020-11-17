@@ -11,10 +11,12 @@ namespace Fitnezz.Web.Web.Controllers
     public class WorkoutsController : Controller
     {
         private readonly IWorkoutsService workoutsService;
+        private readonly IUsersService usersService;
 
-        public WorkoutsController(IWorkoutsService workoutsService)
+        public WorkoutsController(IWorkoutsService workoutsService, IUsersService usersService)
         {
             this.workoutsService = workoutsService;
+            this.usersService = usersService;
         }
 
         public IActionResult All()
@@ -22,7 +24,6 @@ namespace Fitnezz.Web.Web.Controllers
             var viewModel = this.workoutsService.GetAll();
             return this.View(viewModel);
         }
-
 
         [HttpPost]
         public async Task<IActionResult> Create(string workoutName)
@@ -78,6 +79,36 @@ namespace Fitnezz.Web.Web.Controllers
         public PartialViewResult ShowError(string sErrorMessage)
         {
             return this.PartialView("_ErrorPopup");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddWorkoutToUser(string username, int workoutId)
+        {
+
+            var user = this.usersService.GetUser(username);
+            var trainer = this.usersService.GetTrainer(this.User.Identity.Name);
+
+            if (user == null)
+            {
+                this.TempData["sErrMsg"] = "User not Found";
+                return this.View("All",this.workoutsService.GetAll());
+            }
+
+            if (trainer.Clients.All(x => x.UserName != username))
+            {
+                this.TempData["sErrMsg"] = "This trainee is not yours ";
+                return this.View("All", this.workoutsService.GetAll());
+            }
+
+            if (!user.Workouts.Any(x=> x.WorkoutId == workoutId))
+            {
+                this.TempData["sErrMsg"] = "This trainee already has this workout ";
+                return this.View("All", this.workoutsService.GetAll());
+            }
+
+            await this.workoutsService.AddWorkoutToUserAsync(user.Id, workoutId);
+
+            return this.Redirect("/Workouts/All");
         }
     }
 }

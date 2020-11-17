@@ -1,16 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-
-
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-@*@model DetailsWorkoutsVIewModel*@ //TODO add view model with the name of the workout, the id of the workout and list of exercises
+﻿@model Fitnezz.Web.Web.ViewModels.Workouts.DetailsWorkoutsVIewModel
 
 <style>
     .divBtn {
@@ -41,25 +29,48 @@
 
     <table style="width: 1000px; position: absolute; left: 25%;" class="table table-striped">
         <thead>
-        <tr  style="width: 500px">
-            <th  style="font-size: 30px;color:#e62026">Name</th>
-            <th  style="font-size: 30px;color:#e62026">sets</th>
-            <th  style="font-size: 30px;color:#e62026">reps</th>
-            <th  style="font-size: 30px;color:#e62026">distance</th>
-            <th  style="font-size: 30px;color:#e62026">time</th>
-        </tr>
+            <tr style="width: 500px">
+                <th style="font-size: 30px;color:#e62026">Name</th>
+                <th style="font-size: 30px;color:#e62026">Sets</th>
+                <th style="font-size: 30px;color:#e62026">Reps</th>
+                <th style="font-size: 30px;color:#e62026">Distance</th>
+                <th style="font-size: 30px;color:#e62026">Time</th>
+                <th style="font-size: 30px;color:#e62026">Link</th>
+            </tr>
         </thead>
         <tbody>
-        @for (int i = 0; i < 5; i++)
+        @foreach (var exercise in @Model.Exercises)
         {
-
             <tr>
-                <td >Name</td>
-                <td >Sets</td>
-                <td >Reps</td>
-                <td >Distance</td>
-                <td >Time</td>
-                <td ><a href="https://www.youtube.com/watch?v=PUr07aC13qM&list=RDMMPUr07aC13qM&start_radio=1">Link</a></td>
+                <td>@exercise.Name</td>
+                <td>@exercise.Sets</td>
+                @if (@exercise.Reps == null)
+                {
+                    <td>None</td>
+                }
+                else
+                {
+
+                    <td>@exercise.Reps</td>
+                }
+                @if (@exercise.Distance == null)
+                {
+                    <td>None</td>
+                }
+                else
+                {
+
+                    <td>@exercise.Distance</td>
+                }
+                @if (@exercise.Time == null)
+                {
+                    <td>None</td>
+                }
+                else
+                {
+                    <td>@exercise.Time</td>
+                }
+                <td><a href="@exercise.Link">Link</a></td>
 
             </tr>
         }
