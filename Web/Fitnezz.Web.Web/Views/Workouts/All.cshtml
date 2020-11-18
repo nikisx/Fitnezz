@@ -1,6 +1,8 @@
 ﻿@using Fitnezz.Web.Web.ViewModels.Workouts
 @using Microsoft.AspNetCore.Identity
 @using Fitnezz.Web.Data.Models
+@using Fitnezz.Web.Common
+@using System.Net
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -35,7 +37,10 @@
             <div class="about-logo" style="margin: auto ;width: 50%">
                 <h1 class="col-md-3">Our Best <span class="color">Workouts</span></h1>
 
-
+                
+                @if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                {
+                    
                 <div class="divBtn">
                     <button id="workoutBtn"> Create a Workout</button>
                 </div>
@@ -44,11 +49,16 @@
                 <div style="display: none; position: absolute; left: 95%; top: 19%" id="createWorkout">
                     <form method="post">
                         <input name="workoutName" id="workoutName" type="text" style="width: 300px" placeholder="Workout Name">
+                        <select style="display: block">
+                            <option>Private</option>
+                            <option>Public</option>
+                        </select>
                         <button  type="submit" asp-area="" asp-controller="Workouts" asp-action="Create" class="btn btn-warning "> Create</button>
-                        <button style="margin-left:30px" id="canceltBtn" type="submit" class="btn btn-warning "> Cancel</button>
+                        <button style="margin-left:30px" id="canceltBtn" class="btn btn-warning "> Cancel</button>
                     </form>
 
                 </div>
+                }
                 
                 @*@using (Html.BeginForm("Create", "Workouts", FormMethod.Post, new { id = "myform" }))
                 {
@@ -85,6 +95,8 @@
                                             <a href="/Workouts/Details?id=@workout.Id" class="btn btn-warning">Details</a>
                                         </div>
                                     </td>
+                                    @if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                                    {
 
                                     <td style="position: absolute; left: 5%">
                                         <form method="post">
@@ -96,6 +108,7 @@
                                     <td>
                                         <a href="/Workouts/Delete?id=@workout.Id" class="btn btn-danger">Delete</a>
                                     </td>
+                                    }
                                 </tr>
                             }
                         </tbody>

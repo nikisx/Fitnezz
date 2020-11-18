@@ -50,5 +50,16 @@ namespace Fitnezz.Web.Services.Data
                 Img = x.Img,
             }).ToList();
         }
+
+        public async Task GetHired(string trainerId, string userId)
+        {
+            var trainer = this.traineRepository.All().FirstOrDefault(x => x.Id == trainerId);
+            var user = this.traineRepository.All().FirstOrDefault(x => x.Id == userId);
+
+            trainer.Clients.Add(user);
+            user.TrainerId = trainer.Id;
+
+            await this.traineRepository.SaveChangesAsync();
+        }
     }
 }

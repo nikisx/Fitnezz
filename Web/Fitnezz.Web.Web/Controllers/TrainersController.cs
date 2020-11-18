@@ -11,10 +11,12 @@ namespace Fitnezz.Web.Web.Controllers
     public class TrainersController : Controller
     {
         private readonly ITrainersService trainersService;
+        private readonly IUsersService usersService;
 
-        public TrainersController(ITrainersService trainersService)
+        public TrainersController(ITrainersService trainersService, IUsersService usersService)
         {
             this.trainersService = trainersService;
+            this.usersService = usersService;
         }
 
         public IActionResult All()
@@ -23,8 +25,12 @@ namespace Fitnezz.Web.Web.Controllers
             return View(viewModel);
         }
 
-        public IActionResult Hire(string id)
+        public async Task<IActionResult> Hire(string id)
         {
+            var user = this.usersService.GetUser(this.User.Identity.Name);
+
+            await this.trainersService.GetHired(id, user.Id);
+
             return RedirectToAction("All");
         }
 

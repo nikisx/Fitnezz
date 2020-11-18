@@ -10,6 +10,6 @@ namespace Fitnezz.Web.Services.Data
 
         ApplicationUser GetTrainer(string username);
 
-        IEnumerable<AllWourkoutsViewModel> GetAllUsersWorkout(string userId);
+        List<List<AllWourkoutsViewModel>> GetAllUsersWorkout(string userId);
     }
 }

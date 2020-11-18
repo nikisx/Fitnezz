@@ -11,7 +11,7 @@
 *@
 @{
 }
-@model IEnumerable<AllWourkoutsViewModel>
+@model List<List<AllWourkoutsViewModel>>
 @inject SignInManager<ApplicationUser> SignInManager
 <style>
     #workoutBtn {
@@ -56,18 +56,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                           @foreach(var workout in Model)
-                           {
-                                <tr class="row">
-                                    <td class="col-lg-6 suls-text-color">@workout.Name</td>
-                                    <td class="col-lg-6 suls-text-color">@workout.ExercisesCount</td>
-                                    <td class="col-lg-6">
-                                        <div class="button-holder">
-                                            <a href="/Users/Workout/@workout.Id" class="btn btn-warning">Details</a>
-                                        </div>
-                                    </td>
+                            @foreach (var workout in Model)
+                            {
 
-                                </tr>
+                                @foreach (var item in workout)
+                                {
+                                    <tr class="row">
+                                        <td class="col-lg-6 suls-text-color">@item.Name</td>
+                                        <td class="col-lg-6 suls-text-color">@item.ExercisesCount</td>
+                                        <td class="col-lg-6">
+                                            <div class="button-holder">
+                                                <a href="/Users/Workout/@item.Id" class="btn btn-warning">Details</a>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                }
+                                
                             }
                         </tbody>
                     </table>
@@ -77,5 +82,5 @@
             </div>
         </div>
     </div>
-    </div>
+</div>
 

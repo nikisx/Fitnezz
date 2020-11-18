@@ -27,7 +27,7 @@ namespace Fitnezz.Web.Services.Data
             return this.userRepository.All().FirstOrDefault(x => x.UserName == username && x.Img != null);
         }
 
-        public IEnumerable<AllWourkoutsViewModel> GetAllUsersWorkout(string userId)
+        public List<List<AllWourkoutsViewModel>> GetAllUsersWorkout(string userId)
         {
             return this.userRepository.All().Where(x => x.Id == userId).Select(x => x.Workouts.Select(w =>
                 new AllWourkoutsViewModel()
@@ -35,7 +35,7 @@ namespace Fitnezz.Web.Services.Data
                     Id = w.Workout.Id,
                     Name = w.Workout.Name,
                     ExercisesCount = w.Workout.Exercises.Count(),
-                }).FirstOrDefault()).ToList();
+                }).ToList()).ToList();
         }
     }
 }

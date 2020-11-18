@@ -9,5 +9,7 @@ namespace Fitnezz.Web.Services.Data
         Task Create(TrainerCreateInputModel input);
 
         IEnumerable<AllTrainersViewModel> GetAll();
+
+        Task GetHired(string trainerId, string userId);
     }
 }
