@@ -100,7 +100,7 @@ namespace Fitnezz.Web.Web.Controllers
                 return this.View("All", this.workoutsService.GetAll());
             }
 
-            if (user.Workouts.Any(x => x.WorkoutId == workoutId))
+            if (this.usersService.UserHasWorkout(user.Id,workoutId))
             {
                 this.TempData["sErrMsg"] = "This trainee already has this workout ";
                 return this.View("All", this.workoutsService.GetAll());

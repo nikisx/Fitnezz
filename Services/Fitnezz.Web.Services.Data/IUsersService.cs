@@ -11,5 +11,7 @@ namespace Fitnezz.Web.Services.Data
         ApplicationUser GetTrainer(string username);
 
         List<List<AllWourkoutsViewModel>> GetAllUsersWorkout(string userId);
+
+        bool UserHasWorkout(string userId, int workoutId);
     }
 }

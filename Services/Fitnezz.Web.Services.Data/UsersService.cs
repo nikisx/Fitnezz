@@ -10,11 +10,13 @@ namespace Fitnezz.Web.Services.Data
     {
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
         private readonly IDeletableEntityRepository<Workout> workoutsRepository;
+        private readonly IDeletableEntityRepository<TraineesWorkouts> userWourkoutsRepository;
 
-        public UsersService(IDeletableEntityRepository<ApplicationUser> userRepository, IDeletableEntityRepository<Workout> workoutsRepository)
+        public UsersService(IDeletableEntityRepository<ApplicationUser> userRepository, IDeletableEntityRepository<Workout> workoutsRepository, IDeletableEntityRepository<TraineesWorkouts> userWourkoutsRepository)
         {
             this.userRepository = userRepository;
             this.workoutsRepository = workoutsRepository;
+            this.userWourkoutsRepository = userWourkoutsRepository;
         }
 
         public ApplicationUser GetUser(string username)
@@ -36,6 +38,12 @@ namespace Fitnezz.Web.Services.Data
                     Name = w.Workout.Name,
                     ExercisesCount = w.Workout.Exercises.Count(),
                 }).ToList()).ToList();
+        }
+
+        public bool UserHasWorkout(string userId, int workoutId)
+        {
+            return this.userWourkoutsRepository.All()
+                .Any(x => x.TraineeId == userId && x.WorkoutId == workoutId);
         }
     }
 }
