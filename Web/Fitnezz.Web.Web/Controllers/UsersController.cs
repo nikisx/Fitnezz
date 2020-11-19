@@ -18,10 +18,13 @@ namespace Fitnezz.Web.Web.Controllers
             this.workoutsService = workoutsService;
         }
 
-        public IActionResult Workouts()
+        public IActionResult Workouts(string id)
         {
-            var userId = this.usersService.GetUser(this.User.Identity.Name);
-            var viewModel = this.usersService.GetAllUsersWorkout(userId.Id);
+            var userId = string.Empty;
+
+            userId = id ?? this.usersService.GetUser(this.User.Identity.Name).Id;
+
+            var viewModel = this.usersService.GetAllUsersWorkout(userId);
             return this.View(viewModel);
         }
 

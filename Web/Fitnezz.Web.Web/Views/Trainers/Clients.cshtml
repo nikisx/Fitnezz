@@ -10,11 +10,11 @@
                 <ul class="list-group" style="width: 500px">
                     <li class="list-group-item " style="font-size: 30px;color: black">@client.UserName</li>
                     <li class="list-group-item">Age - @client.Age</li>
-                    <li class="list-group-item">Weight - @client.Weight</li>
-                    <li class="list-group-item">Height - @client.Height</li>
+                    <li class="list-group-item">Weight - @client.Weight kg.</li>
+                    <li class="list-group-item">Height - @client.Height cm.</li>
                     <li class="list-group-item">Goal - @client.Goal</li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Workouts
+                        <a asp-controller="Users" asp-action="Workouts" asp-route-id="@client.Id" >Workouts</a>
                         <span style="color: #e62026;font-size: 20px" class="badge badge-primary badge-pill">@client.WorkoutsCount</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">

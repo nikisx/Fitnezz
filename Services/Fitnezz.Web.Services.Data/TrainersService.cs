@@ -68,6 +68,7 @@ namespace Fitnezz.Web.Services.Data
 
             return trainer.Select(x => new AllClientsViewModel()
             {
+                Id = x.Id,
                 UserName = x.UserName,
                 Age = x.Age,
                 Weight = x.Weight,

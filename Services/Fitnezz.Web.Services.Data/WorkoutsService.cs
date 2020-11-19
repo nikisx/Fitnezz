@@ -77,6 +77,13 @@ namespace Fitnezz.Web.Services.Data
         public async Task DeleteWorkout(int id)
         {
             var workout = this.workoutsRepository.All().FirstOrDefault(x => x.Id == id);
+            var traineesWorkouts = this.traineeWorkoutsRepository.All().Where(x => x.WorkoutId == id).ToList();
+
+            foreach (var traineesWorkout in traineesWorkouts)
+            {
+                this.traineeWorkoutsRepository.HardDelete(traineesWorkout);
+            }
+
             this.workoutsRepository.Delete(workout);
             await this.workoutsRepository.SaveChangesAsync();
         }

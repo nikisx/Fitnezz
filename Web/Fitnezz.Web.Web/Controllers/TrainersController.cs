@@ -30,6 +30,18 @@ namespace Fitnezz.Web.Web.Controllers
         {
             var user = this.usersService.GetUser(this.User.Identity.Name);
 
+            if (user.TrainerId == id)
+            {
+                this.TempData["sErrMsg"] = "Trainer already hired";
+                return this.View("All", this.trainersService.GetAll());
+            }
+
+            if (user.TrainerId != null)
+            {
+                this.TempData["sErrMsg"] = "You can't have more than 1 trainer";
+                return this.View("All", this.trainersService.GetAll());
+            }
+
             await this.trainersService.GetHired(id, user.Id);
 
             return RedirectToAction("All");
@@ -59,6 +71,11 @@ namespace Fitnezz.Web.Web.Controllers
             var trainer = this.usersService.GetTrainer(this.User.Identity.Name);
             var viewModel = this.trainersService.GetClients(trainer.Id);
             return this.View(viewModel);
+        }
+
+        public PartialViewResult ShowError(string sErrorMessage)
+        {
+            return this.PartialView("_ErrorPopup");
         }
     }
 }

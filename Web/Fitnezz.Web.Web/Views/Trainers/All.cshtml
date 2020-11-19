@@ -70,6 +70,10 @@
             </div>
         </div>
 
+      @if (TempData["sErrMsg"] != null)
+      {
+          Html.RenderPartial("_ErrorPopup", TempData["sErrMsg"]);
+      }
     }
 </div>
 </div>
