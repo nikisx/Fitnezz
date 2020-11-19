@@ -19,9 +19,9 @@ namespace Fitnezz.Web.Web.Controllers
             this.usersService = usersService;
         }
 
-        public IActionResult All()
+        public IActionResult All( int pageNumber = 1)
         {
-            var viewModel = this.workoutsService.GetAll();
+            var viewModel = this.workoutsService.GetAll(pageNumber);
             return this.View(viewModel);
         }
 
@@ -31,7 +31,7 @@ namespace Fitnezz.Web.Web.Controllers
             if (workoutName == null || string.IsNullOrWhiteSpace(workoutName.TrimEnd()) || workoutName.TrimEnd().Length < 5 || workoutName.TrimEnd().Length > 30)
             {
                 this.TempData["sErrMsg"] = "Workout name cannot be empty and should be between 5 and 30 characters";
-                return this.View("All", this.workoutsService.GetAll());
+                return this.View("All", this.workoutsService.GetAll(1));
             }
 
             await this.workoutsService.Create(workoutName);
@@ -91,19 +91,19 @@ namespace Fitnezz.Web.Web.Controllers
             if (user == null)
             {
                 this.TempData["sErrMsg"] = "User not Found";
-                return this.View("All",this.workoutsService.GetAll());
+                return this.View("All",this.workoutsService.GetAll(1));
             }
 
             if (trainer.Clients.All(x => x.UserName != username))
             {
                 this.TempData["sErrMsg"] = "This trainee is not yours ";
-                return this.View("All", this.workoutsService.GetAll());
+                return this.View("All", this.workoutsService.GetAll(1));
             }
 
             if (this.usersService.UserHasWorkout(user.Id,workoutId))
             {
                 this.TempData["sErrMsg"] = "This trainee already has this workout ";
-                return this.View("All", this.workoutsService.GetAll());
+                return this.View("All", this.workoutsService.GetAll(1));
             }
 
             await this.workoutsService.AddWorkoutToUserAsync(user.Id, workoutId);

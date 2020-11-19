@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Fitnezz.Web.Data.Common.Repositories;
 using Fitnezz.Web.Data.Models;
+using Fitnezz.Web.Web.ViewModels;
 using Fitnezz.Web.Web.ViewModels.Workouts;
 
 namespace Fitnezz.Web.Services.Data
@@ -20,14 +21,21 @@ namespace Fitnezz.Web.Services.Data
             this.traineeWorkoutsRepository = traineeWorkoutsRepository;
         }
 
-        public IEnumerable<AllWourkoutsViewModel> GetAll()
+        public PaginatedList<AllWourkoutsViewModel> GetAll(int pageNumber)
         {
-            return this.workoutsRepository.All().OrderByDescending(x=>x.CreatedOn).Select(x=> new AllWourkoutsViewModel
-            {
-                Name = x.Name,
-                ExercisesCount = x.Exercises.Count,
-                Id = x.Id,
-            }).ToList();
+            var allWorkouts = this.workoutsRepository.All().OrderByDescending(x => x.CreatedOn).Select(x =>
+                new AllWourkoutsViewModel
+                {
+                    Name = x.Name,
+                    ExercisesCount = x.Exercises.Count,
+                    Id = x.Id,
+                });
+
+            var paginatedList = new PaginatedList<AllWourkoutsViewModel>();
+
+            var a = paginatedList.CreateAsync(allWorkouts, pageNumber, 5).GetAwaiter().GetResult();
+
+            return a;
         }
 
         public async Task Create(string name)

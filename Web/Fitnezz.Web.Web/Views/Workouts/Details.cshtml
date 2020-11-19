@@ -3,6 +3,7 @@
 *@
 @{
 }
+@using Fitnezz.Web.Common
 @model Fitnezz.Web.Web.ViewModels.Workouts.DetailsWorkoutsVIewModel
 <style>
     .divBtn {
@@ -81,8 +82,11 @@
         </tbody>
     </table>
     
-    <div class="divBtn">
-        <a href="/Workouts/AddExerciseToWorkout?workoutId=@Model.Id" type="button" id="workoutBtn"> Add Exercise</a>
-    </div>
+    @if (this.User.IsInRole(GlobalConstants.TrainerRoleName))
+    {
+        <div class="divBtn">
+            <a href="/Workouts/AddExerciseToWorkout?workoutId=@Model.Id" type="button" id="workoutBtn"> Add Exercise</a>
+        </div>
+    }
 
 </div>

@@ -1,4 +1,5 @@
-﻿@model Fitnezz.Web.Web.ViewModels.Workouts.DetailsWorkoutsVIewModel
+﻿@using Fitnezz.Web.Common
+@model Fitnezz.Web.Web.ViewModels.Workouts.DetailsWorkoutsVIewModel
 
 <style>
     .divBtn {
@@ -25,7 +26,7 @@
 </style>
 
 <div style="margin-bottom: 450px">
-    <h1 style="text-align: center; ">Workout.Name : @ViewBag.Workout</h1>
+    <h1 style="text-align: center; ">Workout: @ViewBag.Workout</h1>
 
     <table style="width: 1000px; position: absolute; left: 25%;" class="table table-striped">
         <thead>
@@ -75,6 +76,13 @@
             </tr>
         }
         </tbody>
+        @if (this.User.IsInRole(GlobalConstants.TrainerRoleName))
+        {
+            <div class="divBtn">
+                <a href="/Workouts/AddExerciseToWorkout?workoutId=@Model.Id" type="button" id="workoutBtn"> Add Exercise</a>
+            </div>
+        }
+       
     </table>
 
 

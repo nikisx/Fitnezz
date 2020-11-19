@@ -8,7 +8,7 @@
 *@
 @{
 }
-@model IEnumerable<AllWourkoutsViewModel>
+@model PaginatedList<AllWourkoutsViewModel>
 @inject SignInManager<ApplicationUser> SignInManager
 <style>
     #workoutBtn {
@@ -32,7 +32,7 @@
     }
 </style>
 <div style="overflow: hidden">
-    <div style="margin-bottom: 300px;" class="row">
+    <div style="margin-bottom: 200px;" class="row">
         <div class="col-md-10">
             <div class="about-logo" style="margin: auto ;width: 50%">
                 <h1 class="col-md-3">Our Best <span class="color">Workouts</span></h1>
@@ -87,6 +87,7 @@
                         <tbody>
                             @foreach (var workout in Model)
                             {
+
                                 <tr class="row">
                                     <td class="col-lg-6 suls-text-color">@workout.Name</td>
                                     <td class="col-lg-6 suls-text-color">@workout.ExercisesCount</td>
@@ -115,7 +116,13 @@
                     </table>
 
                 </div>
-
+                @{
+                    var prevDisabled = !Model.PreviousPage ? "disabled" : "";
+                    var nextDisabled = !Model.NextPage ? "disabled" : "";
+                }
+                
+                <a asp-action="All" asp-route-pageNumber="@(Model.PageIndex - 1) " class="btn @prevDisabled">Previous</a>
+                <a asp-action="All" asp-route-pageNumber="@(Model.PageIndex + 1) " class="btn @nextDisabled">Next</a>
             </div>
         </div>
     </div>
