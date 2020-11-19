@@ -58,8 +58,24 @@ namespace Fitnezz.Web.Services.Data
 
             trainer.Clients.Add(user);
             user.TrainerId = trainer.Id;
-
+            var a = trainer.Clients;
             await this.traineRepository.SaveChangesAsync();
+        }
+
+        public IEnumerable<AllClientsViewModel> GetClients(string trainerId)
+        {
+            var trainer = this.traineRepository.All().Where(x => x.TrainerId == trainerId);
+
+            return trainer.Select(x => new AllClientsViewModel()
+            {
+                UserName = x.UserName,
+                Age = x.Age,
+                Weight = x.Weight,
+                Height = x.Height,
+                Goal = x.Goal,
+                WorkoutsCount = x.Workouts.Count,
+                MealPlansCount = x.MealPlans.Count,
+            }).ToList();
         }
     }
 }

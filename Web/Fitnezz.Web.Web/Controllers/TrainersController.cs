@@ -21,6 +21,7 @@ namespace Fitnezz.Web.Web.Controllers
 
         public IActionResult All()
         {
+            var trainer = this.usersService.GetTrainer(this.User.Identity.Name);
             var viewModel = this.trainersService.GetAll();
             return View(viewModel);
         }
@@ -51,6 +52,13 @@ namespace Fitnezz.Web.Web.Controllers
             await this.trainersService.Create(input);
 
             return RedirectToAction("All");
+        }
+
+        public IActionResult Clients()
+        {
+            var trainer = this.usersService.GetTrainer(this.User.Identity.Name);
+            var viewModel = this.trainersService.GetClients(trainer.Id);
+            return this.View(viewModel);
         }
     }
 }
