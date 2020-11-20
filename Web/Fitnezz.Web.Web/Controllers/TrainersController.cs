@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Fitnezz.Web.Services.Data;
 using Fitnezz.Web.Web.ViewModels.Trainers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fitnezz.Web.Web.Controllers
@@ -26,6 +27,7 @@ namespace Fitnezz.Web.Web.Controllers
             return View(viewModel);
         }
 
+        [Authorize]
         public async Task<IActionResult> Hire(string id)
         {
             var user = this.usersService.GetUser(this.User.Identity.Name);

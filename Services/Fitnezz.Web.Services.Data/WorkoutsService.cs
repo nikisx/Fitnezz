@@ -31,11 +31,9 @@ namespace Fitnezz.Web.Services.Data
                     Id = x.Id,
                 });
 
-            var paginatedList = new PaginatedList<AllWourkoutsViewModel>();
+            var paginatedList = new PaginatedList<AllWourkoutsViewModel>().CreateAsync(allWorkouts, pageNumber, 5).GetAwaiter().GetResult();
 
-            var a = paginatedList.CreateAsync(allWorkouts, pageNumber, 5).GetAwaiter().GetResult();
-
-            return a;
+            return paginatedList;
         }
 
         public async Task Create(string name)

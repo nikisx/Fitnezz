@@ -25,6 +25,12 @@
     {
         public static int Main(string[] args)
         {
+            int[] numbers = new int[] { 1, 2, 3, 2, 4 };
+
+            Console.WriteLine(numbers[3]);
+
+            return 1;
+
             Console.WriteLine($"{typeof(Program).Namespace} ({string.Join(" ", args)}) starts working...");
             var serviceCollection = new ServiceCollection();
             ConfigureServices(serviceCollection);

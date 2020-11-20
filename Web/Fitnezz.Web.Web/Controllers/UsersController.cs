@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Fitnezz.Web.Common;
 using Fitnezz.Web.Services.Data;
 using Microsoft.AspNetCore.Mvc;
 
