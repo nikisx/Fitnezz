@@ -36,11 +36,12 @@ namespace Fitnezz.Web.Services.Data
             return paginatedList;
         }
 
-        public async Task Create(string name)
+        public async Task Create(string name, string isPublic)
         {
             var workout = new Workout()
             {
                 Name = name,
+                IsPublic = isPublic == "Public" ? true : false,
             };
 
             await this.workoutsRepository.AddAsync(workout);
@@ -104,6 +105,21 @@ namespace Fitnezz.Web.Services.Data
 
             await this.traineeWorkoutsRepository.AddAsync(trainneWorkout);
             await this.traineeWorkoutsRepository.SaveChangesAsync();
+        }
+
+        public PaginatedList<AllWourkoutsViewModel> GetAllPublic(int pageNumber)
+        {
+            var allPublicWorkouts = this.workoutsRepository.All().Where(x=>x.IsPublic == true).OrderByDescending(x => x.CreatedOn).Select(x =>
+                new AllWourkoutsViewModel
+                {
+                    Name = x.Name,
+                    ExercisesCount = x.Exercises.Count,
+                    Id = x.Id,
+                });
+
+            var paginatedList = new PaginatedList<AllWourkoutsViewModel>().CreateAsync(allPublicWorkouts, pageNumber, 5).GetAwaiter().GetResult();
+
+            return paginatedList;
         }
     }
 }

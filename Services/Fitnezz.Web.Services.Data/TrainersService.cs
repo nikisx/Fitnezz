@@ -12,11 +12,13 @@ namespace Fitnezz.Web.Services.Data
     {
         private readonly IDeletableEntityRepository<ApplicationUser> traineRepository;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IDeletableEntityRepository<TraineesWorkouts> traineesWorkoutsRepository;
 
-        public TrainersService(IDeletableEntityRepository<ApplicationUser> traineRepository, UserManager<ApplicationUser> userManager)
+        public TrainersService(IDeletableEntityRepository<ApplicationUser> traineRepository, UserManager<ApplicationUser> userManager, IDeletableEntityRepository<TraineesWorkouts> traineesWorkoutsRepository)
         {
             this.traineRepository = traineRepository;
             this.userManager = userManager;
+            this.traineesWorkoutsRepository = traineesWorkoutsRepository;
         }
 
         public async Task Create(TrainerCreateInputModel input)
@@ -77,6 +79,15 @@ namespace Fitnezz.Web.Services.Data
                 WorkoutsCount = x.Workouts.Count,
                 MealPlansCount = x.MealPlans.Count,
             }).ToList();
+        }
+
+        public async Task DeleteUsersWorkout(string userId, int workoutId)
+        {
+            var userWorkout = this.traineesWorkoutsRepository.All()
+                .FirstOrDefault(x => x.WorkoutId == workoutId && x.TraineeId == userId);
+
+            this.traineesWorkoutsRepository.HardDelete(userWorkout);
+            await this.traineesWorkoutsRepository.SaveChangesAsync();
         }
     }
 }

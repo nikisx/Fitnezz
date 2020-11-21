@@ -10,7 +10,7 @@ namespace Fitnezz.Web.Services.Data
     {
         PaginatedList<AllWourkoutsViewModel> GetAll(int pageNumber);
 
-        Task Create(string name);
+        Task Create(string name, string isPublic);
 
         string GetWorkoutName(int id);
 
@@ -21,5 +21,7 @@ namespace Fitnezz.Web.Services.Data
         Task DeleteWorkout(int id);
 
         Task AddWorkoutToUserAsync(string userId, int workoutId);
+
+        PaginatedList<AllWourkoutsViewModel> GetAllPublic(int pageNumber);
     }
 }

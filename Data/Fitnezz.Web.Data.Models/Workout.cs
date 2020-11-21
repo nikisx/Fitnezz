@@ -18,5 +18,7 @@ namespace Fitnezz.Web.Data.Models
         public ICollection<Exercise> Exercises { get; set; }
 
         public ICollection<TraineesWorkouts> Trainees { get; set; }
+
+        public bool IsPublic { get; set; }
     }
 }

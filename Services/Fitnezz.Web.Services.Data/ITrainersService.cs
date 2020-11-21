@@ -13,5 +13,7 @@ namespace Fitnezz.Web.Services.Data
         Task GetHired(string trainerId, string userId);
 
         IEnumerable<AllClientsViewModel> GetClients(string trainerId);
+
+        Task DeleteUsersWorkout(string userId, int workoutId);
     }
 }

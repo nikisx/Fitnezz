@@ -29,5 +29,7 @@ namespace Fitnezz.Web.Data.Models
         public string Img { get; set; }
 
         public ICollection<TraineesMealPlans> Trainees { get; set; }
+
+        public bool IsPublic { get; set; }
     }
 }

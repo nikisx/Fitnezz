@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Fitnezz.Web.Common;
 using Fitnezz.Web.Services.Data;
+using Fitnezz.Web.Web.ViewModels;
 using Fitnezz.Web.Web.ViewModels.Workouts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,13 +23,22 @@ namespace Fitnezz.Web.Web.Controllers
 
         public IActionResult All( int pageNumber = 1)
         {
+            PaginatedList<AllWourkoutsViewModel> viewModel = null;
 
-            var viewModel = this.workoutsService.GetAll(pageNumber);
+            if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                 viewModel = this.workoutsService.GetAll(pageNumber);
+            }
+            else
+            {
+                 viewModel = this.workoutsService.GetAllPublic(pageNumber);
+            }
+
             return this.View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(string workoutName)
+        public async Task<IActionResult> Create(string workoutName,string isPublic)
         {
             if (workoutName == null || string.IsNullOrWhiteSpace(workoutName.TrimEnd()) || workoutName.TrimEnd().Length < 5 || workoutName.TrimEnd().Length > 30)
             {
@@ -35,7 +46,7 @@ namespace Fitnezz.Web.Web.Controllers
                 return this.View("All", this.workoutsService.GetAll(1));
             }
 
-            await this.workoutsService.Create(workoutName);
+            await this.workoutsService.Create(workoutName, isPublic);
 
             return this.RedirectToAction("All");
         }
