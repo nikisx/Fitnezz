@@ -19,7 +19,7 @@ namespace Fitnezz.Web.Services.Data
             this.userWourkoutsRepository = userWourkoutsRepository;
         }
 
-        public ApplicationUser GetUser(string username)
+        public ApplicationUser GetUserByUserName(string username)
         {
             return this.userRepository.All().FirstOrDefault(x => x.UserName == username && x.Img == null);
         }
@@ -34,6 +34,7 @@ namespace Fitnezz.Web.Services.Data
             return this.userRepository.All().Where(x => x.Id == userId).Select(x => x.Workouts.Select(w =>
                 new AllWourkoutsViewModel()
                 {
+                    UserId = x.Id,
                     Id = w.Workout.Id,
                     Name = w.Workout.Name,
                     ExercisesCount = w.Workout.Exercises.Count(),
@@ -44,6 +45,12 @@ namespace Fitnezz.Web.Services.Data
         {
             return this.userWourkoutsRepository.All()
                 .Any(x => x.TraineeId == userId && x.WorkoutId == workoutId);
+        }
+
+
+        public ApplicationUser GetUserById(string id)
+        {
+            return this.userRepository.All().FirstOrDefault(x=>x.Id == id);
         }
     }
 }

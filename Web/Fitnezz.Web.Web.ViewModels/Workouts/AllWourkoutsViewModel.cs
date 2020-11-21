@@ -6,6 +6,8 @@ namespace Fitnezz.Web.Web.ViewModels.Workouts
 {
     public class AllWourkoutsViewModel
     {
+        public string UserId { get; set; }
+
         public int Id { get; set; }
 
         public string Name { get; set; }

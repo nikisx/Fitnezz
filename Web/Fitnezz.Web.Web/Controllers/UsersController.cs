@@ -23,14 +23,25 @@ namespace Fitnezz.Web.Web.Controllers
         {
             var userId = string.Empty;
 
-            userId = id ?? this.usersService.GetUser(this.User.Identity.Name).Id;
+            userId = id ?? this.usersService.GetUserByUserName(this.User.Identity.Name).Id;
 
             var viewModel = this.usersService.GetAllUsersWorkout(userId);
             return this.View(viewModel);
         }
 
-        public IActionResult Workout(int id)
+        public IActionResult Workout(int id, string userId)
         {
+            if (this.User.IsInRole(GlobalConstants.TrainerRoleName))
+            {
+                var trainer = this.usersService.GetTrainer(this.User.Identity.Name);
+                var user = this.usersService.GetUserById(userId);
+
+                if (user == null || user.TrainerId != trainer.Id)
+                {
+                    return this.NotFound();
+                }
+            }
+
             var viewModel = this.workoutsService.GetWorkoutDetails(id);
             this.ViewBag.Workout = viewModel.Name;
             return this.View(viewModel);

@@ -86,7 +86,7 @@ namespace Fitnezz.Web.Web.Controllers
         public async Task<IActionResult> AddWorkoutToUser(string username, int workoutId)
         {
 
-            var user = this.usersService.GetUser(username);
+            var user = this.usersService.GetUserByUserName(username);
             var trainer = this.usersService.GetTrainer(this.User.Identity.Name);
 
             if (user == null)

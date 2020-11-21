@@ -30,7 +30,7 @@ namespace Fitnezz.Web.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Hire(string id)
         {
-            var user = this.usersService.GetUser(this.User.Identity.Name);
+            var user = this.usersService.GetUserByUserName(this.User.Identity.Name);
 
             if (user.TrainerId == id)
             {
@@ -73,6 +73,12 @@ namespace Fitnezz.Web.Web.Controllers
             var trainer = this.usersService.GetTrainer(this.User.Identity.Name);
             var viewModel = this.trainersService.GetClients(trainer.Id);
             return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int workoutId, string userId)
+        {
+            return this.RedirectToAction("All");
         }
 
         public PartialViewResult ShowError(string sErrorMessage)

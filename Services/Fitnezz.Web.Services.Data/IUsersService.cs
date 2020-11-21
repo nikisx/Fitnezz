@@ -6,12 +6,14 @@ namespace Fitnezz.Web.Services.Data
 {
     public interface IUsersService
     {
-        ApplicationUser GetUser(string username);
+        ApplicationUser GetUserByUserName(string username);
 
         ApplicationUser GetTrainer(string username);
 
         List<List<AllWourkoutsViewModel>> GetAllUsersWorkout(string userId);
 
         bool UserHasWorkout(string userId, int workoutId);
+
+        ApplicationUser GetUserById(string id);
     }
 }
