@@ -21,6 +21,7 @@ namespace Fitnezz.Web.Web.Controllers
 
         public IActionResult All( int pageNumber = 1)
         {
+
             var viewModel = this.workoutsService.GetAll(pageNumber);
             return this.View(viewModel);
         }
