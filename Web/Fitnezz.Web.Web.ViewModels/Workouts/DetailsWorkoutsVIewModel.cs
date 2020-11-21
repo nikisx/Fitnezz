@@ -6,7 +6,11 @@ namespace Fitnezz.Web.Web.ViewModels.Workouts
     public class DetailsWorkoutsVIewModel
     {
         public string Name { get; set; }
+
         public int Id { get; set; }
+
         public ICollection<Exercise> Exercises { get; set; }
+
+        public bool IsPublic { get; set; }
     }
 }

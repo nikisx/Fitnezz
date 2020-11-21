@@ -54,6 +54,17 @@ namespace Fitnezz.Web.Web.Controllers
         public IActionResult Details(int id)
         {
             var model = this.workoutsService.GetWorkoutDetails(id);
+            if (!model.IsPublic)
+            {
+                if (!this.User.IsInRole(GlobalConstants.TrainerRoleName) || !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                {
+                    var userId = this.usersService.GetUserByUserName(this.User.Identity.Name).Id;
+                    if (!this.usersService.UserHasWorkout(userId, id))
+                    {
+                        return this.RedirectToAction("All");
+                    }
+                }
+            }
 
             return this.View(model);
         }
@@ -69,7 +80,6 @@ namespace Fitnezz.Web.Web.Controllers
         {
             this.ViewBag.WorkoutName = this.workoutsService.GetWorkoutName(workoutId);
             // maybe a exercise controller
-            // todo: returns a workoutName string viewmodel
             var input = new AddExerciseToWorkoutInputModel();
             return this.View(input);
         }

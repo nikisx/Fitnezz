@@ -57,6 +57,7 @@ namespace Fitnezz.Web.Services.Data
         {
             return this.workoutsRepository.All().Where(x => x.Id == id).Select(x => new DetailsWorkoutsVIewModel
             {
+                IsPublic = x.IsPublic,
                 Name = x.Name,
                 Id = x.Id,
                 Exercises = x.Exercises,
