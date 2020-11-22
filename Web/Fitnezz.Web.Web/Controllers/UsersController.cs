@@ -12,11 +12,13 @@ namespace Fitnezz.Web.Web.Controllers
     {
         private readonly IUsersService usersService;
         private readonly IWorkoutsService workoutsService;
+        private readonly IMealPlansService mealPlansService;
 
-        public UsersController(IUsersService usersService,IWorkoutsService workoutsService)
+        public UsersController(IUsersService usersService,IWorkoutsService workoutsService,IMealPlansService mealPlansService)
         {
             this.usersService = usersService;
             this.workoutsService = workoutsService;
+            this.mealPlansService = mealPlansService;
         }
 
         public IActionResult Workouts(string id)
@@ -57,10 +59,22 @@ namespace Fitnezz.Web.Web.Controllers
             return this.View(viewModel);
         }
 
-        public IActionResult MealPlan(int id)
+        public IActionResult MealPlan(int id, string userId)
         {
+            if (this.User.IsInRole(GlobalConstants.TrainerRoleName))
+            {
+                var trainer = this.usersService.GetTrainer(this.User.Identity.Name);
+                var user = this.usersService.GetUserById(userId);
+
+                if (user == null || user.TrainerId != trainer.Id)
+                {
+                    return this.NotFound();
+                }
+            }
+
+            var viewModel = this.mealPlansService.GetDetails(id);
             this.ViewBag.Id = id;
-            return this.View();
+            return this.View(viewModel);
         }
     }
 }
