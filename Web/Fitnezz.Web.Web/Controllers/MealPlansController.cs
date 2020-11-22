@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Fitnezz.Web.Common;
 using Fitnezz.Web.Services.Data;
 using Fitnezz.Web.Web.ViewModels.MealPlans;
 using Microsoft.AspNetCore.Mvc;
@@ -34,6 +35,19 @@ namespace Fitnezz.Web.Web.Controllers
         public IActionResult Details(int id)
         {
             var viewModel = this.mealPlansService.GetDetails(id);
+
+            if (!viewModel.IsPublic)
+            {
+                if (!this.User.IsInRole(GlobalConstants.TrainerRoleName) || !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                {
+                    var userId = this.usersService.GetUserByUserName(this.User.Identity.Name).Id;
+                    if (!this.mealPlansService.UserHasMealPlan(userId, id))
+                    {
+                        return this.RedirectToAction("All");
+                    }
+                }
+            }
+
             return this.View(viewModel);
         }
 
@@ -84,7 +98,7 @@ namespace Fitnezz.Web.Web.Controllers
 
             if (this.mealPlansService.UserHasMealPlan(user.Id, mealPlanId))
             {
-                this.TempData["sErrMsg"] = "This trainee already has this workout ";
+                this.TempData["sErrMsg"] = "This trainee already has this meal plan ";
                 return this.View("All", new ComplexViewModelForMealPlans()
                 {
                     ViewModel = this.mealPlansService.GetAll(1),

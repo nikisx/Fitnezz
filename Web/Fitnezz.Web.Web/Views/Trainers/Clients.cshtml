@@ -18,7 +18,7 @@
                         <span style="color: #e62026;font-size: 20px" class="badge badge-primary badge-pill">@client.WorkoutsCount</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        MealPlans
+                        <a asp-controller="Users" asp-action="MealPlans" asp-route-id="@client.Id">Meal plans</a>
                         <span style="color: #e62026;font-size: 20px" class="badge badge-primary badge-pill">@client.MealPlansCount</span>
                     </li>
                 </ul>

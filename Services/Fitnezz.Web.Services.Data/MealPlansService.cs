@@ -70,6 +70,7 @@ namespace Fitnezz.Web.Services.Data
         {
             return this.mealPlanRepository.All().Where(x => x.Id == id).Select(x => new MealPlanDetailsViewModel
             {
+                IsPublic = x.IsPublic,
                 Name = x.Name,
                 Id = x.Id,
                 Meals = x.Meals.Select(a => new MealsViewModel
