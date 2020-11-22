@@ -30,5 +30,7 @@ namespace Fitnezz.Web.Web.ViewModels.MealPlans
 
         public string Img { get; set; }
 
+        public string UserId { get; set; }
+
     }
 }

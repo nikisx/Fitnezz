@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Fitnezz.Web.Data.Models;
+using Fitnezz.Web.Web.ViewModels.MealPlans;
 using Fitnezz.Web.Web.ViewModels.Workouts;
 
 namespace Fitnezz.Web.Services.Data
@@ -15,5 +16,7 @@ namespace Fitnezz.Web.Services.Data
         bool UserHasWorkout(string userId, int workoutId);
 
         ApplicationUser GetUserById(string id);
+
+        List<List<AllMealPLansViewModel>> GetUserMealPlans(string userId);
     }
 }

@@ -8,26 +8,29 @@
 *@
 @{
 }
-
+@model List<List<Fitnezz.Web.Web.ViewModels.MealPlans.AllMealPLansViewModel>>
 <h1 style="position: absolute; left: 40%" class="col-md-3">Your Personal  <span class="color"> Meal Plans</span></h1>
 
 <div style="overflow: hidden">
     <div style="margin-top: 100px; margin-bottom: 50px;" class="row service-v1 margin-bottom-40">
 
-        @for (int i = 0; i < 4; i++)
+        @foreach (var meaPlans in Model)
         {
+            @foreach (var item in meaPlans)
+            {
+                
             <div class="col-md-3 md-margin-bottom-40">
                 <div class="card small">
                     <div class="card-image">
-                        <img class="img-responsive" src="/template/img/service1.jpg" alt="">
-                        <a href="/Users/MealPlan/@i" class="card-title">MealPLan.Name</a>
+                        <img class="img-responsive" src="@item.Img" alt="">
+                        <a href="/Users/MealPlan/@item.Id" class="card-title">@item.Name</a>
                     </div>
                     <div class="card-content">
                         <p>
-                            Calories: MealPLan.Calories
+                            Calories: @item.Calories.Sum()
                         </p>
                         <p>
-                            MealPlan.Proteins , MEalPlan.Carbs, MEalPlan.Fats
+                           Proteins: @item.Proteins.Sum(), Carbs: @item.Carbs.Sum(), Fats: @item.Fats.Sum()
                         </p>
 
                     </div>
@@ -35,6 +38,7 @@
                 </div>
 
             </div>
+            }
         }
 
 

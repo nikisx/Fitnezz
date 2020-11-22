@@ -47,9 +47,14 @@ namespace Fitnezz.Web.Web.Controllers
             return this.View(viewModel);
         }
 
-        public IActionResult MealPlans()
+        public IActionResult MealPlans(string id)
         {
-            return this.View();
+            var userId = string.Empty;
+
+            userId = id ?? this.usersService.GetUserByUserName(this.User.Identity.Name).Id;
+
+            var viewModel = this.usersService.GetUserMealPlans(userId);
+            return this.View(viewModel);
         }
 
         public IActionResult MealPlan(int id)
