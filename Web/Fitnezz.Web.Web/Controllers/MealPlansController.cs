@@ -38,7 +38,7 @@ namespace Fitnezz.Web.Web.Controllers
 
             if (!viewModel.IsPublic)
             {
-                if (!this.User.IsInRole(GlobalConstants.TrainerRoleName) || !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                if (!this.User.IsInRole(GlobalConstants.TrainerRoleName) && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                 {
                     var userId = this.usersService.GetUserByUserName(this.User.Identity.Name).Id;
                     if (!this.mealPlansService.UserHasMealPlan(userId, id))

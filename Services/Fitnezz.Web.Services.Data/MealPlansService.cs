@@ -62,6 +62,13 @@ namespace Fitnezz.Web.Services.Data
         {
             var mealPlan = this.mealPlanRepository.All().FirstOrDefault(x => x.Id == id);
 
+            var userMealPLans = this.traineeMealPlanRepository.All().Where(x=>x.MealPlanId == id);
+
+            foreach (var userMealPLan in userMealPLans)
+            {
+                this.traineeMealPlanRepository.HardDelete(userMealPLan);
+            }
+
             this.mealPlanRepository.Delete(mealPlan);
             await this.mealPlanRepository.SaveChangesAsync();
         }

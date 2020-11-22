@@ -56,7 +56,7 @@ namespace Fitnezz.Web.Web.Controllers
             var model = this.workoutsService.GetWorkoutDetails(id);
             if (!model.IsPublic)
             {
-                if (!this.User.IsInRole(GlobalConstants.TrainerRoleName) || !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                if (!this.User.IsInRole(GlobalConstants.TrainerRoleName) && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                 {
                     var userId = this.usersService.GetUserByUserName(this.User.Identity.Name).Id;
                     if (!this.usersService.UserHasWorkout(userId, id))
