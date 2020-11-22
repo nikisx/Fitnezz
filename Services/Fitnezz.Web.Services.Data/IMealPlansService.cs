@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Fitnezz.Web.Web.ViewModels;
 using Fitnezz.Web.Web.ViewModels.MealPlans;
 
 namespace Fitnezz.Web.Services.Data
 {
     public interface IMealPlansService
     {
-        IEnumerable<AllMealPLansViewModel> GetAll();
+        PaginatedList<AllMealPLansViewModel> GetAll(int pageNumber);
 
         Task CreateMealPLan(AddMealPlanInputModel input);
 
@@ -22,5 +23,9 @@ namespace Fitnezz.Web.Services.Data
         Task DeleteFood(int id);
 
         string GetMealName(int id);
+
+        Task AddMealPlanToUser(string userId, int mealPlanId);
+
+        bool UserHasMealPlan(string userId, int mealPlanId);
     }
 }

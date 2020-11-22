@@ -12,5 +12,7 @@ namespace Fitnezz.Web.Web.ViewModels.MealPlans
         [Required]
         [Url]
         public string Img { get; set; }
+
+        public string IsPublic { get; set; }
     }
 }

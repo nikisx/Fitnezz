@@ -52,5 +52,7 @@ namespace Fitnezz.Web.Services.Data
         {
             return this.userRepository.All().FirstOrDefault(x=>x.Id == id);
         }
+
+
     }
 }

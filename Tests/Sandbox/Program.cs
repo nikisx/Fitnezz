@@ -1,4 +1,6 @@
-﻿namespace Sandbox
+﻿using System.Linq;
+
+namespace Sandbox
 {
     using System;
     using System.Diagnostics;
@@ -25,9 +27,36 @@
     {
         public static int Main(string[] args)
         {
-            int[] numbers = new int[] { 1, 2, 3, 2, 4 };
+            int n = int.Parse(Console.ReadLine());
 
-            Console.WriteLine(numbers[3]);
+            string roll1 = "";
+            string roll2 = "";
+
+            for (int i = 0; i < n; i++)
+            {
+                int[] newarr = (Console.ReadLine())
+                    .Split()
+                    .Select(int.Parse)
+                    .ToArray();
+
+                for (int j = 0; j < newarr.Length; j++)
+                {
+
+                    if (i % 2 == 0)
+                    {
+                        roll1 += newarr[0] + " ";
+                        roll2 += newarr[1] + " ";
+                    }
+                    if (i % 2 == 1)
+                    {
+                        roll2 += newarr[0] + " ";
+                        roll1 += newarr[1] + " ";
+                    }
+                    break;
+                }
+            }
+            Console.WriteLine(roll1);
+            Console.WriteLine(roll2);
 
             return 1;
 

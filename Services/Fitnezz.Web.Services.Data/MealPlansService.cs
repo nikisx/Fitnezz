@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Fitnezz.Web.Web.ViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace Fitnezz.Web.Services.Data
 {
@@ -15,20 +16,20 @@ namespace Fitnezz.Web.Services.Data
         private readonly IDeletableEntityRepository<MealPlan> mealPlanRepository;
         private readonly IDeletableEntityRepository<Meal> mealRepository;
         private readonly IDeletableEntityRepository<Food> foodRepository;
+        private readonly IDeletableEntityRepository<TraineesMealPlans> traineeMealPlanRepository;
 
-        public MealPlansService(IDeletableEntityRepository<MealPlan> mealPlanRepository, IDeletableEntityRepository<Meal> mealRepository, IDeletableEntityRepository<Food> foodRepository)
+        public MealPlansService(IDeletableEntityRepository<MealPlan> mealPlanRepository, IDeletableEntityRepository<Meal> mealRepository, IDeletableEntityRepository<Food> foodRepository, IDeletableEntityRepository<TraineesMealPlans> traineeMealPlanRepository)
         {
             this.mealPlanRepository = mealPlanRepository;
             this.mealRepository = mealRepository;
             this.foodRepository = foodRepository;
+            this.traineeMealPlanRepository = traineeMealPlanRepository;
         }
 
-        public IEnumerable<AllMealPLansViewModel> GetAll()
+        public PaginatedList<AllMealPLansViewModel> GetAll(int pageNumber)
         {
-       
-            var calories = this.mealRepository.All().Where(a => a.MealPlanId == 3).Select(c => c.Foods.Sum(f=>f.Calories)).ToList();
-
-            return this.mealPlanRepository.All().OrderByDescending(x=>x.CreatedOn).Select(x=> new AllMealPLansViewModel
+            // var calories = this.mealRepository.All().Where(a => a.MealPlanId == 3).Select(c => c.Foods.Sum(f=>f.Calories)).ToList();
+            var mealPlans = this.mealPlanRepository.All().OrderByDescending(x=>x.CreatedOn).Select(x=> new AllMealPLansViewModel
             {
                 Name = x.Name,
                 Img = x.Img,
@@ -37,7 +38,11 @@ namespace Fitnezz.Web.Services.Data
                 Carbs = this.mealRepository.All().Where(a => a.MealPlanId == x.Id).Select(c => c.Foods.Sum(f => f.Carbs)).ToList(),
                 Fats = this.mealRepository.All().Where(a => a.MealPlanId == x.Id).Select(c => c.Foods.Sum(f => f.Fats)).ToList(),
                 Id = x.Id,
-            }).ToList();
+            });
+
+            var paginatedList = new PaginatedList<AllMealPLansViewModel>().CreateAsync(mealPlans, pageNumber, 6).GetAwaiter().GetResult();
+
+            return paginatedList;
         }
 
         public async Task CreateMealPLan(AddMealPlanInputModel input)
@@ -46,6 +51,7 @@ namespace Fitnezz.Web.Services.Data
             {
                 Name = input.MealPlanName,
                 Img = input.Img,
+                IsPublic = input.IsPublic == PublicType.Public.ToString(),
             };
 
             await this.mealPlanRepository.AddAsync(mealPlan);
@@ -125,6 +131,23 @@ namespace Fitnezz.Web.Services.Data
         public string GetMealName(int id)
         {
             return this.mealRepository.All().Where(x => x.Id == id).Select(x => x.Name).FirstOrDefault();
+        }
+
+        public async Task AddMealPlanToUser(string userId, int mealPlanId)
+        {
+            var mealPlanToUser = new TraineesMealPlans()
+            {
+                TraineeId = userId,
+                MealPlanId = mealPlanId,
+            };
+
+            await this.traineeMealPlanRepository.AddAsync(mealPlanToUser);
+            await this.traineeMealPlanRepository.SaveChangesAsync();
+        }
+
+        public bool UserHasMealPlan(string userId, int mealPlanId)
+        {
+            return this.traineeMealPlanRepository.All().Any(x => x.MealPlanId == mealPlanId && x.TraineeId == userId);
         }
     }
 }

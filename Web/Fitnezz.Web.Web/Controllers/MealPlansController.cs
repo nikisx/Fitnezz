@@ -11,19 +11,21 @@ namespace Fitnezz.Web.Web.Controllers
     public class MealPlansController : Controller
     {
         private readonly IMealPlansService mealPlansService;
+        private readonly IUsersService usersService;
 
-        public MealPlansController(IMealPlansService mealPlansService)
+        public MealPlansController(IMealPlansService mealPlansService, IUsersService usersService)
         {
             this.mealPlansService = mealPlansService;
+            this.usersService = usersService;
         }
 
-        public IActionResult All()
+        public IActionResult All(int pageNumber = 1)
         {
           var viewModel = new ComplexViewModelForMealPlans()
           {
               InputModel = new AddMealPlanInputModel(),
 
-              ViewModel = this.mealPlansService.GetAll(),
+              ViewModel = this.mealPlansService.GetAll(pageNumber),
           };
 
           return View(viewModel);
@@ -41,7 +43,7 @@ namespace Fitnezz.Web.Web.Controllers
             var viewModel = new ComplexViewModelForMealPlans()
             {
                 InputModel = input,
-                ViewModel = this.mealPlansService.GetAll(),
+                ViewModel = this.mealPlansService.GetAll(1),
             };
 
             if (!this.ModelState.IsValid)
@@ -55,8 +57,43 @@ namespace Fitnezz.Web.Web.Controllers
             return RedirectToAction("All");
         }
 
-        public IActionResult AddMealPlanToUser(string username, int mealPlanId)
+        public async Task<IActionResult> AddMealPlanToUser(string username, int mealPlanId)
         {
+            var user = this.usersService.GetUserByUserName(username);
+            var trainer = this.usersService.GetTrainer(this.User.Identity.Name);
+
+            if (user == null)
+            {
+                this.TempData["sErrMsg"] = "User not Found";
+                return this.View("All", new ComplexViewModelForMealPlans()
+                {
+                    ViewModel = this.mealPlansService.GetAll(1),
+                    InputModel = new AddMealPlanInputModel(),
+                });
+            }
+
+            if (trainer.Clients.All(x => x.UserName != username))
+            {
+                this.TempData["sErrMsg"] = "This trainee is not yours ";
+                return this.View("All", new ComplexViewModelForMealPlans()
+                {
+                    ViewModel = this.mealPlansService.GetAll(1),
+                    InputModel = new AddMealPlanInputModel(),
+                });
+            }
+
+            if (this.mealPlansService.UserHasMealPlan(user.Id, mealPlanId))
+            {
+                this.TempData["sErrMsg"] = "This trainee already has this workout ";
+                return this.View("All", new ComplexViewModelForMealPlans()
+                {
+                    ViewModel = this.mealPlansService.GetAll(1),
+                    InputModel = new AddMealPlanInputModel(),
+                });
+            }
+
+            await this.mealPlansService.AddMealPlanToUser(user.Id, mealPlanId);
+
             return this.RedirectToAction("All");
         }
 

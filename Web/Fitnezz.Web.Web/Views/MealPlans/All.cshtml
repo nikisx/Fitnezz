@@ -7,7 +7,7 @@
 <h1 style="position: absolute; left: 40%" class="col-md-3">Our Meal <span class="color">Plans</span></h1>
 
 <div style="overflow: hidden">
-    <div style="margin-top: 100px; margin-bottom: 350px;" class="row service-v1 margin-bottom-40">
+    <div style="margin-top: 100px; margin-bottom: 150px;" class="row service-v1 margin-bottom-40">
 
         @foreach (var mealPlan in Model.ViewModel)
         {
@@ -53,8 +53,42 @@
                 <input asp-for="InputModel.Img" name="img" style="width: 300px" id="imgInput" placeholder="Meal plan image">
                 <span asp-validation-for="InputModel.Img" class="text-danger"></span>
                 <button type="submit" class="btn btn-warning "> Create</button>
+
+                <select name ="IsPublic" style="display: block; width: 300px; margin-bottom: 10px">
+                    <option >Public</option>
+                    <option >Private</option>
+                </select>
+
             </form>
 
         </div>
-    </div>
+        
+        @{
+            var prevDisabled = !Model.ViewModel.PreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.ViewModel.NextPage ? "disabled" : "";
+        }
+                
+               
+         
+        <div style="position: absolute; top: 80%; left: 37%">
+            <a asp-action="All" asp-route-pageNumber="@(Model.ViewModel.PageIndex - 1) " class="btn @prevDisabled">Previous</a>
+            @for (int i = Model.ViewModel.PageIndex - 3; i < Model.ViewModel.PageIndex; i++)
+            {
+                if (i > 0)
+                {
+                    <a class="btn " style="width: 40px" asp-action="All" asp-route-pageNumber="@i">@i</a>
+                }
+            }
+            <span style="width: 40px; background-color: black" class="btn">@Model.ViewModel.PageIndex</span>
+
+            @for (int i = Model.ViewModel.PageIndex + 1; i <= Model.ViewModel.PageIndex + 3; i++)
+            {
+                if (i <= Model.ViewModel.TotalPages)
+                {
+                    <a class="btn " style="width: 40px" asp-action="All" asp-route-pageNumber="@i">@i </a>
+                }
+            }
+            <a asp-action="All" asp-route-pageNumber="@(Model.ViewModel.PageIndex + 1) " class="btn @nextDisabled">Next</a>
+        </div>
+        </div>
 </div>
