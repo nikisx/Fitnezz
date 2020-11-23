@@ -13,12 +13,14 @@ namespace Fitnezz.Web.Services.Data
         private readonly IDeletableEntityRepository<ApplicationUser> traineRepository;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IDeletableEntityRepository<TraineesWorkouts> traineesWorkoutsRepository;
+        private readonly IDeletableEntityRepository<TraineesMealPlans> traineeMealPlanrRepository;
 
-        public TrainersService(IDeletableEntityRepository<ApplicationUser> traineRepository, UserManager<ApplicationUser> userManager, IDeletableEntityRepository<TraineesWorkouts> traineesWorkoutsRepository)
+        public TrainersService(IDeletableEntityRepository<ApplicationUser> traineRepository, UserManager<ApplicationUser> userManager, IDeletableEntityRepository<TraineesWorkouts> traineesWorkoutsRepository, IDeletableEntityRepository<TraineesMealPlans> traineeMealPlanrRepository)
         {
             this.traineRepository = traineRepository;
             this.userManager = userManager;
             this.traineesWorkoutsRepository = traineesWorkoutsRepository;
+            this.traineeMealPlanrRepository = traineeMealPlanrRepository;
         }
 
         public async Task Create(TrainerCreateInputModel input)
@@ -88,6 +90,15 @@ namespace Fitnezz.Web.Services.Data
 
             this.traineesWorkoutsRepository.HardDelete(userWorkout);
             await this.traineesWorkoutsRepository.SaveChangesAsync();
+        }
+
+        public async Task DelteUserMealPlan(string userId, int mealPlanId)
+        {
+            var userMealPLan = this.traineeMealPlanrRepository
+                .All().FirstOrDefault(x => x.MealPlanId == mealPlanId && x.TraineeId == userId);
+
+            this.traineeMealPlanrRepository.HardDelete(userMealPLan);
+            await this.traineeMealPlanrRepository.SaveChangesAsync();
         }
     }
 }

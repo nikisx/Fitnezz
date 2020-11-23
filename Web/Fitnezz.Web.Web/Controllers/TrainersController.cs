@@ -79,10 +79,16 @@ namespace Fitnezz.Web.Web.Controllers
             return this.View(viewModel);
         }
 
-        public async Task<IActionResult> Delete(int workoutId, string userId)
+        public async Task<IActionResult> DeleteWorkout(int workoutId, string userId)
         {
             await this.trainersService.DeleteUsersWorkout(userId, workoutId);
             return this.Redirect($"/Users/Workouts/{userId}");
+        }
+
+        public async Task<IActionResult> DeleteMealPlan(int mealPlanId, string userId)
+        {
+            await this.trainersService.DelteUserMealPlan(userId, mealPlanId);
+            return this.Redirect($"/Users/MealPlans/{userId}");
         }
 
         public PartialViewResult ShowError(string sErrorMessage)

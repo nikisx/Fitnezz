@@ -73,7 +73,7 @@
                                         @if (this.User.IsInRole(GlobalConstants.TrainerRoleName))
                                             {
                                                 <td class="button-holder">
-                                                        <a asp-controller="Trainers" asp-action="Delete"  asp-route-workoutId="@item.Id" asp-route-userId="@item.UserId" class="btn btn-warning">Delete</a>
+                                                        <a asp-controller="Trainers" asp-action="DeleteWorkout"  asp-route-workoutId="@item.Id" asp-route-userId="@item.UserId" class="btn btn-warning">Delete</a>
                                                     </td>
                                             }
                                     </tr>

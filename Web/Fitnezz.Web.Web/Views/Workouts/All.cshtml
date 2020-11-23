@@ -116,33 +116,8 @@
                     </table>
 
                 </div>
-                @{
-                    var prevDisabled = !Model.PreviousPage ? "disabled" : "";
-                    var nextDisabled = !Model.NextPage ? "disabled" : "";
-                }
-                
-               
-         
-                    
-                    <a asp-action="All" asp-route-pageNumber="@(Model.PageIndex - 1) "  class="btn @prevDisabled">Previous</a>
-                    @for (int i = Model.PageIndex - 3; i < Model.PageIndex; i++)
-                    {
-                        if (i>0)
-                        {
-                            <a class="btn " style="width: 40px" asp-action="All" asp-route-pageNumber="@i">@i</a>
-                        }
-                    }
-                    <span style="width: 40px; background-color: black" class="btn">@Model.PageIndex</span>
-                
-                    @for (int i = Model.PageIndex + 1; i <= Model.PageIndex + 3; i++)
-                    {
-                        if (i<= Model.TotalPages)
-                        {
-                           <a class="btn " style="width: 40px" asp-action="All" asp-route-pageNumber="@i">@i </a>
-                        }
-                    }
-                    <a asp-action="All" asp-route-pageNumber="@(Model.PageIndex + 1) " class="btn @nextDisabled">Next</a>
-               
+              
+                <partial name="_Pagination" />
 
             </div>
         </div>

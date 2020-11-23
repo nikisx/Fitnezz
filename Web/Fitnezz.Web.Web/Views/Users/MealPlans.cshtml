@@ -8,6 +8,7 @@
 *@
 @{
 }
+@using Fitnezz.Web.Common
 @model List<List<Fitnezz.Web.Web.ViewModels.MealPlans.AllMealPLansViewModel>>
 <h1 style="position: absolute; left: 40%" class="col-md-3">Your Personal  <span class="color"> Meal Plans</span></h1>
 
@@ -32,7 +33,13 @@
                         <p>
                            Proteins: @item.Proteins.Sum(), Carbs: @item.Carbs.Sum(), Fats: @item.Fats.Sum()
                         </p>
+                        @if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                        {
+                            <div>
+                                <a href="/Trainers/DeleteMealPlan?mealPlanId=@item.Id&userId=@item.UserId" style="width: 410px;" class="btn">Delete</a>
+                            </div>
 
+                        }
                     </div>
 
                 </div>

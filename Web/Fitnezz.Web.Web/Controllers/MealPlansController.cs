@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Fitnezz.Web.Common;
+using Fitnezz.Web.Data.Models;
 using Fitnezz.Web.Services.Data;
+using Fitnezz.Web.Web.ViewModels;
 using Fitnezz.Web.Web.ViewModels.MealPlans;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fitnezz.Web.Web.Controllers
@@ -12,24 +15,37 @@ namespace Fitnezz.Web.Web.Controllers
     public class MealPlansController : Controller
     {
         private readonly IMealPlansService mealPlansService;
+        private readonly SignInManager<ApplicationUser> signInManager;
         private readonly IUsersService usersService;
 
-        public MealPlansController(IMealPlansService mealPlansService, IUsersService usersService)
+        public MealPlansController(IMealPlansService mealPlansService, IUsersService usersService, SignInManager<ApplicationUser> signInManager)
         {
             this.mealPlansService = mealPlansService;
+            this.signInManager = signInManager;
             this.usersService = usersService;
         }
 
         public IActionResult All(int pageNumber = 1)
         {
-          var viewModel = new ComplexViewModelForMealPlans()
-          {
+            PaginatedList<AllMealPLansViewModel> model = null;
+
+            if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                model = this.mealPlansService.GetAll(pageNumber);
+            }
+            else
+            {
+                model = this.mealPlansService.GetAllPublic(pageNumber);
+            }
+
+            var viewModel = new ComplexViewModelForMealPlans()
+            {
               InputModel = new AddMealPlanInputModel(),
 
-              ViewModel = this.mealPlansService.GetAll(pageNumber),
-          };
+              ViewModel = model,
+            };
 
-          return View(viewModel);
+            return View(viewModel);
         }
 
         public IActionResult Details(int id)
@@ -40,6 +56,10 @@ namespace Fitnezz.Web.Web.Controllers
             {
                 if (!this.User.IsInRole(GlobalConstants.TrainerRoleName) && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                 {
+                    if (!this.signInManager.IsSignedIn(this.User))
+                    {
+                        return this.NotFound();
+                    }
                     var userId = this.usersService.GetUserByUserName(this.User.Identity.Name).Id;
                     if (!this.mealPlansService.UserHasMealPlan(userId, id))
                     {

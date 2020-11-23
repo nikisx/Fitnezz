@@ -3,11 +3,13 @@
 *@
 @{
 }
+@using Fitnezz.Web.Common
 @model Fitnezz.Web.Web.ViewModels.MealPlans.ComplexViewModelForMealPlans
+
 <h1 style="position: absolute; left: 40%" class="col-md-3">Our Meal <span class="color">Plans</span></h1>
 
 <div style="overflow: hidden">
-    <div style="margin-top: 100px; margin-bottom: 150px;" class="row service-v1 margin-bottom-40">
+    <div style="margin-top: 100px; " class="row service-v1 margin-bottom-40">
 
         @foreach (var mealPlan in Model.ViewModel)
         {
@@ -24,17 +26,25 @@
                         <p>
                             Proteins: @mealPlan.Proteins.Sum(), Carbs: @mealPlan.Carbs.Sum(), Fats: @mealPlan.Fats.Sum()
                         </p>
-                        <div>
-                            <a href="/MealPLans/Delete/@mealPlan.Id" style="width: 410px;" class="btn">Delete</a>
-                        </div>
+                        @if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                        {
+                            <div>
+                                <a href="/MealPLans/Delete/@mealPlan.Id" style="width: 410px;" class="btn">Delete</a>
+                            </div>
+
+                        }
                     </div>
 
                 </div>
-                <form method="post">
-                    <input style="display: none" name="mealPlanId" value="@mealPlan.Id" />
-                    <input type="text" name="username" placeholder="Username" style="width: 100px" />
-                    <button asp-area="" asp-controller="MealPlans" asp-action="AddMealPlanToUser" type="submit" class="btn btn-sm"> Add to User</button>
-                </form>
+                @if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                {
+
+                    <form method="post">
+                        <input style="display: none" name="mealPlanId" value="@mealPlan.Id" />
+                        <input type="text" name="username" placeholder="Username" style="width: 100px" />
+                        <button asp-area="" asp-controller="MealPlans" asp-action="AddMealPlanToUser" type="submit" class="btn btn-sm"> Add to User</button>
+                    </form>
+                }
             </div>
         }
 
@@ -43,34 +53,38 @@
             Html.RenderPartial("_ErrorPopup", TempData["sErrMsg"]);
         }
 
-        <div style="margin-left: 35%;">
-            <form asp-controller="MealPlans" asp-action="Create" method="post">
-                <label asp-for="InputModel.MealPlanName">Name</label>
-                <input asp-for="InputModel.MealPlanName" name="mealPlanName" style="width: 300px" id="mealPlanNameInput" placeholder="Meal plan name">
-                <span asp-validation-for="InputModel.MealPlanName" class="text-danger"></span>
+        @if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+        {
 
-                <label asp-for="InputModel.Img">Image</label>
-                <input asp-for="InputModel.Img" name="img" style="width: 300px" id="imgInput" placeholder="Meal plan image">
-                <span asp-validation-for="InputModel.Img" class="text-danger"></span>
-                <button type="submit" class="btn btn-warning "> Create</button>
+            <div style="margin-left: 35%;">
+                <form asp-controller="MealPlans" asp-action="Create" method="post">
+                    <label asp-for="InputModel.MealPlanName">Name</label>
+                    <input asp-for="InputModel.MealPlanName" name="mealPlanName" style="width: 300px" id="mealPlanNameInput" placeholder="Meal plan name">
+                    <span asp-validation-for="InputModel.MealPlanName" class="text-danger"></span>
 
-                <select name ="IsPublic" style="display: block; width: 300px; margin-bottom: 10px">
-                    <option >Public</option>
-                    <option >Private</option>
-                </select>
+                    <label asp-for="InputModel.Img">Image</label>
+                    <input asp-for="InputModel.Img" name="img" style="width: 300px" id="imgInput" placeholder="Meal plan image">
+                    <span asp-validation-for="InputModel.Img" class="text-danger"></span>
+                    <button type="submit" class="btn btn-warning "> Create</button>
 
-            </form>
+                    <select name="IsPublic" style="display: block; width: 300px; margin-bottom: 10px">
+                        <option>Public</option>
+                        <option>Private</option>
+                    </select>
 
-        </div>
-        
+                </form>
+
+            </div>
+        }
+
         @{
             var prevDisabled = !Model.ViewModel.PreviousPage ? "disabled" : "";
             var nextDisabled = !Model.ViewModel.NextPage ? "disabled" : "";
         }
-                
-               
-         
-        <div style="position: absolute; top: 80%; left: 37%">
+
+
+
+        <div style="margin-top: 30%; margin-left: 37%">
             <a asp-action="All" asp-route-pageNumber="@(Model.ViewModel.PageIndex - 1) " class="btn @prevDisabled">Previous</a>
             @for (int i = Model.ViewModel.PageIndex - 3; i < Model.ViewModel.PageIndex; i++)
             {
@@ -90,5 +104,5 @@
             }
             <a asp-action="All" asp-route-pageNumber="@(Model.ViewModel.PageIndex + 1) " class="btn @nextDisabled">Next</a>
         </div>
-        </div>
+    </div>
 </div>

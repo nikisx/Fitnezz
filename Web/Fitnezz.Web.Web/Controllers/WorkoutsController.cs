@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Fitnezz.Web.Common;
+using Fitnezz.Web.Data.Models;
 using Fitnezz.Web.Services.Data;
 using Fitnezz.Web.Web.ViewModels;
 using Fitnezz.Web.Web.ViewModels.Workouts;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fitnezz.Web.Web.Controllers
@@ -14,11 +16,13 @@ namespace Fitnezz.Web.Web.Controllers
     {
         private readonly IWorkoutsService workoutsService;
         private readonly IUsersService usersService;
+        private readonly SignInManager<ApplicationUser> signInManager;
 
-        public WorkoutsController(IWorkoutsService workoutsService, IUsersService usersService)
+        public WorkoutsController(IWorkoutsService workoutsService, IUsersService usersService, SignInManager<ApplicationUser> signInManager)
         {
             this.workoutsService = workoutsService;
             this.usersService = usersService;
+            this.signInManager = signInManager;
         }
 
         public IActionResult All( int pageNumber = 1)
@@ -58,6 +62,11 @@ namespace Fitnezz.Web.Web.Controllers
             {
                 if (!this.User.IsInRole(GlobalConstants.TrainerRoleName) && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                 {
+                    if (!this.signInManager.IsSignedIn(this.User))
+                    {
+                        return this.NotFound();
+                    }
+
                     var userId = this.usersService.GetUserByUserName(this.User.Identity.Name).Id;
                     if (!this.usersService.UserHasWorkout(userId, id))
                     {

@@ -157,5 +157,23 @@ namespace Fitnezz.Web.Services.Data
         {
             return this.traineeMealPlanRepository.All().Any(x => x.MealPlanId == mealPlanId && x.TraineeId == userId);
         }
+
+        public PaginatedList<AllMealPLansViewModel> GetAllPublic(int pageNumber)
+        {
+            var mealPlans = this.mealPlanRepository.All().Where(x=>x.IsPublic == true).OrderByDescending(x => x.CreatedOn).Select(x => new AllMealPLansViewModel
+            {
+                Name = x.Name,
+                Img = x.Img,
+                Calories = this.mealRepository.All().Where(a => a.MealPlanId == x.Id).Select(c => c.Foods.Sum(f => f.Calories)).ToList(),
+                Proteins = this.mealRepository.All().Where(a => a.MealPlanId == x.Id).Select(c => c.Foods.Sum(f => f.Proteins)).ToList(),
+                Carbs = this.mealRepository.All().Where(a => a.MealPlanId == x.Id).Select(c => c.Foods.Sum(f => f.Carbs)).ToList(),
+                Fats = this.mealRepository.All().Where(a => a.MealPlanId == x.Id).Select(c => c.Foods.Sum(f => f.Fats)).ToList(),
+                Id = x.Id,
+            });
+
+            var paginatedList = new PaginatedList<AllMealPLansViewModel>().CreateAsync(mealPlans, pageNumber, 6).GetAwaiter().GetResult();
+
+            return paginatedList;
+        }
     }
 }

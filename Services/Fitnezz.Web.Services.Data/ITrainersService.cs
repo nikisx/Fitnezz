@@ -15,5 +15,7 @@ namespace Fitnezz.Web.Services.Data
         IEnumerable<AllClientsViewModel> GetClients(string trainerId);
 
         Task DeleteUsersWorkout(string userId, int workoutId);
+
+        Task DelteUserMealPlan(string userId, int mealPlanId);
     }
 }
