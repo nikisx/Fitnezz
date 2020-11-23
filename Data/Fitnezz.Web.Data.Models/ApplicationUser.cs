@@ -19,9 +19,16 @@ namespace Fitnezz.Web.Data.Models
             this.Workouts = new HashSet<TraineesWorkouts>();
             this.MealPlans = new HashSet<TraineesMealPlans>();
             this.Clients = new HashSet<ApplicationUser>();
+            this.TrainersClasses = new HashSet<TrainersClasses>();
         }
 
         // Audit info
+        public ICollection<TrainersClasses> TrainersClasses { get; set; }
+
+        public string CardId { get; set; }
+
+        public Card Card { get; set; }
+
         public DateTime CreatedOn { get; set; }
 
         public DateTime? ModifiedOn { get; set; }

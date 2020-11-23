@@ -24,6 +24,14 @@
         {
         }
 
+        public DbSet<Card> Cards { get; set; }
+
+        public DbSet<Class> Classes { get; set; }
+
+        public DbSet<TrainersClasses> TrainersClasses { get; set; }
+
+        public DbSet<CardsClasses> CardsClasses { get; set; }
+
         public DbSet<Setting> Settings { get; set; }
 
         public DbSet<Workout> Workouts { get; set; }
