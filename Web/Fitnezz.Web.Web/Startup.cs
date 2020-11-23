@@ -85,6 +85,7 @@
 
             if (env.IsDevelopment())
             {
+                app.UseStatusCodePagesWithRedirects("/Home/StatusCodeError?statusCode={0}");
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }

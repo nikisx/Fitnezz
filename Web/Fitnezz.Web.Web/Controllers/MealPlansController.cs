@@ -142,7 +142,7 @@ namespace Fitnezz.Web.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateFood(AddFoodInputModel input)
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
                 return this.View(input);
             }
