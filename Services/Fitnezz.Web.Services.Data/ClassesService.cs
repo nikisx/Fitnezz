@@ -12,16 +12,19 @@ namespace Fitnezz.Web.Services.Data
     public class ClassesService : IClassesService
     {
         private readonly IDeletableEntityRepository<Class> classRepository;
+        private readonly IRepository<TrainersClasses> trainerClassesRepository;
 
-        public ClassesService(IDeletableEntityRepository<Class> classRepository)
+        public ClassesService(IDeletableEntityRepository<Class> classRepository, IRepository<TrainersClasses> trainerClassesRepository)
         {
             this.classRepository = classRepository;
+            this.trainerClassesRepository = trainerClassesRepository;
         }
 
         public IEnumerable<AllClassesViewModel> GetAll()
         {
             return this.classRepository.All().Select(x => new AllClassesViewModel()
             {
+                Id = x.Id,
                 Name = x.Name,
                 DayOfWeek = x.DayOfWeek,
                 Image = x.Image,
@@ -37,7 +40,7 @@ namespace Fitnezz.Web.Services.Data
             var @class = new Class()
             {
                 Name = input.Name,
-                DayOfWeek = input.DayOfWeek,
+                DayOfWeek = input.DayOfWeek.ToString(),
                 StartingHour = input.StartHour,
                 FinishingHour = input.EndHour,
             };
@@ -55,6 +58,18 @@ namespace Fitnezz.Web.Services.Data
 
             await this.classRepository.AddAsync(@class);
             await this.classRepository.SaveChangesAsync();
+        }
+
+        public async Task AddTrainerToClass(string trainerId, int classId)
+        {
+            var trainerClass = new TrainersClasses()
+            {
+                TrainerId = trainerId,
+                ClassId = classId,
+            };
+
+            await this.trainerClassesRepository.AddAsync(trainerClass);
+            await this.trainerClassesRepository.SaveChangesAsync();
         }
     }
 }

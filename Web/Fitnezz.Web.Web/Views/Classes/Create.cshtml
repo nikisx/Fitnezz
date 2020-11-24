@@ -12,10 +12,10 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
 
-            <div>
+            <div style="margin-bottom: 20px;">
                 <label asp-for="DayOfWeek" style="font-size: 3.8rem">Day of the week</label>
-                <input asp-for="DayOfWeek" class="form-control" style="width: 800px" placeholder="Day">
-                <span asp-validation-for="DayOfWeek" class="text-danger"></span>
+                <select asp-for="DayOfWeek" asp-items="@Html.GetEnumSelectList<Days>()" class="form-control" style="width: 800px" placeholder="Day">
+                </select>
             </div>
 
             <div>

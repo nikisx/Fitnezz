@@ -4,6 +4,7 @@ namespace Fitnezz.Web.Web.ViewModels.Classes
 {
     public class AllClassesViewModel
     {
+        public int Id { get; set; }
 
         public string Name { get; set; }
 

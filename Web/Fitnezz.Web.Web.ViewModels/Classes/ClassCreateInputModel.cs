@@ -12,7 +12,7 @@ namespace Fitnezz.Web.Web.ViewModels.Classes
         public string Name { get; set; }
 
         [Required]
-        public string DayOfWeek { get; set; }
+        public Days DayOfWeek { get; set; }
 
         [Required]
         [Range(9, 20)]

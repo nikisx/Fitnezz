@@ -9,5 +9,7 @@ namespace Fitnezz.Web.Services.Data
         IEnumerable<AllClassesViewModel> GetAll();
 
         Task Create(ClassCreateInputModel input, string path);
+
+        Task AddTrainerToClass(string trainerId, int classId);
     }
 }
