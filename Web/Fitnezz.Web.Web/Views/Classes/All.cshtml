@@ -1,32 +1,30 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model IEnumerable<Fitnezz.Web.Web.ViewModels.Classes.AllClassesViewModel>
     <div style="position: absolute; left: 40%">
         <h1 class="col-md-12">Our <span class="color">Classes</span></h1>
     </div>
 <section style="margin-top:100px" id="mainservice" >
     <div class="container">
         <div class="row">
-            @for (int i = 0; i < 3; i++)
+            @foreach (var classItem in Model)
             {
                 <div class="col-sm-6 col-md-4">
                     <div class="thumbnail">
-                        <img class="img-responsive" src="/template/img/dev1.png" alt="">
+                        
+                            <img  style="width: 345px; height: 320px" src="@classItem.Image" alt="">
+                        
                         <div class="caption">
-                            <h2 style="color: red;">Aerobic  <span style="color: black; margin-left: 40px; font-size: 15px;" >Participants: 5</span> </h2>
-                            
-                            <div style="position: absolute; left:60%">
-                                <p>Day of Week</p>
-                                <p>12:00 - 14:00</p>
+                            <h2 style="color: red;">@classItem.Name <span style="color: black; margin-left: 40px; font-size: 15px;">Participants: @classItem.UsersCount</span> </h2>
+
+                            <div style="position: absolute; left: 60%">
+                                <p>@classItem.DayOfWeek</p>
+                                <p>@classItem.StartHour - @classItem.EndHour</p>
                             </div>
-                            
+
                             <div >
-                                @for (int j = 0; j < 3; j++)
-                            {
-                                <p>Trainer.Name</p>
-                            }
+                                @foreach (var trainerName in @classItem.TrainersName)
+                                {
+                                    <p>@trainerName</p>
+                                }
                             </div>
 
                             <a class="btn">Join</a>

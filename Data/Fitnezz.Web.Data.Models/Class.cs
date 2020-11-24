@@ -13,6 +13,8 @@ namespace Fitnezz.Web.Data.Models
 
         public string Name { get; set; }
 
+        public string Image { get; set; }
+
         public ICollection<CardsClasses> CardsClasses { get; set; }
 
         public ICollection<TrainersClasses> TrainersClasses { get; set; }
