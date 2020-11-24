@@ -1,0 +1,42 @@
+﻿@model Fitnezz.Web.Web.ViewModels.Classes.ClassCreateInputModel
+
+
+<h1 style="text-align: center">Add Class</h1>
+
+<div style="margin-bottom: 700px">
+    <form asp-controller="Classes" asp-action="Create" enctype="multipart/form-data" style="position: absolute; top: 25%; left: 30%" method="post">
+        <div class="form-group; ">
+            <div>
+                <label asp-for="Name" style="font-size: 3.8rem">Name of the Class</label>
+                <input asp-for="Name" class="form-control" style="width: 800px" placeholder="Name">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div>
+                <label asp-for="DayOfWeek" style="font-size: 3.8rem">Day of the week</label>
+                <input asp-for="DayOfWeek" class="form-control" style="width: 800px" placeholder="Day">
+                <span asp-validation-for="DayOfWeek" class="text-danger"></span>
+            </div>
+
+            <div>
+                <label asp-for="StartHour" style="font-size: 3.8rem">From hour</label>
+                <input asp-for="StartHour" class="form-control" style="width: 800px" placeholder="From">
+                <span asp-validation-for="StartHour" class="text-danger"></span>
+            </div>
+
+            <div>
+                <label asp-for="EndHour" style="font-size: 3.8rem">To hour</label>
+                <input asp-for="EndHour" class="form-control" style="width: 800px" placeholder="To">
+                <span asp-validation-for="EndHour" class="text-danger"></span>
+            </div>
+
+            <div>
+                <label asp-for="Image" style="font-size: 3.8rem">Image</label>
+                <input asp-for="Image" class="form-control" style="width: 300px" placeholder="Carbs">
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

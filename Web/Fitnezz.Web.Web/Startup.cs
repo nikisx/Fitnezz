@@ -68,6 +68,7 @@
             services.AddTransient<IMealPlansService, MealPlansService>();
             services.AddTransient<ITrainersService, TrainersService>();
             services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<IClassesService, ClassesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -83,9 +84,10 @@
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
 
+            app.UseStatusCodePagesWithRedirects("/Home/StatusCodeError?statusCode={0}");
+
             if (env.IsDevelopment())
             {
-                app.UseStatusCodePagesWithRedirects("/Home/StatusCodeError?statusCode={0}");
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }

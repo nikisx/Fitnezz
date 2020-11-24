@@ -17,10 +17,17 @@
                         <div class="caption">
                             <h2 style="color: red;">Aerobic  <span style="color: black; margin-left: 40px; font-size: 15px;" >Participants: 5</span> </h2>
                             
-                            @for (int j = 0; j < 3; j++)
+                            <div style="position: absolute; left:60%">
+                                <p>Day of Week</p>
+                                <p>12:00 - 14:00</p>
+                            </div>
+                            
+                            <div >
+                                @for (int j = 0; j < 3; j++)
                             {
                                 <p>Trainer.Name</p>
                             }
+                            </div>
 
                             <a class="btn">Join</a>
                         </div>
@@ -30,12 +37,8 @@
            
         </div>
         
-        <div style="margin-left: 35%;" id="createWorkout">
-            <form method="post">
-                <input name="mealPlanName" type="text" style="width: 300px" placeholder="Class name">
-                <button type="submit" asp-area="" asp-controller="MealPlans" asp-action="Create" class="btn btn-warning "> Create</button>
-            </form>
-
+        <div style="margin-left: 45%;" >
+            <a asp-action="Create" class="btn">Create</a>
         </div>
     </div>
 </section>
