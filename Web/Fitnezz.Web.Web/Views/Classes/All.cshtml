@@ -37,6 +37,11 @@
            
         </div>
         
+        @if (TempData["sErrMsg"] != null)
+        {
+            Html.RenderPartial("_ErrorPopup", TempData["sErrMsg"]);
+        }
+
         <div style="margin-left: 45%;" >
             <a asp-action="Create" class="btn">Create</a>
         </div>

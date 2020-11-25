@@ -70,7 +70,7 @@ namespace Fitnezz.Web.Web.Controllers
                     var userId = this.usersService.GetUserByUserName(this.User.Identity.Name).Id;
                     if (!this.usersService.UserHasWorkout(userId, id))
                     {
-                        return this.RedirectToAction("All");
+                        return this.NotFound();
                     }
                 }
             }

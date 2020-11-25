@@ -57,13 +57,30 @@ namespace Fitnezz.Web.Web.Controllers
         public async Task<IActionResult> Join(int id)
         {
             if (this.User.IsInRole(GlobalConstants.TrainerRoleName))
-            {
+            {//TODO ADD validation for a trainer he cant join a class 2 times and max trainers joined for a class are 3
                 var trainer = this.usersService.GetTrainer(this.User.Identity.Name);
+
+                if (this.classesService.GetTrainersCount(id) >= 3)
+                {
+                    this.TempData["sErrMsg"] = "Max 3 trainers allowed to a class";
+                    return this.View("All", this.classesService.GetAll());
+                }
+
+                if (this.classesService.IsTrainerJoinedAlready(trainer.Id, id))
+                {
+                    this.TempData["sErrMsg"] = "You can`t join the same class";
+                    return this.View("All", this.classesService.GetAll());
+                }
 
                 await this.classesService.AddTrainerToClass(trainer.Id, id);
             }
 
             return this.RedirectToAction("All");
+        }
+
+        public PartialViewResult ShowError(string sErrorMessage)
+        {
+            return this.PartialView("_ErrorPopup");
         }
     }
 }

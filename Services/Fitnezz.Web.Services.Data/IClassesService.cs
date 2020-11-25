@@ -11,5 +11,9 @@ namespace Fitnezz.Web.Services.Data
         Task Create(ClassCreateInputModel input, string path);
 
         Task AddTrainerToClass(string trainerId, int classId);
+
+        bool IsTrainerJoinedAlready(string trainerId, int classId);
+
+        int GetTrainersCount(int classId);
     }
 }

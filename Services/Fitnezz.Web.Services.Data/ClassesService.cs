@@ -71,5 +71,15 @@ namespace Fitnezz.Web.Services.Data
             await this.trainerClassesRepository.AddAsync(trainerClass);
             await this.trainerClassesRepository.SaveChangesAsync();
         }
+
+        public bool IsTrainerJoinedAlready(string trainerId, int classId)
+        {
+          return this.trainerClassesRepository.All().Any(x => x.ClassId == classId && x.TrainerId == trainerId);
+        }
+
+        public int GetTrainersCount(int classId)
+        {
+            return this.classRepository.All().Select(x => x.TrainersClasses).Count();
+        }
     }
 }
