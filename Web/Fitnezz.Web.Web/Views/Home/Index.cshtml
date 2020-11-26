@@ -1,3 +1,4 @@
+@using Fitnezz.Web.Common
 <link href="https://ilt-insightdlp-static.s3.amazonaws.com/css/default.css" rel="stylesheet">
 <!-- Slider -->
 <style>
@@ -26,6 +27,9 @@
         </ul>
     </div>
     <!-- end slider -->
+    @if (!this.User.IsInRole(GlobalConstants.TrainerRoleName) && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+    {
+
     <div class="container row-xGrid-yMiddle">
         <div >
             <form method="get" asp-controller="Cards" asp-action="Create">
@@ -33,6 +37,7 @@
             </form>
         </div>
     </div>
+    }
 </section>
 <section class="dishes">
     <div class="container">
