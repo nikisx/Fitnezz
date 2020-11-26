@@ -1,5 +1,11 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using Microsoft.Extensions.Options
+@inject IOptions<StripeSettings> Stripe
+ 
+
+<form asp-action="Charge" method="post">
+    <label>Amount $60.00</label>
+    <script class="stripe-button" src="//checkout.stripe.com/v2/checkout.js"
+            data-key="@Stripe.Value.PublishableKey"
+            data-descripiton="Test Description"
+            data-amount="6000"></script>
+</form>

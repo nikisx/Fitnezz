@@ -1,4 +1,6 @@
-﻿namespace Fitnezz.Web.Web
+﻿using Stripe;
+
+namespace Fitnezz.Web.Web
 {
     using System.Reflection;
 
@@ -56,6 +58,8 @@
 
             services.AddSingleton(this.configuration);
 
+            services.Configure<StripeSettings>(configuration.GetSection("Stripe"));
+
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
@@ -85,7 +89,7 @@
             }
 
             app.UseStatusCodePagesWithRedirects("/Home/StatusCodeError?statusCode={0}");
-
+            StripeConfiguration.SetApiKey(this.configuration.GetSection("Stripe")["SecretKey"]);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
