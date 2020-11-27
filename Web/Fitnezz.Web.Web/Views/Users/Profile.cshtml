@@ -1,4 +1,4 @@
-﻿@model ProfileUpdateInputModel
+﻿@model ComplexModel
 <style>
     .tabs .tab a:hover, .tabs .tab a.active {
         background-color: #ec4141;
@@ -21,37 +21,65 @@
         <div id="test1" class="col s12 container">
             <form method="post" asp-action="Profile" name="sentMessage" id="contactForm" >
                 <div class="input-field">
-                    <label asp-for="UserName">Username</label>
-                    <input asp-for="UserName" />
-                    <span style="color: red" asp-validation-for="UserName"></span>
+                    <label asp-for="InputModel.UserName">Username</label>
+                    <input asp-for="InputModel.UserName" />
+                    <span style="color: red" asp-validation-for="InputModel.UserName"></span>
                 </div>
                 <div class="input-field">
-                    <label asp-for="Age">Age</label>
-                    <input asp-for="Age" />
-                    <span  style="color: red" asp-validation-for="Age"></span>
+                    <label asp-for="InputModel.Age">Age</label>
+                    <input asp-for="InputModel.Age" />
+                    <span  style="color: red" asp-validation-for="InputModel.Age"></span>
                 </div>
                 <div class="input-field">
-                    <label asp-for="Weight">Weight</label>
-                    <input asp-for="Weight" />
-                    <span  style="color: red" asp-validation-for="Weight"></span>
+                    <label asp-for="InputModel.Weight">Weight</label>
+                    <input asp-for="InputModel.Weight" />
+                    <span  style="color: red" asp-validation-for="InputModel.Weight"></span>
                 </div>
 
                 <div class="input-field">
-                    <label asp-for="Height">Height</label>
-                    <input asp-for="Height" />
-                    <span  style="color: red" asp-validation-for="Height"></span>
+                    <label asp-for="InputModel.Height">Height</label>
+                    <input asp-for="InputModel.Height" />
+                    <span  style="color: red" asp-validation-for="InputModel.Height"></span>
                 </div>
                 <div class="input-field">
-                    <label asp-for="Goal">Goal</label>
-                    <input asp-for="Goal" />
-                    <span  style="color: red" asp-validation-for="Goal"></span>
+                    <label asp-for="InputModel.Goal">Goal</label>
+                    <input asp-for="InputModel.Goal" />
+                    <span  style="color: red" asp-validation-for="InputModel.Goal"></span>
                 </div>
 
                 <button type="submit" class="btn btn-primary waves-effect waves-dark pull-right">Send</button><br />
             </form>
         </div>
         <div id="test2" class="col s12 container">
-            CARD
+            @if (Model.ViewModel != null)
+            {
+                
+            <div class="row">
+                <div style="margin-left: 22%" class="col-md-4 menuItem">
+                    <ul class="menu">
+                        <li>
+                            <p style="width: 600px; height: 200px; font-size: 40px"> 1 Month subscription<span class="price">$60.00</span></p>
+
+                            <div style="position: absolute; top: 240px">
+                                <p>From:</p>
+                                <p >@Model.ViewModel.FromDate</p>
+                            </div>
+                            <p style="margin-left: 80%">To: @Model.ViewModel.DueDate</p>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            }
+            else
+            {
+                <a asp-controller="Cards" asp-action="Create"> Become a member</a>
+            }
+            @if (Model.ViewModel != null && Model.ViewModel.DueDate == DateTime.Now.ToShortDateString())
+            {
+
+                <p style="font-size: 50px; color: red; position: absolute; left: 25%; bottom: 10%">This is the last day of ur card</p>
+            }
         </div>
         <div id="test3" class="col s12 container">
             Classes

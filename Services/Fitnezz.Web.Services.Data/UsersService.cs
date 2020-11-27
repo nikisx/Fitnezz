@@ -85,6 +85,8 @@ namespace Fitnezz.Web.Services.Data
             user.Height = input.Height;
             user.Goal = input.Goal;
 
+            this.userRepository.Update(user);
+
             await this.userRepository.SaveChangesAsync();
         }
     }

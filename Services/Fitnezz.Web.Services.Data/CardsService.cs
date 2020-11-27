@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Fitnezz.Web.Data.Common.Repositories;
 using Fitnezz.Web.Data.Models;
+using Fitnezz.Web.Web.ViewModels;
 
 namespace Fitnezz.Web.Services.Data
 {
@@ -27,6 +28,15 @@ namespace Fitnezz.Web.Services.Data
 
             await this.cardRepository.AddAsync(card);
             await this.cardRepository.SaveChangesAsync();
+        }
+
+        public GetUserCardViewModel GetCard(string userId)
+        {
+            return this.cardRepository.All().Where(x => x.User.Id == userId).Select(x => new GetUserCardViewModel()
+            {
+                FromDate = x.CreatedOn.ToShortDateString(),
+                DueDate = x.DueDate.ToShortDateString(),
+            }).FirstOrDefault();
         }
     }
 }

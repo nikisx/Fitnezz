@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Fitnezz.Web.Common;
 using Fitnezz.Web.Services.Data;
 using Fitnezz.Web.Web.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fitnezz.Web.Web.Controllers
@@ -14,12 +15,14 @@ namespace Fitnezz.Web.Web.Controllers
         private readonly IUsersService usersService;
         private readonly IWorkoutsService workoutsService;
         private readonly IMealPlansService mealPlansService;
+        private readonly ICardsService cardsService;
 
-        public UsersController(IUsersService usersService,IWorkoutsService workoutsService,IMealPlansService mealPlansService)
+        public UsersController(IUsersService usersService,IWorkoutsService workoutsService,IMealPlansService mealPlansService,ICardsService cardsService)
         {
             this.usersService = usersService;
             this.workoutsService = workoutsService;
             this.mealPlansService = mealPlansService;
+            this.cardsService = cardsService;
         }
 
         public IActionResult Workouts(string id)
@@ -78,25 +81,42 @@ namespace Fitnezz.Web.Web.Controllers
             return this.View(viewModel);
         }
 
+        [Authorize]
         public IActionResult Profile()
         {
+            if (this.User.IsInRole(GlobalConstants.TrainerRoleName))
+            {
+                return this.NotFound();
+            }
+
             var user = this.usersService.GetUserByUserName(this.User.Identity.Name);
 
-            var inputModel = new ProfileUpdateInputModel()
+            var model = new ComplexModel
             {
-                UserName = user.UserName,
-                Age = user.Age,
-                Goal = user.Goal,
-                Height = user.Height,
-                Weight = user.Weight,
+                InputModel = new ProfileUpdateInputModel()
+                {
+                    UserName = user.UserName,
+                    Age = user.Age,
+                    Goal = user.Goal,
+                    Height = user.Height,
+                    Weight = user.Weight,
+                },
+
+                ViewModel = this.cardsService.GetCard(user.Id),
             };
 
-            return this.View(inputModel);
+            return this.View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Profile(ProfileUpdateInputModel input)
+        [Authorize]
+        public async Task<IActionResult> Profile(ComplexModel input)
         {
+            if (this.User.IsInRole(GlobalConstants.TrainerRoleName))
+            {
+                return this.NotFound();
+            }
+
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);
@@ -104,7 +124,7 @@ namespace Fitnezz.Web.Web.Controllers
 
             var userId = this.usersService.GetUserByUserName(this.User.Identity.Name).Id;
 
-            await this.usersService.UpdateProfile(input, userId);
+            await this.usersService.UpdateProfile(input.InputModel, userId);
 
             return this.Redirect("/Users/Profile#test1");
         }
