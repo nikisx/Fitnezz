@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Fitnezz.Web.Data.Models;
+using Fitnezz.Web.Web.ViewModels;
 using Fitnezz.Web.Web.ViewModels.MealPlans;
 using Fitnezz.Web.Web.ViewModels.Workouts;
 
@@ -18,5 +20,7 @@ namespace Fitnezz.Web.Services.Data
         ApplicationUser GetUserById(string id);
 
         List<List<AllMealPLansViewModel>> GetUserMealPlans(string userId);
+
+        Task UpdateProfile(ProfileUpdateInputModel input, string userId);
     }
 }

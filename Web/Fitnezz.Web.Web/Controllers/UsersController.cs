@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Fitnezz.Web.Common;
 using Fitnezz.Web.Services.Data;
+using Fitnezz.Web.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fitnezz.Web.Web.Controllers
@@ -79,7 +80,33 @@ namespace Fitnezz.Web.Web.Controllers
 
         public IActionResult Profile()
         {
-            return this.View();
+            var user = this.usersService.GetUserByUserName(this.User.Identity.Name);
+
+            var inputModel = new ProfileUpdateInputModel()
+            {
+                UserName = user.UserName,
+                Age = user.Age,
+                Goal = user.Goal,
+                Height = user.Height,
+                Weight = user.Weight,
+            };
+
+            return this.View(inputModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Profile(ProfileUpdateInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            var userId = this.usersService.GetUserByUserName(this.User.Identity.Name).Id;
+
+            await this.usersService.UpdateProfile(input, userId);
+
+            return this.Redirect("/Users/Profile#test1");
         }
     }
 }

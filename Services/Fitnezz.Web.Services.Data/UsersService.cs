@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Fitnezz.Web.Data.Common.Repositories;
 using Fitnezz.Web.Data.Models;
+using Fitnezz.Web.Web.ViewModels;
 using Fitnezz.Web.Web.ViewModels.MealPlans;
 using Fitnezz.Web.Web.ViewModels.Workouts;
 
@@ -71,6 +73,19 @@ namespace Fitnezz.Web.Services.Data
                     Fats = this.mealRepository.All().Where(a => a.MealPlanId == w.MealPlan.Id).Select(c => c.Foods.Sum(f => f.Fats)).ToList(),
 
                 }).ToList()).ToList();
+        }
+
+        public async Task UpdateProfile(ProfileUpdateInputModel input, string userId)
+        {
+            var user = this.userRepository.All().FirstOrDefault(x => x.Id == userId);
+
+            user.UserName = input.UserName;
+            user.Age = input.Age;
+            user.Weight = input.Weight;
+            user.Height = input.Height;
+            user.Goal = input.Goal;
+
+            await this.userRepository.SaveChangesAsync();
         }
     }
 }
