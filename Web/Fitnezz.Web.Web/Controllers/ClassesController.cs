@@ -57,7 +57,7 @@ namespace Fitnezz.Web.Web.Controllers
         public async Task<IActionResult> Join(int id)
         {
             if (this.User.IsInRole(GlobalConstants.TrainerRoleName))
-            {//TODO ADD validation for a trainer he cant join a class 2 times and max trainers joined for a class are 3
+            {
                 var trainer = this.usersService.GetTrainer(this.User.Identity.Name);
 
                 if (this.classesService.GetTrainersCount(id) >= 3)
@@ -73,6 +73,24 @@ namespace Fitnezz.Web.Web.Controllers
                 }
 
                 await this.classesService.AddTrainerToClass(trainer.Id, id);
+            }
+            else
+            {
+                var user = this.usersService.GetUserByUserName(this.User.Identity.Name);
+
+                if (user.CardId == null)
+                {
+                    this.TempData["sErrMsg"] = "Only members can join classes";
+                    return this.View("All", this.classesService.GetAll());
+                }
+
+                if (this.classesService.IsUserJoined(user.CardId,id))
+                {
+                    this.TempData["sErrMsg"] = "Already joined";
+                    return this.View("All", this.classesService.GetAll());
+                }
+
+                await this.classesService.AddUserToClass(user.CardId, id);
             }
 
             return this.RedirectToAction("All");

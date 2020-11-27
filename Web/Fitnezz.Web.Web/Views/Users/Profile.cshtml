@@ -51,35 +51,7 @@
             </form>
         </div>
         <div id="test2" class="col s12 container">
-            @if (Model.ViewModel != null)
-            {
-                
-            <div class="row">
-                <div style="margin-left: 22%" class="col-md-4 menuItem">
-                    <ul class="menu">
-                        <li>
-                            <p style="width: 600px; height: 200px; font-size: 40px"> 1 Month subscription<span class="price">$60.00</span></p>
-
-                            <div style="position: absolute; top: 240px">
-                                <p>From:</p>
-                                <p >@Model.ViewModel.FromDate</p>
-                            </div>
-                            <p style="margin-left: 80%">To: @Model.ViewModel.DueDate</p>
-                        </li>
-                    </ul>
-                </div>
-
-            </div>
-            }
-            else
-            {
-                <a asp-controller="Cards" asp-action="Create"> Become a member</a>
-            }
-            @if (Model.ViewModel != null && Model.ViewModel.DueDate == DateTime.Now.ToShortDateString())
-            {
-
-                <p style="font-size: 50px; color: red; position: absolute; left: 25%; bottom: 10%">This is the last day of ur card</p>
-            }
+            <partial name="PartialCardVIew" model="@Model.ViewModel"/>
         </div>
         <div id="test3" class="col s12 container">
             Classes

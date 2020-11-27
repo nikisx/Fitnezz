@@ -13,11 +13,13 @@ namespace Fitnezz.Web.Services.Data
     {
         private readonly IDeletableEntityRepository<Class> classRepository;
         private readonly IRepository<TrainersClasses> trainerClassesRepository;
+        private readonly IRepository<CardsClasses> cardsClassesRepository;
 
-        public ClassesService(IDeletableEntityRepository<Class> classRepository, IRepository<TrainersClasses> trainerClassesRepository)
+        public ClassesService(IDeletableEntityRepository<Class> classRepository, IRepository<TrainersClasses> trainerClassesRepository, IRepository<CardsClasses> cardsClassesRepository)
         {
             this.classRepository = classRepository;
             this.trainerClassesRepository = trainerClassesRepository;
+            this.cardsClassesRepository = cardsClassesRepository;
         }
 
         public IEnumerable<AllClassesViewModel> GetAll()
@@ -80,6 +82,23 @@ namespace Fitnezz.Web.Services.Data
         public int GetTrainersCount(int classId)
         {
             return this.classRepository.All().Select(x => x.TrainersClasses).Count();
+        }
+
+        public async Task AddUserToClass(string cardId, int classId)
+        {
+            var userClass = new CardsClasses()
+            {
+                CardId = cardId,
+                ClassId = classId,
+            };
+
+            await this.cardsClassesRepository.AddAsync(userClass);
+            await this.cardsClassesRepository.SaveChangesAsync();
+        }
+
+        public bool IsUserJoined(string cardId, int classId)
+        {
+            return this.cardsClassesRepository.All().Any(x => x.ClassId == classId && x.CardId == cardId);
         }
     }
 }
