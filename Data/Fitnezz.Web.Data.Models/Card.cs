@@ -10,6 +10,7 @@ namespace Fitnezz.Web.Data.Models
     {
         public Card()
         {
+            this.Id = Guid.NewGuid().ToString();
             this.CardsClasses = new HashSet<CardsClasses>();
         }
 

@@ -73,6 +73,7 @@ namespace Fitnezz.Web.Web
             services.AddTransient<ITrainersService, TrainersService>();
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IClassesService, ClassesService>();
+            services.AddTransient<ICardsService, CardsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

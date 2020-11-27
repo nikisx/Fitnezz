@@ -1,0 +1,19 @@
+﻿@inject SignInManager<ApplicationUser> SignInManager
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+}
+<div class="row">
+    <div class="col-4">
+        <div class="list-group" id="list-tab" role="tablist">
+            <a class="nav-link list-group-item list-group-item-action @ManageNavPages.IndexNavClass(ViewContext)" id="profile"  href="./Index">Profile</a>
+            <a class="nav-link list-group-item list-group-item-action @ManageNavPages.EmailNavClass(ViewContext)" id="email" href="./Email">Email</a>
+            <a class="nav-link list-group-item list-group-item-action @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" href="./ChangePassword">Password</a>
+            @if (hasExternalLogins)
+            {
+                <div id="external-logins" class="nav-item" ><a id="external-login" class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext)" href="./ExternalLogins">External logins</a></div>
+            }
+            <a class="nav-link list-group-item list-group-item-action @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" href="./PersonalData">Personal data</a>
+        </div>
+    </div>
+</div>
+

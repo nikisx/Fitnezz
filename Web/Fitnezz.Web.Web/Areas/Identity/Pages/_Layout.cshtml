@@ -64,13 +64,13 @@
                                     <ul class="dropdown-menu">
                                         @if (this.User.IsInRole(GlobalConstants.TrainerRoleName))
                                         {
-                                            <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Trainers" asp-action="Clients">Clients</a></li>
+                                        <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Trainers" asp-action="Clients">Clients</a></li>
                                         }
                                         else
                                         {
                                             <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Users" asp-action="Workouts">My workouts</a></li>
                                             <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Users" asp-action="MealPlans">My meal plans</a></li>
-                                            <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Users" asp-action="Profile">Profile</a></li>
+                                            
                                         }
                                     </ul>
                                 </li>

@@ -20,7 +20,12 @@
 
         public IActionResult StatusCodeError(int statusCode)
         {
-            return this.View();
+            if (statusCode == 404)
+            {
+                return this.View();
+            }
+
+            return this.Redirect("Error");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

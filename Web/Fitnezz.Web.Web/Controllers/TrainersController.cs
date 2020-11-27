@@ -35,6 +35,12 @@ namespace Fitnezz.Web.Web.Controllers
             {
                 var user = this.usersService.GetUserByUserName(this.User.Identity.Name);
 
+                if (user.CardId == null)
+                {
+                    this.TempData["sErrMsg"] = "You must be a member to hire a trainer";
+                    return this.View("All", this.trainersService.GetAll());
+                }
+
                 if (user.TrainerId == id)
                 {
                     this.TempData["sErrMsg"] = "Trainer already hired";

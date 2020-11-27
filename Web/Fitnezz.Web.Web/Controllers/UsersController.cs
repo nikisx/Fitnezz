@@ -76,5 +76,10 @@ namespace Fitnezz.Web.Web.Controllers
             this.ViewBag.Id = id;
             return this.View(viewModel);
         }
+
+        public IActionResult Profile()
+        {
+            return this.View();
+        }
     }
 }
