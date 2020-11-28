@@ -102,6 +102,7 @@ namespace Fitnezz.Web.Web.Controllers
             return this.RedirectToAction("All");
         }
 
+        [Authorize]
         public async Task<IActionResult> Leave(int id)
         {
             if (this.User.IsInRole(GlobalConstants.TrainerRoleName))
@@ -111,6 +112,17 @@ namespace Fitnezz.Web.Web.Controllers
             else
             {
                 var user = this.usersService.GetUserByUserName(this.User.Identity.Name);
+
+                if (user.CardId == null)
+                {
+                    return this.NotFound();
+                }
+
+                if (!this.classesService.IsUserJoined(user.CardId, id))
+                {
+                    return this.NotFound();
+                }
+
                 await this.classesService.LeaveClass(user.CardId, id);
             }
 

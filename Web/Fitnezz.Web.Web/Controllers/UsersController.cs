@@ -102,9 +102,11 @@ namespace Fitnezz.Web.Web.Controllers
                     Weight = user.Weight,
                 },
 
-                ViewModel = this.cardsService.GetCard(user.Id),
+                ViewModel = user.CardId == null ? null : this.cardsService.GetCard(user.Id),
 
                 ClassesViewModel = user.CardId == null ? null : this.cardsService.GetUserClasses(user.CardId),
+
+                Trainer = user.TrainerId == null ? null : this.usersService.GetUserTrainer(user.TrainerId),
             };
 
             return this.View(model);

@@ -71,7 +71,7 @@ namespace Fitnezz.Web.Web.Controllers
 
             if (user.CardId != null)
             {
-                return this.NotFound();
+                return this.Redirect("/");
             }
 
             return this.View();

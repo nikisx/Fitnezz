@@ -4,6 +4,7 @@ using Fitnezz.Web.Data.Models;
 using Fitnezz.Web.Web.ViewModels;
 using Fitnezz.Web.Web.ViewModels.Classes;
 using Fitnezz.Web.Web.ViewModels.MealPlans;
+using Fitnezz.Web.Web.ViewModels.Trainers;
 using Fitnezz.Web.Web.ViewModels.Workouts;
 
 namespace Fitnezz.Web.Services.Data
@@ -24,5 +25,6 @@ namespace Fitnezz.Web.Services.Data
 
         Task UpdateProfile(ProfileUpdateInputModel input, string userId);
 
+        AllTrainersViewModel GetUserTrainer(string trainerId);
     }
 }

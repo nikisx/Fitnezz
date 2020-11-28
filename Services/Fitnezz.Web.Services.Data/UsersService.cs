@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Fitnezz.Web.Data.Common.Repositories;
 using Fitnezz.Web.Data.Models;
 using Fitnezz.Web.Web.ViewModels;
 using Fitnezz.Web.Web.ViewModels.MealPlans;
+using Fitnezz.Web.Web.ViewModels.Trainers;
 using Fitnezz.Web.Web.ViewModels.Workouts;
 
 namespace Fitnezz.Web.Services.Data
@@ -52,7 +54,6 @@ namespace Fitnezz.Web.Services.Data
                 .Any(x => x.TraineeId == userId && x.WorkoutId == workoutId);
         }
 
-
         public ApplicationUser GetUserById(string id)
         {
             return this.userRepository.All().FirstOrDefault(x=>x.Id == id);
@@ -88,6 +89,19 @@ namespace Fitnezz.Web.Services.Data
             this.userRepository.Update(user);
 
             await this.userRepository.SaveChangesAsync();
+        }
+
+        public AllTrainersViewModel GetUserTrainer(string trainerId)
+        {
+            return this.userRepository.All().Select(x => new AllTrainersViewModel()
+            {
+                Img = x.Img,
+                Id = x.Id,
+                Name = x.Name,
+                Clients = x.Clients.Count(),
+                Specialty = x.Specialty,
+                Age = x.Age,
+            }).FirstOrDefault(x => x.Id == trainerId);
         }
     }
 }
