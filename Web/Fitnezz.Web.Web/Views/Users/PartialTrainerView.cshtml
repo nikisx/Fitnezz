@@ -1,6 +1,6 @@
 ﻿@model Fitnezz.Web.Web.ViewModels.Trainers.AllTrainersViewModel
     <link href="~/css/trainers.css" rel="stylesheet" />
-    <div class="row">
+    <div style="margin-left: 21%" class="row">
         <div class="container mt-5 col-md-6">
             <div class="card p-3">
                 <div style="display: flex">
@@ -12,7 +12,7 @@
                             <div class="d-flex flex-column"> <span class="followers">Specialty: </span><span style="font-size: 20px" class="number2">@Model.Specialty</span> </div>
                             <div class="d-flex flex-column"> <span class="rating">Age: </span> <span class="number3">@Model.Age</span> </div>
                         </div>
-                        <div class="button mt-2 d-flex flex-row align-items-center"> <button class="btn btn-sm btn-outline-primary w-100">Chat</button> <a href="/Trainers/Delete/@Model.Id" class="btn btn-sm btn-primary w-100 ml-2">Delete</a> </div>
+                        <div class="button mt-2 d-flex flex-row align-items-center"> <button class="btn btn-sm btn-outline-primary w-100">Chat</button> <a asp-controller="Trainers" asp-action="Fire" class="btn btn-sm btn-primary w-100 ml-2">Delete</a> </div>
                     </div>
                 </div>
             </div>

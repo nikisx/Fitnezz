@@ -1,7 +1,7 @@
 ﻿@model GetUserCardViewModel
 @if (Model != null)
 {
-                
+
     <div class="row">
         <div style="margin-left: 22%" class="col-md-4 menuItem">
             <ul class="menu">
@@ -10,7 +10,7 @@
 
                     <div style="position: absolute; top: 240px">
                         <p>From:</p>
-                        <p >@Model.FromDate</p>
+                        <p>@Model.FromDate</p>
                     </div>
                     <p style="margin-left: 80%">To: @Model.DueDate</p>
                 </li>
@@ -26,5 +26,5 @@ else
 @if (Model != null && Model.DueDate == DateTime.Now.ToShortDateString())
 {
 
-    <p style="font-size: 50px; color: red; position: absolute; left: 25%; bottom: 10%">This is the last day of ur card</p>
+    <p style="font-size: 50px; color: red; margin-left: 22%">This is the last day of ur card!!!</p>
 }

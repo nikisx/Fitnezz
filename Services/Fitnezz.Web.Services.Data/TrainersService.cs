@@ -100,5 +100,15 @@ namespace Fitnezz.Web.Services.Data
             this.traineeMealPlanrRepository.HardDelete(userMealPLan);
             await this.traineeMealPlanrRepository.SaveChangesAsync();
         }
+
+        public async Task DeleteTrainerForUser(string userId)
+        {
+            var user = this.traineRepository.All().FirstOrDefault(x => x.Id == userId);
+
+            user.TrainerId = null;
+
+            this.traineRepository.Undelete(user);
+            await this.traineRepository.SaveChangesAsync();
+        }
     }
 }

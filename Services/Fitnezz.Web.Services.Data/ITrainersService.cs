@@ -17,5 +17,7 @@ namespace Fitnezz.Web.Services.Data
         Task DeleteUsersWorkout(string userId, int workoutId);
 
         Task DelteUserMealPlan(string userId, int mealPlanId);
+
+        Task DeleteTrainerForUser(string userId);
     }
 }

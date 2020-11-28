@@ -101,5 +101,25 @@ namespace Fitnezz.Web.Web.Controllers
         {
             return this.PartialView("_ErrorPopup");
         }
+
+        [Authorize]
+        public async Task<IActionResult> Fire()
+        {
+            if (this.User.IsInRole(GlobalConstants.TrainerRoleName))
+            {
+                return this.NotFound();
+            }
+
+            var user = this.usersService.GetUserByUserName(this.User.Identity.Name);
+
+            if (user.TrainerId == null)
+            {
+                return this.NotFound();
+            }
+
+            await this.trainersService.DeleteTrainerForUser(user.Id);
+
+            return this.Redirect("/Users/Profile#test2");
+        }
     }
 }
