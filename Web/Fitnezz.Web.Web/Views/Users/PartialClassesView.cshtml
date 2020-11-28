@@ -1,0 +1,46 @@
+﻿@model List<List<Fitnezz.Web.Web.ViewModels.Classes.AllClassesViewModel>>
+
+@foreach(var item in Model)
+{
+    if (Model.All(x=>x.Count == 0))
+    {
+        <div>
+            <p>Join our <a asp-controller="Classes" asp-action="All">Classes</a></p>
+        </div>
+
+        break;
+    }
+    else
+    {
+        foreach (var classItem in item)
+        {
+        
+            <div class="col-sm-6 col-md-4">
+                <div style="height: 550px" class="thumbnail">
+
+                    <img style="width: 345px; height: 320px" src="@classItem.Image" alt="">
+
+                    <div class="caption">
+                        <h2 style="color: red;">@classItem.Name<span style="color: black; margin-left: 40px; font-size: 15px;">Participants: @classItem.UsersCount</span> </h2>
+
+                        <div style="position: absolute; left: 60%">
+                            <p>@classItem.DayOfWeek</p>
+                            <p>@classItem.StartHour - @classItem.EndHour</p>
+                        </div>
+
+
+                        @foreach (var trainerName in classItem.TrainersName)
+                        {
+                            <div>
+                                @trainerName
+                            </div>
+                        }
+
+                            <a asp-controller="Classes" asp-action="Leave" asp-route-id="@classItem.Id" class="btn">Leave</a>
+                        </div>
+                </div>
+            </div>
+        }
+    }
+    
+}

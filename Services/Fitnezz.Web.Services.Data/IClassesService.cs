@@ -19,5 +19,9 @@ namespace Fitnezz.Web.Services.Data
         Task AddUserToClass(string cardId, int classId);
 
         bool IsUserJoined(string cardId, int classId);
+
+        int GetUserClassesCount(string cardId);
+
+        Task LeaveClass(string cardId, int classId);
     }
 }

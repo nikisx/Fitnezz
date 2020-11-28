@@ -90,10 +90,31 @@ namespace Fitnezz.Web.Web.Controllers
                     return this.View("All", this.classesService.GetAll());
                 }
 
+                if (this.classesService.GetUserClassesCount(user.CardId) >= 3)
+                {
+                    this.TempData["sErrMsg"] = "You can join max 3 class";
+                    return this.View("All", this.classesService.GetAll());
+                }
+
                 await this.classesService.AddUserToClass(user.CardId, id);
             }
 
             return this.RedirectToAction("All");
+        }
+
+        public async Task<IActionResult> Leave(int id)
+        {
+            if (this.User.IsInRole(GlobalConstants.TrainerRoleName))
+            {
+                
+            }
+            else
+            {
+                var user = this.usersService.GetUserByUserName(this.User.Identity.Name);
+                await this.classesService.LeaveClass(user.CardId, id);
+            }
+
+            return this.Redirect("/Users/Profile#test3");
         }
 
         public PartialViewResult ShowError(string sErrorMessage)

@@ -54,7 +54,15 @@
             <partial name="PartialCardVIew" model="@Model.ViewModel"/>
         </div>
         <div id="test3" class="col s12 container">
-            Classes
+            @if (Model.ClassesViewModel == null)
+            {
+               
+                    <a asp-controller="Cards" asp-action="Create"> Become a member</a>
+            }
+            else
+            {
+                <partial name="PartialClassesView" model="@Model.ClassesViewModel"/>
+            }
         </div> 
     </div>
 </div>

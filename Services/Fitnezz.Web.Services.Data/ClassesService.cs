@@ -100,5 +100,18 @@ namespace Fitnezz.Web.Services.Data
         {
             return this.cardsClassesRepository.All().Any(x => x.ClassId == classId && x.CardId == cardId);
         }
+
+        public int GetUserClassesCount(string cardId)
+        {
+            return this.cardsClassesRepository.All().Count(c => c.CardId == cardId);
+        }
+
+        public async Task LeaveClass(string cardId, int classId)
+        {
+            var cardClass = this.cardsClassesRepository.All()
+                .FirstOrDefault(x => x.CardId == cardId && x.ClassId == classId);
+            this.cardsClassesRepository.Delete(cardClass);
+            await this.cardsClassesRepository.SaveChangesAsync();
+        }
     }
 }

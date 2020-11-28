@@ -103,6 +103,8 @@ namespace Fitnezz.Web.Web.Controllers
                 },
 
                 ViewModel = this.cardsService.GetCard(user.Id),
+
+                ClassesViewModel = user.CardId == null ? null : this.cardsService.GetUserClasses(user.CardId),
             };
 
             return this.View(model);
