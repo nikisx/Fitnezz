@@ -1,4 +1,6 @@
-﻿@model GetUserCardViewModel
+﻿@using Microsoft.Extensions.Options
+@model GetUserCardViewModel
+@inject IOptions<StripeSettings> Stripe
 @if (Model != null)
 {
 
@@ -27,4 +29,11 @@ else
 {
 
     <p style="font-size: 50px; color: red; margin-left: 22%">This is the last day of ur card!!!</p>
+    <p style="font-size: 30px; color: black; margin-top: 20px; margin-left: 36%">You can extend it here</p>
+    <form style="margin-left: 43%" asp-controller="Cards" asp-action="Extend" method="post">
+        <script class="stripe-button" src="//checkout.stripe.com/v2/checkout.js"
+                data-key="@Stripe.Value.PublishableKey"
+                data-descripiton="Test Description"
+                data-amount="6000"></script>
+    </form>
 }

@@ -13,5 +13,7 @@ namespace Fitnezz.Web.Services.Data
         GetUserCardViewModel GetCard(string userId);
 
         List<List<AllClassesViewModel>> GetUserClasses(string cardId);
+
+        Task ExtendUserCard(string cardId);
     }
 }

@@ -59,5 +59,13 @@ namespace Fitnezz.Web.Services.Data
             }).ToList()).ToList();
         }
 
+        public async Task ExtendUserCard(string cardId)
+        {
+            var card = this.cardRepository.All().FirstOrDefault(x => x.Id == cardId);
+
+            card.DueDate = card.DueDate.AddMonths(1);
+
+            await this.cardRepository.SaveChangesAsync();
+        }
     }
 }

@@ -76,5 +76,43 @@ namespace Fitnezz.Web.Web.Controllers
 
             return this.View();
         }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Extend(string stripeEmail, string stripeToken)
+        {
+            if (this.User.IsInRole(GlobalConstants.TrainerRoleName))
+            {
+                return this.NotFound();
+            }
+
+            var user = this.usersService.GetUserByUserName(this.User.Identity.Name);
+
+            if (user.CardId == null)
+            {
+                return this.NotFound();
+            }
+
+            var customerService = new CustomerService();
+            var chargeService = new ChargeService();
+
+            var customer = await customerService.CreateAsync(new CustomerCreateOptions()
+            {
+                Email = stripeEmail,
+                Source = stripeToken,
+            });
+
+            var charge = await chargeService.CreateAsync(new ChargeCreateOptions()
+            {
+                Amount = 6000,
+                Description = "Test Description",
+                Currency = "usd",
+                Customer = customer.Id,
+            });
+
+            await this.cardsService.ExtendUserCard(user.CardId);
+
+            return this.Redirect("/Users/Profile");
+        }
     }
 }
