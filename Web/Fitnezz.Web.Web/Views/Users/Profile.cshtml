@@ -53,7 +53,7 @@
         <div id="test2" class="col s12 container">
             <partial name="PartialCardVIew" model="@Model.ViewModel"/>
             
-            @if (Model.Trainer != null)
+            @if (Model.Trainer != null && Model.ViewModel != null)
             {
                 <partial name="PartialTrainerView" model="@Model.Trainer"/>
             }

@@ -1,4 +1,7 @@
-﻿using Stripe;
+﻿using System;
+using Hangfire;
+using Hangfire.MemoryStorage;
+using Stripe;
 
 namespace Fitnezz.Web.Web
 {
@@ -36,6 +39,12 @@ namespace Fitnezz.Web.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHangfire(config =>
+                config.SetDataCompatibilityLevel(CompatibilityLevel.Version_170).UseSimpleAssemblyNameTypeSerializer()
+                    .UseDefaultTypeSerializer().UseMemoryStorage());
+
+            services.AddHangfireServer();
+
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
 
@@ -77,7 +86,7 @@ namespace Fitnezz.Web.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IRecurringJobManager recurringJobManager, IServiceProvider serviceProvider)
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
@@ -89,6 +98,8 @@ namespace Fitnezz.Web.Web
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
 
+            recurringJobManager.AddOrUpdate("Delete invalid cards", () => serviceProvider.GetService<ICardsService>().DeleteInvalidCards(), Cron.Daily);
+            app.UseHangfireDashboard();
             app.UseStatusCodePagesWithRedirects("/Home/StatusCodeError?statusCode={0}");
             StripeConfiguration.SetApiKey(this.configuration.GetSection("Stripe")["SecretKey"]);
             if (env.IsDevelopment())

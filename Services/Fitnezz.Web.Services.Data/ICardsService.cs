@@ -15,5 +15,7 @@ namespace Fitnezz.Web.Services.Data
         List<List<AllClassesViewModel>> GetUserClasses(string cardId);
 
         Task ExtendUserCard(string cardId);
+
+        Task DeleteInvalidCards();
     }
 }

@@ -14,12 +14,14 @@ namespace Fitnezz.Web.Services.Data
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
         private readonly IRepository<Card> cardRepository;
         private readonly IDeletableEntityRepository<Class> classesRepository;
+        private readonly IRepository<CardsClasses> cardsClassesRepository;
 
-        public CardsService(IDeletableEntityRepository<ApplicationUser> userRepository, IRepository<Card> cardRepository, IDeletableEntityRepository<Class> classesRepository)
+        public CardsService(IDeletableEntityRepository<ApplicationUser> userRepository, IRepository<Card> cardRepository, IDeletableEntityRepository<Class> classesRepository, IRepository<CardsClasses> cardsClassesRepository)
         {
             this.userRepository = userRepository;
             this.cardRepository = cardRepository;
             this.classesRepository = classesRepository;
+            this.cardsClassesRepository = cardsClassesRepository;
         }
 
         public async Task Create(string userId)
@@ -64,6 +66,32 @@ namespace Fitnezz.Web.Services.Data
             var card = this.cardRepository.All().FirstOrDefault(x => x.Id == cardId);
 
             card.DueDate = card.DueDate.AddMonths(1);
+
+            await this.cardRepository.SaveChangesAsync();
+        }
+
+        public async Task DeleteInvalidCards()
+        {
+            var invalidCards = this.cardRepository.All().Where(x => x.DueDate < DateTime.Now).ToList();
+
+            foreach (var card in invalidCards)
+            {
+                var cardsClasses = this.cardsClassesRepository.All().Where(x => x.CardId == card.Id).ToList();
+
+                foreach (var cardClass in cardsClasses)
+                {
+                    this.cardsClassesRepository.Delete(cardClass);
+                }
+
+                var invalidUserCards = this.userRepository.All().Where(x => x.CardId == card.Id).ToList();
+
+                foreach (var invalidUserCard in invalidUserCards)
+                {
+                    invalidUserCard.CardId = null;
+                }
+
+                this.cardRepository.Delete(card);
+            }
 
             await this.cardRepository.SaveChangesAsync();
         }
