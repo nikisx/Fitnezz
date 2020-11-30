@@ -88,6 +88,7 @@ namespace Fitnezz.Web.Services.Data
                 foreach (var invalidUserCard in invalidUserCards)
                 {
                     invalidUserCard.CardId = null;
+                    invalidUserCard.TrainerId = null;
                 }
 
                 this.cardRepository.Delete(card);

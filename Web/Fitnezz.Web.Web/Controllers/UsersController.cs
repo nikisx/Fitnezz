@@ -25,16 +25,25 @@ namespace Fitnezz.Web.Web.Controllers
             this.cardsService = cardsService;
         }
 
+        [Authorize]
         public IActionResult Workouts(string id)
         {
+            var user = this.usersService.GetUserByUserName(this.User.Identity.Name);
+
+            if (!this.User.IsInRole(GlobalConstants.TrainerRoleName) && user.CardId == null)
+            {
+                return this.Redirect("/Cards/Create");
+            }
+
             var userId = string.Empty;
 
-            userId = id ?? this.usersService.GetUserByUserName(this.User.Identity.Name).Id;
+            userId = id ?? user.Id;
 
             var viewModel = this.usersService.GetAllUsersWorkout(userId);
             return this.View(viewModel);
         }
 
+        [Authorize]
         public IActionResult Workout(int id, string userId)
         {
             if (this.User.IsInRole(GlobalConstants.TrainerRoleName))
@@ -53,16 +62,25 @@ namespace Fitnezz.Web.Web.Controllers
             return this.View(viewModel);
         }
 
+        [Authorize]
         public IActionResult MealPlans(string id)
         {
+            var user = this.usersService.GetUserByUserName(this.User.Identity.Name);
+
+            if (!this.User.IsInRole(GlobalConstants.TrainerRoleName) && user.CardId == null)
+            {
+                return this.Redirect("/Cards/Create");
+            }
+
             var userId = string.Empty;
 
-            userId = id ?? this.usersService.GetUserByUserName(this.User.Identity.Name).Id;
+            userId = id ?? user.Id;
 
             var viewModel = this.usersService.GetUserMealPlans(userId);
             return this.View(viewModel);
         }
 
+        [Authorize]
         public IActionResult MealPlan(int id, string userId)
         {
             if (this.User.IsInRole(GlobalConstants.TrainerRoleName))

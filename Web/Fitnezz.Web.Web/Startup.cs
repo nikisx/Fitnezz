@@ -99,11 +99,11 @@ namespace Fitnezz.Web.Web
             }
 
             recurringJobManager.AddOrUpdate("Delete invalid cards", () => serviceProvider.GetService<ICardsService>().DeleteInvalidCards(), Cron.Daily);
-            app.UseHangfireDashboard();
             app.UseStatusCodePagesWithRedirects("/Home/StatusCodeError?statusCode={0}");
             StripeConfiguration.SetApiKey(this.configuration.GetSection("Stripe")["SecretKey"]);
             if (env.IsDevelopment())
             {
+                app.UseHangfireDashboard();
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
