@@ -13,42 +13,48 @@
 <h1 style="position: absolute; left: 40%" class="col-md-3">Your Personal  <span class="color"> Meal Plans</span></h1>
 
 <div style="overflow: hidden">
-    <div style="margin-top: 100px; margin-bottom: 50px;" class="row service-v1 margin-bottom-40">
+    <div style="margin-top: 630px; margin-bottom: 50px;" class="row service-v1 margin-bottom-40">
 
-        @foreach (var meaPlans in Model)
+        @if (this.ViewBag.UserTrainer == true)
         {
-            @foreach (var item in meaPlans)
+            <div>
+                <p style="font-size: 50px; position: absolute; top: 200px; left:40%">Hire one of our <a asp-controller="Trainers" asp-action="All">Trainers</a></p>
+            </div>
+        }
+        else
+        {
+            @foreach (var meaPlans in Model)
             {
-                
-            <div class="col-md-3 md-margin-bottom-40">
-                <div class="card small">
-                    <div class="card-image">
-                        <img class="img-responsive" src="@item.Img" alt="">
-                        <a href="/Users/MealPlan?id=@item.Id&userId=@item.UserId" class="card-title">@item.Name</a>
-                    </div>
-                    <div class="card-content">
-                        <p>
-                            Calories: @item.Calories.Sum()
-                        </p>
-                        <p>
-                           Proteins: @item.Proteins.Sum(), Carbs: @item.Carbs.Sum(), Fats: @item.Fats.Sum()
-                        </p>
-                        @if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-                        {
-                            <div>
-                                <a href="/Trainers/DeleteMealPlan?mealPlanId=@item.Id&userId=@item.UserId" style="width: 410px;" class="btn">Delete</a>
+                @foreach (var item in meaPlans)
+                {
+
+                    <div class="col-md-3 md-margin-bottom-40">
+                        <div class="card small">
+                            <div class="card-image">
+                                <img class="img-responsive" src="@item.Img" alt="">
+                                <a href="/Users/MealPlan?id=@item.Id&userId=@item.UserId" class="card-title">@item.Name</a>
+                            </div>
+                            <div class="card-content">
+                                <p>
+                                    Calories: @item.Calories.Sum()
+                                </p>
+                                <p>
+                                    Proteins: @item.Proteins.Sum(), Carbs: @item.Carbs.Sum(), Fats: @item.Fats.Sum()
+                                </p>
+                                @if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                                {
+                                    <div>
+                                        <a href="/Trainers/DeleteMealPlan?mealPlanId=@item.Id&userId=@item.UserId" style="width: 410px;" class="btn">Delete</a>
+                                    </div>
+
+                                }
                             </div>
 
-                        }
+                        </div>
+
                     </div>
-
-                </div>
-
-            </div>
+                }
             }
         }
-
-
-
     </div>
-    </div>
+</div>

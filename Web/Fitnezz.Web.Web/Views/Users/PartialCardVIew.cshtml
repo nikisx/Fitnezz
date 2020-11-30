@@ -23,7 +23,9 @@
 }
 else
 {
-    <a asp-controller="Cards" asp-action="Create"> Become a member</a>
+    <div style="margin: 200px 395px">
+        <a style="font-size: 50px;" asp-controller="Cards" asp-action="Create"> Become a member</a>
+    </div>
 }
 @if (Model != null && Model.DueDate == DateTime.Now.ToShortDateString())
 {

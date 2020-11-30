@@ -35,6 +35,8 @@ namespace Fitnezz.Web.Web.Controllers
                 return this.Redirect("/Cards/Create");
             }
 
+            this.ViewBag.UserTrainer = user.TrainerId == null;
+
             var userId = string.Empty;
 
             userId = id ?? user.Id;
@@ -71,6 +73,8 @@ namespace Fitnezz.Web.Web.Controllers
             {
                 return this.Redirect("/Cards/Create");
             }
+
+            this.ViewBag.UserTrainer = user.TrainerId == null;
 
             var userId = string.Empty;
 

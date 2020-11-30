@@ -36,53 +36,58 @@
     }
 </style>
 <div style="overflow: hidden">
-    <div style="margin-bottom: 100px;" class="row">
+    <div style="margin-bottom: 510px;" class="row">
         <div class="col-md-10">
             <div class="about-logo" style="margin: auto ;width: 50%">
                 <h1 class="col-md-3">Your Personal <span class="color">Workouts</span></h1>
 
-
-
-
-                <div class="container-fluid ml-5">
-
-
-
-                    <table style="width: 1000px" class="table">
-                        <thead>
-                            <tr class="row">
-                                <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Name</th>
-                                <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Count</th>
-                                <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Details</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var workout in Model)
-                            {
-
-                                @foreach (var item in workout)
+                @if (this.ViewBag.UserTrainer == true)
+                {
+                    <div>
+                        <p style="font-size: 50px; position: absolute; top: 200px;">Hire one of our <a asp-controller="Trainers" asp-action="All">Trainers</a></p>
+                    </div>
+                }
+                else
+                {
+                    <div class="container-fluid ml-5">
+                        <table style="width: 1000px" class="table">
+                            <thead>
+                                <tr class="row">
+                                    <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Name</th>
+                                    <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Count</th>
+                                    <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var workout in Model)
                                 {
-                                    <tr class="row">
-                                        <td class="col-lg-6 suls-text-color">@item.Name</td>
-                                        <td class="col-lg-6 suls-text-color">@item.ExercisesCount</td>
-                                        <td class="col-lg-6">
-                                            <div class="button-holder">
-                                                <a href="/Users/Workout/?id=@item.Id&userId=@item.UserId" class="btn btn-warning">Details</a>
-                                            </div>
-                                        </td>
-                                        @if (this.User.IsInRole(GlobalConstants.TrainerRoleName))
+
+                                    @foreach (var item in workout)
+                                    {
+                                        <tr class="row">
+                                            <td class="col-lg-6 suls-text-color">@item.Name</td>
+                                            <td class="col-lg-6 suls-text-color">@item.ExercisesCount</td>
+                                            <td class="col-lg-6">
+                                                <div class="button-holder">
+                                                    <a href="/Users/Workout/?id=@item.Id&userId=@item.UserId" class="btn btn-warning">Details</a>
+                                                </div>
+                                            </td>
+                                            @if (this.User.IsInRole(GlobalConstants.TrainerRoleName))
                                             {
                                                 <td class="button-holder">
-                                                        <a asp-controller="Trainers" asp-action="DeleteWorkout"  asp-route-workoutId="@item.Id" asp-route-userId="@item.UserId" class="btn btn-warning">Delete</a>
-                                                    </td>
+                                                    <a asp-controller="Trainers" asp-action="DeleteWorkout" asp-route-workoutId="@item.Id" asp-route-userId="@item.UserId" class="btn btn-warning">Delete</a>
+                                                </td>
                                             }
-                                    </tr>
+                                        </tr>
+                                    }
                                 }
-                            }
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
 
-                </div>
+                    </div>
+                }
+
+
 
             </div>
         </div>
