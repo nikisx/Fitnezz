@@ -24,16 +24,11 @@ namespace Fitnezz.Web.Web.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Charge(string stripeEmail, string stripeToken, CreateCardInputModel input)
+        public async Task<IActionResult> Charge(string stripeEmail, string stripeToken)
         {
             if (this.User.IsInRole(GlobalConstants.TrainerRoleName))
             {
                 return this.NotFound();
-            }
-
-            if (!this.ModelState.IsValid)
-            {
-                return this.RedirectToAction(nameof(this.Create));
             }
 
             var user = this.usersService.GetUserByUserName(this.User.Identity.Name);
@@ -60,7 +55,7 @@ namespace Fitnezz.Web.Web.Controllers
                 Customer = customer.Id,
             });
 
-            await this.cardsService.Create(user.Id, input);
+            await this.cardsService.Create(user.Id);
 
             return this.Redirect("/Users/Profile");
         }

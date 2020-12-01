@@ -24,7 +24,7 @@ namespace Fitnezz.Web.Services.Data
             this.cardsClassesRepository = cardsClassesRepository;
         }
 
-        public async Task Create(string userId, CreateCardInputModel input)
+        public async Task Create(string userId)
         {
             var user = this.userRepository.All().FirstOrDefault(x => x.Id == userId);
 
@@ -33,11 +33,6 @@ namespace Fitnezz.Web.Services.Data
                 User = user,
                 DueDate = DateTime.Now.AddMonths(1),
             };
-
-            user.Age = input.Age;
-            user.Weight = input.Weight;
-            user.Height = input.Height;
-            user.Goal = input.Goal;
 
             await this.cardRepository.AddAsync(card);
             await this.cardRepository.SaveChangesAsync();
