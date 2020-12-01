@@ -35,7 +35,10 @@ namespace Fitnezz.Web.Web.Controllers
                 return this.Redirect("/Cards/Create");
             }
 
-            this.ViewBag.UserTrainer = user.TrainerId == null;
+            if (!this.User.IsInRole(GlobalConstants.TrainerRoleName))
+            {
+                this.ViewBag.UserTrainer = user.TrainerId == null;
+            }
 
             var userId = string.Empty;
 
@@ -74,7 +77,10 @@ namespace Fitnezz.Web.Web.Controllers
                 return this.Redirect("/Cards/Create");
             }
 
-            this.ViewBag.UserTrainer = user.TrainerId == null;
+            if (!this.User.IsInRole(GlobalConstants.TrainerRoleName))
+            {
+                this.ViewBag.UserTrainer = user.TrainerId == null;
+            }
 
             var userId = string.Empty;
 
