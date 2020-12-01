@@ -8,7 +8,7 @@ namespace Fitnezz.Web.Services.Data
 {
     public interface ICardsService
     {
-        Task Create(string userId);
+        Task Create(string userId, CreateCardInputModel input);
 
         GetUserCardViewModel GetCard(string userId);
 

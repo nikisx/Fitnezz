@@ -18,49 +18,30 @@
 
 
     <div style="overflow:hidden">
-        <div class="row" style="margin-bottom: 1050px;">
+        <div class="row" style="margin-bottom: 660px;">
             <div class="col-md-4">
                 <form class="account col-md-12" asp-route-returnUrl="@Model.ReturnUrl" method="post">
                     <h1 id="Log">@ViewData["Title"]</h1>
 
                     <h4>Create a new account.</h4>
                     <hr />
-                    <div class="form-group">
+                    <div class="input-field">
                         <label style="font-size: 1.8rem;" asp-for="Input.UserName"></label>
                         <input asp-for="Input.UserName" class="form-control" />
                         <span asp-validation-for="Input.UserName" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+                    <div class="input-field">
                         <label style="font-size: 1.8rem;" asp-for="Input.Email"></label>
                         <input asp-for="Input.Email" class="form-control" />
                         <span asp-validation-for="Input.Email" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label style="font-size: 1.8rem;" asp-for="Input.Age"></label>
-                        <input asp-for="Input.Age" class="form-control" />
-                        <span asp-validation-for="Input.Age" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label style="font-size: 1.8rem;" asp-for="Input.Height"></label>
-                        <input asp-for="Input.Height" class="form-control" />
-                        <span asp-validation-for="Input.Height" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label style="font-size: 1.8rem;" asp-for="Input.Weight"></label>
-                        <input asp-for="Input.Weight" class="form-control" />
-                        <span asp-validation-for="Input.Weight" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label style="font-size: 1.8rem;" asp-for="Input.Goal"></label>
-                        <input asp-for="Input.Goal" class="form-control" />
-                        <span asp-validation-for="Input.Goal" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
+
+                    <div  class="input-field">
                         <label style="font-size: 1.8rem;" asp-for="Input.Password"></label>
                         <input asp-for="Input.Password" class="form-control" />
                         <span asp-validation-for="Input.Password" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+                    <div class="input-field">
                         <label style="font-size: 1.8rem;" asp-for="Input.ConfirmPassword"></label>
                         <input asp-for="Input.ConfirmPassword" class="form-control" />
                         <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>

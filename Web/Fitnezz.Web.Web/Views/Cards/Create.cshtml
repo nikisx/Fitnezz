@@ -1,15 +1,39 @@
 ﻿@using Microsoft.Extensions.Options
 @inject IOptions<StripeSettings> Stripe
- 
+@model CreateCardInputModel
+
 <h1  style="font-size: 70px; margin-left: 30%; " class="col-md-6">Join our <span class="color">Fitness</span></h1>
 <h1  style=" margin-left: 35%; " class="col-md-6">Get a card for 1 month</h1>
 <h1  style=" margin-left: 35%; " class="col-md-6">With all of our benefits</h1>
 <h1  style=" margin-left: 40%; " class="col-md-6">Amount $60.00</h1>
-<div style="margin-top: 26%; margin-left: 46%;margin-bottom: 8%">
+<div style="margin-top: 24%; margin-left: 37%; margin-bottom: 10%;">
+    
     <form asp-action="Charge" method="post">
+        <div class="input-field">
+            <label style="font-size: 1.8rem;" asp-for="Age"></label>
+            <input style="width:500px" asp-for="Age" class="form-control" />
+            <span asp-validation-for="Age" class="text-danger"></span>
+        </div>
+        <div class="input-field">
+            <label style="font-size: 1.8rem;" asp-for="Height"></label>
+            <input style="width:500px"  asp-for="Height" class="form-control" />
+            <span asp-validation-for="Height" class="text-danger"></span>
+        </div>
+        <div class="input-field">
+            <label style="font-size: 1.8rem;" asp-for="Weight"></label>
+            <input style="width:500px" asp-for="Weight" class="form-control" />
+            <span asp-validation-for="Weight" class="text-danger"></span>
+        </div>
+        <div class="input-field">
+            <label style="font-size: 1.8rem;" asp-for="Goal"></label>
+            <input style="width:500px" asp-for="Goal" class="form-control" />
+            <span asp-validation-for="Goal" class="text-danger"></span>
+        </div>
         <script class="stripe-button" src="//checkout.stripe.com/v2/checkout.js"
                 data-key="@Stripe.Value.PublishableKey"
                 data-descripiton="Test Description"
                 data-amount="6000"></script>
+        
     </form>
+    
 </div>

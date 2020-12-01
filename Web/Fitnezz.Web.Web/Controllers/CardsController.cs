@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Fitnezz.Web.Common;
 using Fitnezz.Web.Services.Data;
+using Fitnezz.Web.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Stripe;
@@ -23,11 +24,16 @@ namespace Fitnezz.Web.Web.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Charge(string stripeEmail, string stripeToken)
+        public async Task<IActionResult> Charge(string stripeEmail, string stripeToken, CreateCardInputModel input)
         {
             if (this.User.IsInRole(GlobalConstants.TrainerRoleName))
             {
                 return this.NotFound();
+            }
+
+            if (!this.ModelState.IsValid)
+            {
+                return this.RedirectToAction(nameof(this.Create));
             }
 
             var user = this.usersService.GetUserByUserName(this.User.Identity.Name);
@@ -54,9 +60,9 @@ namespace Fitnezz.Web.Web.Controllers
                 Customer = customer.Id,
             });
 
-            await this.cardsService.Create(user.Id);
+            await this.cardsService.Create(user.Id, input);
 
-            return this.Redirect("/");
+            return this.Redirect("/Users/Profile");
         }
 
         [Authorize]
