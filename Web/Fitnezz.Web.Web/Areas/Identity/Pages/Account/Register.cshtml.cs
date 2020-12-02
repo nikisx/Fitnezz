@@ -60,6 +60,21 @@ namespace Fitnezz.Web.Web.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
+            [Range(18, 70)]
+            public int Age { get; set; }
+
+            [Required]
+            public double Weight { get; set; }
+
+            [Required]
+            public double Height { get; set; }
+
+            [Required]
+            [MinLength(6, ErrorMessage = "The goal should be minimum 6 characters")]
+            [MaxLength(30, ErrorMessage = "The goal should be maximum 30 characters")]
+            public string Goal { get; set; }
+
+            [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
@@ -83,7 +98,7 @@ namespace Fitnezz.Web.Web.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.UserName, Email = Input.Email,};
+                var user = new ApplicationUser { UserName = Input.UserName, Email = Input.Email, Age = Input.Age, Weight = Input.Weight, Height = Input.Height, Goal = Input.Goal};
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
