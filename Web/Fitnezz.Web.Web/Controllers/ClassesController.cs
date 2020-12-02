@@ -60,6 +60,12 @@ namespace Fitnezz.Web.Web.Controllers
             {
                 var trainer = this.usersService.GetTrainer(this.User.Identity.Name);
 
+                if (!this.classesService.IsTrainerCompetent(trainer.Id, id))
+                {
+                    this.TempData["sErrMsg"] = "You are not competent for this class";
+                    return this.View("All", this.classesService.GetAll());
+                }
+
                 if (this.classesService.GetTrainersCount(id) >= 3)
                 {
                     this.TempData["sErrMsg"] = "Max 3 trainers allowed to a class";

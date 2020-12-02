@@ -14,12 +14,14 @@ namespace Fitnezz.Web.Services.Data
         private readonly IDeletableEntityRepository<Class> classRepository;
         private readonly IRepository<TrainersClasses> trainerClassesRepository;
         private readonly IRepository<CardsClasses> cardsClassesRepository;
+        private readonly IDeletableEntityRepository<ApplicationUser> trainerRepository;
 
-        public ClassesService(IDeletableEntityRepository<Class> classRepository, IRepository<TrainersClasses> trainerClassesRepository, IRepository<CardsClasses> cardsClassesRepository)
+        public ClassesService(IDeletableEntityRepository<Class> classRepository, IRepository<TrainersClasses> trainerClassesRepository, IRepository<CardsClasses> cardsClassesRepository, IDeletableEntityRepository<ApplicationUser> trainerRepository)
         {
             this.classRepository = classRepository;
             this.trainerClassesRepository = trainerClassesRepository;
             this.cardsClassesRepository = cardsClassesRepository;
+            this.trainerRepository = trainerRepository;
         }
 
         public IEnumerable<AllClassesViewModel> GetAll()
@@ -81,7 +83,7 @@ namespace Fitnezz.Web.Services.Data
 
         public int GetTrainersCount(int classId)
         {
-            return this.classRepository.All().Select(x => x.TrainersClasses).Count();
+            return this.trainerClassesRepository.All().Count(x => x.ClassId == classId);
         }
 
         public async Task AddUserToClass(string cardId, int classId)
@@ -112,6 +114,15 @@ namespace Fitnezz.Web.Services.Data
                 .FirstOrDefault(x => x.CardId == cardId && x.ClassId == classId);
             this.cardsClassesRepository.Delete(cardClass);
             await this.cardsClassesRepository.SaveChangesAsync();
+        }
+
+        public bool IsTrainerCompetent(string trainerId, int classId)
+        {
+            var trainer = this.trainerRepository.All().FirstOrDefault(x => x.Id == trainerId);
+
+            var @class = this.classRepository.All().FirstOrDefault(x => x.Id == classId);
+
+            return trainer.Specialty.Contains(@class.Name);
         }
     }
 }
