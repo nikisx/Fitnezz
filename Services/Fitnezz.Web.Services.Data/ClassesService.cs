@@ -124,5 +124,14 @@ namespace Fitnezz.Web.Services.Data
 
             return trainer.Specialty.Contains(@class.Name);
         }
+
+        public async Task LeaveClassAsTrainer(string trainerId, int classId)
+        {
+            var trainerClass = this.trainerClassesRepository.All()
+                .FirstOrDefault(x => x.ClassId == classId && x.TrainerId == trainerId);
+
+            this.trainerClassesRepository.Delete(trainerClass);
+            await this.trainerClassesRepository.SaveChangesAsync();
+        }
     }
 }

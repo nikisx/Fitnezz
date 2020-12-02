@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Fitnezz.Web.Web.ViewModels.Classes;
 using Fitnezz.Web.Web.ViewModels.Trainers;
 
 namespace Fitnezz.Web.Services.Data
@@ -19,5 +20,7 @@ namespace Fitnezz.Web.Services.Data
         Task DelteUserMealPlan(string userId, int mealPlanId);
 
         Task DeleteTrainerForUser(string userId);
+
+        List<List<AllClassesViewModel>> GetClasses(string trainerId);
     }
 }

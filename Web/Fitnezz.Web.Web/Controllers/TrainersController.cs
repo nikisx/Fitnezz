@@ -59,12 +59,14 @@ namespace Fitnezz.Web.Web.Controllers
             return RedirectToAction("All");
         }
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public IActionResult Create()
         {
             var viewModel = new TrainerCreateInputModel();
             return this.View(viewModel);
         }
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpPost]
         public async Task<IActionResult> Create(TrainerCreateInputModel input)
         {
@@ -78,6 +80,7 @@ namespace Fitnezz.Web.Web.Controllers
             return RedirectToAction("All");
         }
 
+        [Authorize(Roles = GlobalConstants.TrainerRoleName)]
         public IActionResult Clients()
         {
             var trainer = this.usersService.GetTrainer(this.User.Identity.Name);
@@ -85,12 +88,14 @@ namespace Fitnezz.Web.Web.Controllers
             return this.View(viewModel);
         }
 
+        [Authorize(Roles = GlobalConstants.TrainerRoleName)]
         public async Task<IActionResult> DeleteWorkout(int workoutId, string userId)
         {
             await this.trainersService.DeleteUsersWorkout(userId, workoutId);
             return this.Redirect($"/Users/Workouts/{userId}");
         }
 
+        [Authorize(Roles = GlobalConstants.TrainerRoleName)]
         public async Task<IActionResult> DeleteMealPlan(int mealPlanId, string userId)
         {
             await this.trainersService.DelteUserMealPlan(userId, mealPlanId);
@@ -120,6 +125,14 @@ namespace Fitnezz.Web.Web.Controllers
             await this.trainersService.DeleteTrainerForUser(user.Id);
 
             return this.Redirect("/Users/Profile#test2");
+        }
+
+        [Authorize(Roles = GlobalConstants.TrainerRoleName)]
+        public IActionResult Classes()
+        {
+            var trainer = this.usersService.GetTrainer(this.User.Identity.Name);
+            var viewModel = this.trainersService.GetClasses(trainer.Id);
+            return this.View(viewModel);
         }
     }
 }

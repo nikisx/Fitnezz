@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Fitnezz.Web.Data.Common.Repositories;
 using Fitnezz.Web.Data.Models;
+using Fitnezz.Web.Web.ViewModels.Classes;
 using Fitnezz.Web.Web.ViewModels.Trainers;
 using Microsoft.AspNetCore.Identity;
 
@@ -14,13 +15,15 @@ namespace Fitnezz.Web.Services.Data
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IDeletableEntityRepository<TraineesWorkouts> traineesWorkoutsRepository;
         private readonly IDeletableEntityRepository<TraineesMealPlans> traineeMealPlanrRepository;
+        private readonly IDeletableEntityRepository<Class> classesRepository;
 
-        public TrainersService(IDeletableEntityRepository<ApplicationUser> traineRepository, UserManager<ApplicationUser> userManager, IDeletableEntityRepository<TraineesWorkouts> traineesWorkoutsRepository, IDeletableEntityRepository<TraineesMealPlans> traineeMealPlanrRepository)
+        public TrainersService(IDeletableEntityRepository<ApplicationUser> traineRepository, UserManager<ApplicationUser> userManager, IDeletableEntityRepository<TraineesWorkouts> traineesWorkoutsRepository, IDeletableEntityRepository<TraineesMealPlans> traineeMealPlanrRepository,IDeletableEntityRepository<Class> classesRepository)
         {
             this.traineRepository = traineRepository;
             this.userManager = userManager;
             this.traineesWorkoutsRepository = traineesWorkoutsRepository;
             this.traineeMealPlanrRepository = traineeMealPlanrRepository;
+            this.classesRepository = classesRepository;
         }
 
         public async Task Create(TrainerCreateInputModel input)
@@ -109,6 +112,23 @@ namespace Fitnezz.Web.Services.Data
 
             this.traineRepository.Undelete(user);
             await this.traineRepository.SaveChangesAsync();
+        }
+
+        public List<List<AllClassesViewModel>> GetClasses(string trainerId)
+        {
+            return this.classesRepository.All().Select(x => x.TrainersClasses.Where(a => a.TrainerId == trainerId).Select(c =>
+                new AllClassesViewModel()
+                {
+                    Name = c.Class.Name,
+                    Image = c.Class.Image,
+                    DayOfWeek = c.Class.DayOfWeek,
+                    StartHour = c.Class.StartingHour,
+                    EndHour = c.Class.FinishingHour,
+                    Id = c.Class.Id,
+                    UsersCount = c.Class.CardsClasses.Count,
+                    TrainersName = c.Class.TrainersClasses.Select(t => t.Trainer.Name).ToList(),
+
+                }).ToList()).ToList();
         }
     }
 }

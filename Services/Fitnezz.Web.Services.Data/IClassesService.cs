@@ -25,5 +25,7 @@ namespace Fitnezz.Web.Services.Data
         Task LeaveClass(string cardId, int classId);
 
         bool IsTrainerCompetent(string trainerId, int classId);
+
+        Task LeaveClassAsTrainer(string trainerId, int classId);
     }
 }

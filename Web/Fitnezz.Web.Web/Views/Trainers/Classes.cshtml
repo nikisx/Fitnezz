@@ -1,19 +1,22 @@
-﻿@using Fitnezz.Web.Common
-@model IEnumerable<Fitnezz.Web.Web.ViewModels.Classes.AllClassesViewModel>
-    <div style="position: absolute; left: 40%">
-        <h1 class="col-md-12">Our <span class="color">Classes</span></h1>
-    </div>
-<section style="margin-top: 100px;" id="mainservice" >
+﻿@model List<List<Fitnezz.Web.Web.ViewModels.Classes.AllClassesViewModel>>
+
+<div style="position: absolute; left: 40%">
+    <h1 class="col-md-12">Your <span class="color">Classes</span></h1>
+</div>
+<section style="margin-top: 100px;" id="mainservice">
     <div class="container">
         <div class="row">
-            @foreach (var classItem in Model)
+            @foreach (var item in Model)
             {
-              
-                <div  class="col-sm-6 col-md-4">
+
+            @foreach (var classItem in item)
+            {
+
+                <div class="col-sm-6 col-md-4">
                     <div style="height: 550px" class="thumbnail">
-                        
-                            <img  style="width: 345px; height: 320px" src="@classItem.Image" alt="">
-                        
+
+                        <img style="width: 345px; height: 320px" src="@classItem.Image" alt="">
+
                         <div class="caption">
                             <h2 style="color: red;">@classItem.Name <span style="color: black; margin-left: 40px; font-size: 15px;">Participants: @classItem.UsersCount</span> </h2>
 
@@ -22,32 +25,26 @@
                                 <p>@classItem.StartHour - @classItem.EndHour</p>
                             </div>
 
-                            <div >
+                            <div>
                                 @foreach (var trainerName in @classItem.TrainersName)
                                 {
                                     <p>@trainerName</p>
-                                    
+
                                 }
                             </div>
 
-                            <a asp-action="Join" asp-route-id="@classItem.Id" class="btn">Join</a>
+                            <a asp-controller="Classes" asp-action="Leave" asp-route-id="@classItem.Id" class="btn">Leave</a>
                         </div>
                     </div>
                 </div>
             }
-           
+            }
         </div>
-        
+
         @if (TempData["sErrMsg"] != null)
         {
             Html.RenderPartial("_ErrorPopup", TempData["sErrMsg"]);
         }
-        
-        @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-        {
-            <div style="margin-left: 45%;" >
-                <a asp-action="Create" class="btn">Create</a>
-            </div>
-        }
+
     </div>
 </section>

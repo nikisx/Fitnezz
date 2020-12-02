@@ -31,12 +31,14 @@ namespace Fitnezz.Web.Web.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public IActionResult Create()
         {
             var viewModel = new ClassCreateInputModel();
             return View(viewModel);
         }
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpPost]
         public async Task<IActionResult> Create(ClassCreateInputModel input)
         {
@@ -113,7 +115,10 @@ namespace Fitnezz.Web.Web.Controllers
         {
             if (this.User.IsInRole(GlobalConstants.TrainerRoleName))
             {
-                
+                var trainer = this.usersService.GetTrainer(this.User.Identity.Name);
+                await this.classesService.LeaveClassAsTrainer(trainer.Id, id);
+
+                return this.Redirect("/Trainers/Classes");
             }
             else
             {
