@@ -10,6 +10,8 @@ cancelBtn.addEventListener(("click"), () => {
     form.style.display = "none";
 });
 
+
+
 //function Alert() {
 //    let workoutName = document.getElementById("workoutName").value;
 //    if (workoutName.length < 5 || workoutName.length > 30) {

@@ -41,7 +41,7 @@ namespace Fitnezz.Web.Web.Controllers
             return this.View(viewModel);
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Create(string workoutName,string isPublic)
         {
             if (workoutName == null || string.IsNullOrWhiteSpace(workoutName.TrimEnd()) || workoutName.TrimEnd().Length < 5 || workoutName.TrimEnd().Length > 30)

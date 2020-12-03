@@ -4,6 +4,7 @@
 @{
     int count = 0;
 }
+@using Fitnezz.Web.Common
 @model Fitnezz.Web.Web.ViewModels.MealPlans.MealPlanDetailsViewModel
 
 <style>
@@ -27,12 +28,18 @@
                         @foreach (var food in meal.Foods)
                         {
                             <p style="font-size: 20px">@food.Name - @food.Grams grams, Calories: @food.Calories, Proteins: @food.Proteins, Carbs: @food.Carbs, Fats: @food.Fats </p>
-                            <a href="/MealPlans/DeleteFood/?mealPlanId=@Model.Id&foodId=@food.Id" style="margin-left: 80%;margin-top: -3%" class="btn btn-sm">Delete</a>
+                            @if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                            {
+                                <a href="/MealPlans/DeleteFood/?mealPlanId=@Model.Id&foodId=@food.Id" style="margin-left: 80%;margin-top: -3%" class="btn btn-sm">Delete</a>
+                            }
                             <hr />
                         }
 
                         @*<input style="display: none" name ="mealId" value="@i"/>*@
-                        <a type="submit" href="/MealPlans/CreateFood?mealId=@meal.Id" class="btn btn-warning "> Add food</a>
+                        @if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                        {
+                            <a type="submit" href="/MealPlans/CreateFood?mealId=@meal.Id" class="btn btn-warning "> Add food</a>
+                        }
 
                     </div>
                 </div>
@@ -43,13 +50,16 @@
 
     }
 
-    <div style="margin-left: 20%;" id="createWorkout">
-        <form method="post">
-            <input name="mealPlanId" value="@Model.Id" style="display: none" />
-            <input name="mealName" id="mealName" type="text" style="width: 300px" placeholder="Meal name">
-            <button type="submit" onclick="Validate()" asp-area="" asp-controller="MealPlans" asp-action="CreateMeal" class="btn btn-warning "> Add meal</button>
-        </form>
-    </div>
+    @if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+    {
+        <div style="margin-left: 20%;" id="createWorkout">
+            <form method="post">
+                <input name="mealPlanId" value="@Model.Id" style="display: none" />
+                <input name="mealName" id="mealName" type="text" style="width: 300px" placeholder="Meal name">
+                <button type="submit" onclick="Validate()" asp-area="" asp-controller="MealPlans" asp-action="CreateMeal" class="btn btn-warning "> Add meal</button>
+            </form>
+        </div>
+    }
 
 </div>
 
