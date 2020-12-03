@@ -3,13 +3,10 @@
 @using Fitnezz.Web.Data.Models
 @using Fitnezz.Web.Common
 @using System.Net
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+
 @{
 }
 @model PaginatedList<AllWourkoutsViewModel>
-@inject SignInManager<ApplicationUser> SignInManager
 <style>
     #workoutBtn {
         border-style: none;
@@ -36,7 +33,11 @@
         <div class="col-md-10">
             <div class="about-logo" style="margin: auto ;width: 50%">
                 <h1 class="col-md-3">Our Best <span class="color">Workouts</span></h1>
-
+                
+                <form method="post" asp-controller="Search" asp-action="All" class="form-inline d-flex justify-content-center md-form form-sm mt-0">
+                <input style="margin-left: 200px; " name="searchWord" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search">
+                <button  type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                </form>
 
                 @if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                 {
