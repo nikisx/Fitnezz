@@ -78,6 +78,7 @@ namespace Fitnezz.Web.Web.Controllers
             return this.View(model);
         }
 
+        [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
             await this.workoutsService.DeleteWorkout(id);

@@ -78,44 +78,60 @@
 
                     <table style="width: 1000px" class="table">
                         <thead>
-                            <tr class="row">
-                                <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Name</th>
-                                <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Exercises</th>
-                                <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Details</th>
-                            </tr>
+                        <tr class="row">
+                            <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Name</th>
+                            <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Exercises</th>
+                            <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Details</th>
+                        </tr>
                         </thead>
                         <tbody id="tblEntAttributes">
-                            @foreach (var workout in Model)
-                            {
+                        @foreach (var workout in Model)
+                        {
 
-                                <tr class="row">
-                                    <td style="font-size: 20px; color: aliceblue" class="col-lg-6 suls-text-color">@workout.Name</td>
-                                    <td style="font-size: 20px; color: aliceblue" class="col-lg-6 suls-text-color">@workout.ExercisesCount</td>
-                                    <td class="col-lg-6">
-                                        <div class="button-holder">
-                                            <a href="/Workouts/Details?id=@workout.Id" class="btn btn-warning">Details</a>
-                                        </div>
+                            <tr class="row">
+                                <td style="font-size: 20px; color: aliceblue" class="col-md-6 ">@workout.Name</td>
+                                <td style="font-size: 20px; color: aliceblue" class="col-md-6 ">@workout.ExercisesCount</td>
+                                <td class="col-lg-6">
+                                    <div class="button-holder">
+                                        <a href="/Workouts/Details?id=@workout.Id" class="btn btn-warning">Details</a>
+                                    </div>
+                                </td>
+                                @if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                                {
+
+                                    <td style="position: absolute; left: 5%">
+                                        <form method="post">
+                                            <input style="display: none" name="workoutId" value="@workout.Id" />
+                                            <input type="text" name="username" placeholder="Username" style="width: 100px" />
+                                            <button asp-area="" asp-controller="Workouts" asp-action="AddWorkoutToUser" type="submit" class="btn btn-sm"> Add to User</button>
+                                        </form>
                                     </td>
-                                    @if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-                                    {
+                                    <td>
+                                        <form  id="deleteForm" asp-action="Delete" asp-route-id="@workout.Id" method="post">
 
-                                        <td style="position: absolute; left: 5%">
-                                            <form method="post">
-                                                <input style="display: none" name="workoutId" value="@workout.Id" />
-                                                <input type="text" name="username" placeholder="Username" style="width: 100px" />
-                                                <button asp-area="" asp-controller="Workouts" asp-action="AddWorkoutToUser" type="submit" class="btn btn-sm"> Add to User</button>
-                                            </form>
-                                        </td>
-                                        <td>
-                                            <a href="/Workouts/Delete?id=@workout.Id" class="btn btn-danger">Delete</a>
-                                        </td>
-                                    }
-                                </tr>
-                            }
+                                        </form>
+                                            <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                                    </td>
+                                }
+                            </tr>
+                        }
                         </tbody>
                     </table>
 
                 </div>
+                
+                <div style="width: 620px; height: 210px" class="modal" tabindex="-1" role="dialog" id="deleteModal">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <h3 style="color: black" >Do you want to delete this workout?</h3>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger" onclick="deleteForm[0].submit()">Yes</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        </div>
+                    </div>
+                
+            </div>
 
                 <partial name="_Pagination" />
 
