@@ -1,0 +1,21 @@
+﻿@model Fitnezz.Web.Web.ViewModels.Home.CalorieCalculatorInputModel
+
+<h1 style="font-size: 50px; margin-left: 35%; " class="col-md-6">Calculate <span class="color">Calories</span></h1>
+
+<div style="margin-bottom: 660px">
+    <form asp-controller="Home" asp-action="CalorieCalculator"  style="position: absolute; top: 25%; left: 30%" method="post">
+        <h1 style="font-size: 30px; margin-left: 20%; " class="col-md-6">Select your goal </h1>
+        <select style="width: 800px; display: block;height: 40px" asp-for="Goal" asp-items="@Html.GetEnumSelectList<Goals>()"></select>
+       
+        @if (!Model.WeightAvailable)
+        {
+            <div style="margin-top: 20px" class="input-field">
+                <label asp-for="Weight" ></label>
+                <input style="width: 800px;" asp-for="Weight" />
+                <span style="color: red" asp-validation-for="Weight"></span>
+            </div>
+        }
+
+        <button type="submit" style="margin-top: 10px" class="btn btn-primary">Submit</button>
+    </form>
+</div>

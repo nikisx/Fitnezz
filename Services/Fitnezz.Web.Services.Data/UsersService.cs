@@ -103,5 +103,28 @@ namespace Fitnezz.Web.Services.Data
                 Age = x.Age,
             }).FirstOrDefault(x => x.Id == trainerId);
         }
+
+        public double CalculateCalories(Goals goal, double weight)
+        {
+            double result = 0;
+
+            switch (goal)
+            {
+                case Goals.GainWeight:
+                    result = weight * 36;
+                    break;
+                case Goals.LoseWeight:
+                    result = weight * 28;
+                    break;
+                case Goals.Maintain:
+                    result = weight * 32;
+                    break;
+                case Goals.MiniCut:
+                    result = weight * 24;
+                    break;
+            }
+
+            return result;
+        }
     }
 }

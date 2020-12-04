@@ -26,5 +26,7 @@ namespace Fitnezz.Web.Services.Data
         Task UpdateProfile(ProfileUpdateInputModel input, string userId);
 
         AllTrainersViewModel GetUserTrainer(string trainerId);
+
+        double CalculateCalories(Goals goal, double weight);
     }
 }
