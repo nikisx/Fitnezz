@@ -1,8 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿
 @using Fitnezz.Web.Common
 @model Fitnezz.Web.Web.ViewModels.MealPlans.ComplexViewModelForMealPlans
 
@@ -45,8 +41,8 @@
                 {
 
                     <form method="post">
-                        <input style="display: none" name="mealPlanId" value="@mealPlan.Id"/>
-                        <input type="text" name="username" placeholder="Username" style="width: 100px"/>
+                        <input style="display: none" name="mealPlanId" value="@mealPlan.Id" />
+                        <input type="text" name="username" placeholder="Username" style="width: 100px" />
                         <button asp-area="" asp-controller="MealPlans" asp-action="AddMealPlanToUser" type="submit" class="btn btn-sm"> Add to User</button>
                     </form>
                 }
@@ -90,7 +86,7 @@
 
 
         <div style="margin-top: 30%; margin-left: 37%">
-            <a asp-action="All" asp-route-pageNumber="@(Model.ViewModel.PageIndex - 1) " class="btn @prevDisabled">Previous</a>
+            <a asp-action="MealPlansSearch" asp-route-pageNumber="@(Model.ViewModel.PageIndex - 1) " class="btn @prevDisabled">Previous</a>
             @for (int i = Model.ViewModel.PageIndex - 3; i < Model.ViewModel.PageIndex; i++)
             {
                 if (i > 0)
@@ -107,7 +103,7 @@
                     <a class="btn " style="width: 40px" asp-action="All" asp-route-pageNumber="@i">@i </a>
                 }
             }
-            <a asp-action="All" asp-route-pageNumber="@(Model.ViewModel.PageIndex + 1) " class="btn @nextDisabled">Next</a>
+            <a asp-action="MealPlansSearch" asp-route-pageNumber="@(Model.ViewModel.PageIndex + 1) " class="btn @nextDisabled">Next</a>
         </div>
     </div>
 </div>
