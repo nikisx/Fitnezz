@@ -65,8 +65,7 @@ namespace Fitnezz.Web.Web.Controllers
             }
             else
             {
-                var userWeight = this.usersService.GetTrainer(this.User.Identity.Name).Weight;
-                viewModel.Calories = this.usersService.CalculateCalories(input.Goal, userWeight);
+                viewModel.Calories = this.usersService.CalculateCalories(input.Goal, input.Weight);
                 viewModel.Goal = input.Goal.ToString();
             }
 
