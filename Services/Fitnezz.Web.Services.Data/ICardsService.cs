@@ -17,5 +17,7 @@ namespace Fitnezz.Web.Services.Data
         Task ExtendUserCard(string cardId);
 
         Task DeleteInvalidCards();
+
+        Task SendEmailForLastDay();
     }
 }

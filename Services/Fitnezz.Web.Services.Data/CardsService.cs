@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Fitnezz.Web.Data.Common.Repositories;
 using Fitnezz.Web.Data.Models;
+using Fitnezz.Web.Services.Messaging;
 using Fitnezz.Web.Web.ViewModels;
 using Fitnezz.Web.Web.ViewModels.Classes;
 
@@ -15,13 +16,15 @@ namespace Fitnezz.Web.Services.Data
         private readonly IRepository<Card> cardRepository;
         private readonly IDeletableEntityRepository<Class> classesRepository;
         private readonly IRepository<CardsClasses> cardsClassesRepository;
+        private readonly IEmailSender emailSender;
 
-        public CardsService(IDeletableEntityRepository<ApplicationUser> userRepository, IRepository<Card> cardRepository, IDeletableEntityRepository<Class> classesRepository, IRepository<CardsClasses> cardsClassesRepository)
+        public CardsService(IDeletableEntityRepository<ApplicationUser> userRepository, IRepository<Card> cardRepository, IDeletableEntityRepository<Class> classesRepository, IRepository<CardsClasses> cardsClassesRepository, IEmailSender emailSender)
         {
             this.userRepository = userRepository;
             this.cardRepository = cardRepository;
             this.classesRepository = classesRepository;
             this.cardsClassesRepository = cardsClassesRepository;
+            this.emailSender = emailSender;
         }
 
         public async Task Create(string userId)
@@ -97,6 +100,18 @@ namespace Fitnezz.Web.Services.Data
             }
 
             await this.cardRepository.SaveChangesAsync();
+        }
+
+        public async Task SendEmailForLastDay()
+        {
+            var cards = this.cardRepository.All().Where(x => x.DueDate.Date == DateTime.Now.Date).ToList();
+
+            var html = "<h1>This is the last day of your card</h1>";
+
+            foreach (var card in cards)
+            {
+                await this.emailSender.SendEmailAsync("Fitnezz@web.com", "Fitnezz", "gibiwi3698@menece.com", "Last day of your card", html);
+            }
         }
     }
 }

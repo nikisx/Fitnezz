@@ -81,7 +81,7 @@ namespace Fitnezz.Web.Web
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
-            services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IEmailSender>(x => new SendGridEmailSender("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"));
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IWorkoutsService, WorkoutsService>();
             services.AddTransient<IMealPlansService, MealPlansService>();
@@ -106,6 +106,7 @@ namespace Fitnezz.Web.Web
             }
 
             recurringJobManager.AddOrUpdate("Delete invalid cards", () => serviceProvider.GetService<ICardsService>().DeleteInvalidCards(), Cron.Daily);
+            recurringJobManager.AddOrUpdate("Send email", () => serviceProvider.GetService<ICardsService>().SendEmailForLastDay(), Cron.Daily);
             app.UseStatusCodePagesWithRedirects("/Home/StatusCodeError?statusCode={0}");
             StripeConfiguration.SetApiKey(this.configuration.GetSection("Stripe")["SecretKey"]);
             if (env.IsDevelopment())

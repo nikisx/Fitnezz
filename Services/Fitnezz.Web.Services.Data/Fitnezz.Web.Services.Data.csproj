@@ -28,6 +28,7 @@
     <ProjectReference Include="..\..\Data\Fitnezz.Web.Data.Models\Fitnezz.Web.Data.Models.csproj" />
     <ProjectReference Include="..\..\Web\Fitnezz.Web.Web.ViewModels\Fitnezz.Web.Web.ViewModels.csproj" />
     <ProjectReference Include="..\Fitnezz.Web.Services.Mapping\Fitnezz.Web.Services.Mapping.csproj" />
+    <ProjectReference Include="..\Fitnezz.Web.Services.Messaging\Fitnezz.Web.Services.Messaging.csproj" />
   </ItemGroup>
 
 </Project>
