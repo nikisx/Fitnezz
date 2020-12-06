@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Fitnezz.Web.Data.Common.Repositories;
 using Fitnezz.Web.Data.Models;
 using Fitnezz.Web.Web.ViewModels.ViewComponents;
@@ -28,7 +29,7 @@ namespace Fitnezz.Web.Web.ViewComponents
                 EndHour = x.FinishingHour,
                 TrainersName = x.TrainersClasses.Where(t=>t.ClassId == x.Id).Select(a=>a.Trainer.Name).ToList(),
                 Image = x.Image,
-            }).Take(3).ToList();
+            }).OrderBy(x=> Guid.NewGuid()).Take(3).ToList();
 
             return this.View(classViewModel);
         }

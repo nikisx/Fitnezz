@@ -5,6 +5,12 @@
     section {
         background-color: #1c1c1c;
     }
+    #map {
+        height: 600px;
+        width: 1200px;
+    }
+
+ 
 </style>
 <section>
     <div id="main-slider" class="flexslider">
@@ -47,68 +53,31 @@
                 <br />
             </div>
         </div>
-
-        <vc:take-random-classes title="Test"></vc:take-random-classes>
+        <cache expires-after="TimeSpan.FromDays(1)">
+            <vc:take-random-classes title="Test"></vc:take-random-classes>
+        </cache>
     </div>
 </section>
 <section id="content">
     <div class="container">
 
-        <section class="services">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="aligncenter"><h2 class="aligncenter">What Our Services</h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quae porro consequatur aliquam, incidunt eius magni provident, <br />doloribus omnis minus ovident, doloribus omnis minus temporibus perferendis nesciunt..</div>
-                    <br />
-                </div>
-            </div>
+        <div id="map"></div>
 
-            <div class="row">
-                <div class="col-sm-4 info-blocks">
-                    <i class="icon-info-blocks material-icons">track_changes</i>
-                    <div class="info-blocks-in">
-                        <h3>Aerobics</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quae porro consequatur aliquam, incidunt</p>
-                    </div>
-                </div>
-                <div class="col-sm-4 info-blocks">
-                    <i class="icon-info-blocks material-icons">settings_input_svideo</i>
-                    <div class="info-blocks-in">
-                        <h3>Cardio</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quae porro consequatur aliquam, incidunt</p>
-                    </div>
-                </div>
-                <div class="col-sm-4 info-blocks">
-                    <i class="icon-info-blocks material-icons">queue_music</i>
-                    <div class="info-blocks-in">
-                        <h3>Consulting</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quae porro consequatur aliquam, incidunt</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-4 info-blocks">
-                    <i class="icon-info-blocks material-icons">my_location</i>
-                    <div class="info-blocks-in">
-                        <h3>GYM</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quae porro consequatur aliquam, incidunt</p>
-                    </div>
-                </div>
-                <div class="col-sm-4 info-blocks">
-                    <i class="icon-info-blocks material-icons">shuffle</i>
-                    <div class="info-blocks-in">
-                        <h3>SPA Energy</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quae porro consequatur aliquam, incidunt</p>
-                    </div>
-                </div>
-                <div class="col-sm-4 info-blocks">
-                    <i class="icon-info-blocks material-icons">tab_unselected</i>
-                    <div class="info-blocks-in">
-                        <h3>Events</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quae porro consequatur aliquam, incidunt</p>
-                    </div>
-                </div>
-            </div>
-        </section>
     </div>
 </section>
 
+<script>
+    let map;
+
+    function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: 43.203363, lng: 23.549116 },
+            zoom: 20,
+        });
+    }
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEtIdSsRUDWAdxgLujh3nB0zjR5m3ADtY&callback=initMap&libraries=&v=weekly"
+    defer
+></script>
