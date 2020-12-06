@@ -81,7 +81,7 @@ namespace Fitnezz.Web.Web
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
-            services.AddTransient<IEmailSender>(x => new SendGridEmailSender("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"));
+            services.AddTransient<IEmailSender>(x => new SendGridEmailSender(this.configuration.GetSection("SendGrid")["ApiKey"]));
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IWorkoutsService, WorkoutsService>();
             services.AddTransient<IMealPlansService, MealPlansService>();

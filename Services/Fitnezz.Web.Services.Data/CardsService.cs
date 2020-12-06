@@ -110,7 +110,8 @@ namespace Fitnezz.Web.Services.Data
 
             foreach (var card in cards)
             {
-                await this.emailSender.SendEmailAsync("Fitnezz@web.com", "Fitnezz", "gibiwi3698@menece.com", "Last day of your card", html);
+                var userEmail = this.userRepository.All().FirstOrDefault(x => x.CardId == card.Id).Email;
+                await this.emailSender.SendEmailAsync("46167r@unibit.bg", "Fitnezz", "nikolas9924@gmail.com", "Last day of your card", html);
             }
         }
     }
