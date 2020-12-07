@@ -164,7 +164,6 @@ namespace Fitnezz.Web.Web.Controllers
             return this.Redirect($"/MealPlans/Details?id={mealPlanId}");
         }
 
-        [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
             await this.mealPlansService.DeleteMealPLan(id);

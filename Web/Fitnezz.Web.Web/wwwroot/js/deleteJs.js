@@ -4,7 +4,7 @@
     var target;
 
     $('body').append(`
-                    <div style="width: 620px; height: 240px" class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div style=" width: 620px; height: 270px" class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                         <div class="modal-header">

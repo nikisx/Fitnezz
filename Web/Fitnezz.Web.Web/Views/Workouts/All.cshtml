@@ -33,10 +33,10 @@
         <div class="col-md-10">
             <div class="about-logo" style="margin: auto ;width: 50%">
                 <h1 class="col-md-3">Our Best <span class="color">Workouts</span></h1>
-                
+
                 <form method="post" asp-controller="Search" asp-action="All" class="form-inline d-flex justify-content-center md-form form-sm mt-0">
-                <input style="margin-left: 200px; " name="searchWord" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search">
-                <button  type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    <input style="margin-left: 200px; " name="searchWord" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search">
+                    <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                 </form>
 
                 @if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
@@ -48,15 +48,15 @@
 
 
                     <div style="display: none; position: absolute; left: 95%; top: 19%" id="createWorkout">
-                       
-                            <input name="workoutName" id="workoutName" type="text" style="width: 300px" placeholder="Workout Name">
-                            <select name="isPublic" id="isPublic" style="display: block; margin-bottom: 10px">
-                                <option>Private</option>
-                                <option>Public</option>
-                            </select>
-                            <button type="button" id="btnSave" @*asp-area="" asp-controller="Workouts" asp-action="Create"*@ class="btn btn-warning "> Create</button>
-                            <button style="margin-left:30px" id="canceltBtn" class="btn btn-warning "> Cancel</button>
-                        
+
+                        <input name="workoutName" id="workoutName" type="text" style="width: 300px" placeholder="Workout Name">
+                        <select name="isPublic" id="isPublic" style="display: block; margin-bottom: 10px">
+                            <option>Private</option>
+                            <option>Public</option>
+                        </select>
+                        <button type="button" id="btnSave" @*asp-area="" asp-controller="Workouts" asp-action="Create"*@ class="btn btn-warning "> Create</button>
+                        <button style="margin-left:30px" id="canceltBtn" class="btn btn-warning "> Cancel</button>
+
 
                     </div>
                 }
@@ -79,45 +79,48 @@
 
                     <table style="width: 1000px" class="table">
                         <thead>
-                        <tr class="row">
-                            <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Name</th>
-                            <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Exercises</th>
-                            <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Details</th>
-                        </tr>
+                            <tr class="row">
+                                <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Name</th>
+                                <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Exercises</th>
+                                <th scope="col" style="font-size: 30px" class="col-lg-6 suls-text-color">Details</th>
+                            </tr>
                         </thead>
                         <tbody id="tblEntAttributes">
-                        @foreach (var workout in Model)
-                        {
+                            @foreach (var workout in Model)
+                            {
 
-                            <tr class="row">
-                                <td style="font-size: 20px; color: aliceblue" class="col-md-6 ">@workout.Name</td>
-                                <td style="font-size: 20px; color: aliceblue" class="col-md-6 ">@workout.ExercisesCount</td>
-                                <td class="col-lg-6">
-                                    <div class="button-holder">
-                                        <a href="/Workouts/Details?id=@workout.Id" class="btn btn-warning">Details</a>
-                                    </div>
-                                </td>
-                                @if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-                                {
-
-                                    <td style="position: absolute; left: 5%">
-                                        <form method="post">
-                                            <input style="display: none" name="workoutId" value="@workout.Id" />
-                                            <input type="text" name="username" placeholder="Username" style="width: 100px" />
-                                            <button asp-area="" asp-controller="Workouts" asp-action="AddWorkoutToUser" type="submit" class="btn btn-sm"> Add to User</button>
-                                        </form>
+                                <tr class="row">
+                                    <td style="font-size: 20px; color: aliceblue" class="col-md-6 ">@workout.Name</td>
+                                    <td style="font-size: 20px; color: aliceblue" class="col-md-6 ">@workout.ExercisesCount</td>
+                                    <td class="col-lg-6">
+                                        <div class="button-holder">
+                                            <a href="/Workouts/Details?id=@workout.Id" class="btn btn-warning">Details</a>
+                                        </div>
                                     </td>
-                                    <td>
-                                        @*<form method="post" asp-controller="Workouts" asp-action="Delete" asp-route-id="@workout.Id">
+                                    @if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                                    {
 
-                                        <button type="submit" class="btn">Delete</button>
-                                        </form>*@
-                                        <button type="submit" class="btn delete" data-id="@workout.Id" data-controller="Workouts" data-action="Delete"
-                                                data-body-message="Delete this workout?"> Delete</button>
-                                    </td>
-                                }
-                            </tr>
-                        }
+                                        <td style="position: absolute; left: 5%">
+                                            <form method="post">
+                                                <input style="display: none" name="workoutId" value="@workout.Id" />
+                                                <input type="text" name="username" placeholder="Username" style="width: 100px" />
+                                                <button asp-area="" asp-controller="Workouts" asp-action="AddWorkoutToUser" type="submit" class="btn btn-sm"> Add to User</button>
+                                            </form>
+                                        </td>
+                                        <td>
+                                            @*<form method="post" asp-controller="Workouts" asp-action="Delete" asp-route-id="@workout.Id">
+
+                                                <button type="submit" class="btn">Delete</button>
+                                                </form>*@
+
+                                            <button type="submit" class="btn delete" data-id="@workout.Id" data-controller="Workouts" data-action="Delete"
+                                                    data-body-message="Delete this workout?">
+                                                Delete
+                                            </button>
+                                        </td>
+                                    }
+                                </tr>
+                            }
                         </tbody>
                     </table>
 
