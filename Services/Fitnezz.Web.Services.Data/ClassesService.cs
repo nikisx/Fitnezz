@@ -133,5 +133,28 @@ namespace Fitnezz.Web.Services.Data
             this.trainerClassesRepository.Delete(trainerClass);
             await this.trainerClassesRepository.SaveChangesAsync();
         }
+
+        public async Task DeleteClass(int classId)
+        {
+            var @class = this.classRepository.All().FirstOrDefault(x => x.Id == classId);
+
+            this.classRepository.Delete(@class);
+
+            var trainersClasses = this.trainerClassesRepository.All().Where(x => x.ClassId == classId).ToList();
+
+            foreach (var trainersClass in trainersClasses)
+            {
+                this.trainerClassesRepository.Delete(trainersClass);
+            }
+
+            var cardsClasses = this.cardsClassesRepository.All().Where(x => x.ClassId == classId).ToList();
+
+            foreach (var cardsClass in cardsClasses)
+            {
+                this.cardsClassesRepository.Delete(cardsClass);
+            }
+
+            await this.cardsClassesRepository.SaveChangesAsync();
+        }
     }
 }

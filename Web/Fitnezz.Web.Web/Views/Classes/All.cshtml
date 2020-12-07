@@ -12,7 +12,7 @@
                 <div  class="col-sm-6 col-md-4">
                     <div style="height: 550px" class="thumbnail">
                         
-                            <img  style="width: 345px; height: 320px" src="@classItem.Image" alt="">
+                        <img  style="width: 345px; height: 320px" src="@classItem.Image" alt="">
                         
                         <div class="caption">
                             <h2 style="color: red;">@classItem.Name <span style="color: black; margin-left: 40px; font-size: 15px;">Participants: @classItem.UsersCount</span> </h2>
@@ -31,9 +31,17 @@
                             </div>
 
                             <a asp-action="Join" asp-route-id="@classItem.Id" class="btn">Join</a>
+                         
                         </div>
                     </div>
+                    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                    {
+                        <form  method="post" asp-route-id ="@classItem.Id" asp-action="Delete">
+                            <button style="margin-left: 120px" class="btn">Delete</button>
+                        </form>
+                    }
                 </div>
+
             }
            
         </div>

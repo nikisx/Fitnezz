@@ -140,6 +140,13 @@ namespace Fitnezz.Web.Web.Controllers
             return this.Redirect("/Users/Profile#test3");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await this.classesService.DeleteClass(id);
+            return this.RedirectToAction("All");
+        }
+
         public PartialViewResult ShowError(string sErrorMessage)
         {
             return this.PartialView("_ErrorPopup");
