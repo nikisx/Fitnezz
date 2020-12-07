@@ -38,8 +38,13 @@
                         @*<input style="display: none" name ="mealId" value="@i"/>*@
                         @if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                         {
-                            <a type="submit" href="/MealPlans/CreateFood?mealId=@meal.Id" class="btn btn-warning "> Add food</a>
+
+                            <div style="display: flex">
+                                <a type="submit" href="/MealPlans/CreateFood?mealId=@meal.Id" class="btn btn-warning "> Add food</a>
+                                <a style="margin-left: 10px; width: 150px" type="submit" href="/MealPlans/DeleteMeal?mealId=@meal.Id&mealPlanId=@Model.Id" class="btn btn-warning "> Delete meal</a>
+                            </div>
                         }
+
 
                     </div>
                 </div>
@@ -48,7 +53,9 @@
 
         count++;
 
+
     }
+
 
     @if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
     {
@@ -56,9 +63,10 @@
             <form method="post">
                 <input name="mealPlanId" value="@Model.Id" style="display: none" />
                 <input name="mealName" id="mealName" type="text" style="width: 300px" placeholder="Meal name">
-                <button type="submit" onclick="Validate()" asp-area="" asp-controller="MealPlans" asp-action="CreateMeal" class="btn btn-warning "> Add meal</button>
+                <button type="submit" onclick="Validate()" asp-area="" asp-controller="MealPlans" asp-action="CreateMeal" class="btn btn-warning "> Create</button>
             </form>
         </div>
+
     }
 
 </div>

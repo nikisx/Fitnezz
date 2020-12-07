@@ -149,19 +149,19 @@ namespace Fitnezz.Web.Web.Controllers
 
             //maybe a food controller
             await this.mealPlansService.CreateFood(input);
-            return RedirectToAction("All");
+            return this.RedirectToAction("All");
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateMeal(string mealName, int mealPlanId)
         {
-            if ( mealName == null || mealName.Length < 6 || mealName.Length > 40 || string.IsNullOrWhiteSpace(mealName.TrimEnd()))
+            if ( mealName == null || mealName.Length < 5 || mealName.Length > 40 || string.IsNullOrWhiteSpace(mealName.TrimEnd()))
             {
                 return Redirect($"/MealPlans/Details?id={mealPlanId}");
             }
             await this.mealPlansService.CreateMeal(mealName, mealPlanId);
             //maybe a food controller
-            return Redirect($"/MealPlans/Details?id={mealPlanId}");
+            return this.Redirect($"/MealPlans/Details?id={mealPlanId}");
         }
 
         public async Task<IActionResult> Delete(int id)
@@ -173,6 +173,13 @@ namespace Fitnezz.Web.Web.Controllers
         public async Task<IActionResult> DeleteFood(int mealPlanId, int foodId)
         {
             await this.mealPlansService.DeleteFood(foodId);
+
+            return this.Redirect($"/MealPlans/Details?id={mealPlanId}");
+        }
+
+        public async Task<IActionResult> DeleteMeal(int mealId, int mealPlanId)
+        {
+            await this.mealPlansService.DeleteMeal(mealId);
 
             return this.Redirect($"/MealPlans/Details?id={mealPlanId}");
         }

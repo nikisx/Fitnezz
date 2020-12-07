@@ -29,5 +29,7 @@ namespace Fitnezz.Web.Services.Data
         bool UserHasMealPlan(string userId, int mealPlanId);
 
         PaginatedList<AllMealPLansViewModel> GetAllPublic(int pageNumber);
+
+        Task DeleteMeal(int mealId);
     }
 }

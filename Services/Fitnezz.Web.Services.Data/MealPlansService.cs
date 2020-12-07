@@ -175,5 +175,13 @@ namespace Fitnezz.Web.Services.Data
 
             return paginatedList;
         }
+
+        public async Task DeleteMeal(int mealId)
+        {
+            var meal = this.mealRepository.All().FirstOrDefault(x => x.Id == mealId);
+
+            this.mealRepository.Delete(meal);
+            await this.mealRepository.SaveChangesAsync();
+        }
     }
 }
