@@ -5,145 +5,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<title>Fitnezz</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="" />
-<meta name="author" content="http://webthemez.com" />
-<!-- css --> 
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="stylesheet" href="/template/materialize/css/materialize.min.css" media="screen,projection" />
-<link href="/template/css/bootstrap.min.css" rel="stylesheet" />
-<link href="/template/css/fancybox/jquery.fancybox.css" rel="stylesheet"> 
-<link href="/template/css/flexslider.css" rel="stylesheet" /> 
-<link href="/template/css/style.css" rel="stylesheet" />
+    <meta charset="utf-8">
+    <title>Fitnezz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="author" content="http://webthemez.com" />
+    <!-- css -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/template/materialize/css/materialize.min.css" media="screen,projection" />
+    <link href="/template/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/template/css/fancybox/jquery.fancybox.css" rel="stylesheet">
+    <link href="/template/css/flexslider.css" rel="stylesheet" />
+    <link href="/template/css/style.css" rel="stylesheet" />
 
-<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-<!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
 
 </head>
 <body>
-<style>
-    #LogOut:hover {
-        background: #ec4141;
-    }
-</style>
-        <!-- start header -->
-        <header>
-            <div class="navbar navbar-default navbar-static-top">
-                <div class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><i class="icon-info-blocks material-icons">location_on</i>Shape</a>
-                    </div>
-                    <div class="navbar-collapse collapse ">
-                        <ul class="nav navbar-nav">
-                            <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                          
-                            <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Classes" asp-action="All">Classes</a></li>
-                            <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Trainers" asp-action="All">Trainers</a></li>
-                            <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Workouts" asp-action="All">Workouts</a></li>
-                            <li><a class="waves-effect waves-dark" asp-area="" asp-controller="MealPlans" asp-action="All">Meal plans</a></li>
-                            <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Home" asp-action="CalorieCalculator">Calorie Calculator</a></li>
-                            @if (!this.SignInManager.IsSignedIn(this.User))
-                            {
+    <style>
+        #LogOut:hover {
+            background: #ec4141;
+        }
+    </style>
+    <!-- start header -->
+    <header>
+        <div class="navbar navbar-default navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><i class="icon-info-blocks material-icons">location_on</i>Shape</a>
+                </div>
+                <div class="navbar-collapse collapse ">
+                    <ul class="nav navbar-nav">
+                        <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+
+                        <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Classes" asp-action="All">Classes</a></li>
+                        <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Trainers" asp-action="All">Trainers</a></li>
+                        <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Workouts" asp-action="All">Workouts</a></li>
+                        <li><a class="waves-effect waves-dark" asp-area="" asp-controller="MealPlans" asp-action="All">Meal plans</a></li>
+                        <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Home" asp-action="CalorieCalculator">Calorie Calculator</a></li>
+                        @if (!this.SignInManager.IsSignedIn(this.User))
+                        {
                             <li><a class="waves-effect waves-dark" asp-area="Identity" asp-controller="Account" asp-action="Login">Login</a></li>
                             <li><a class="waves-effect waves-dark" asp-area="Identity" asp-controller="Account" asp-action="Register">Register</a></li>
 
-                            }
-                            else
+                        }
+                        else
+                        {
+                            <li class="dropdown">
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle waves-effect waves-dark">@this.User.Identity.Name <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    @if (this.User.IsInRole(GlobalConstants.TrainerRoleName))
+                                    {
+                                        <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Trainers" asp-action="Clients">Clients</a></li>
+                                        <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Trainers" asp-action="Classes">Classes</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Users" asp-action="Workouts">My workouts</a></li>
+                                        <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Users" asp-action="MealPlans">My meal plans</a></li>
+                                        <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Users" asp-action="Profile">Profile</a></li>
+                                    }
+                                </ul>
+                            </li>
+
+                            <form style="color:red" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
+                                <li><button class="btn-theme" id="LogOut" style="position: absolute; padding: 5px 20px; margin-top: 14px;" background-color="Transparent" type="submit">Logout</button></li>
+                            </form>
+                            if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                             {
-                                <li class="dropdown">
-                                    <a href="#" data-toggle="dropdown" class="dropdown-toggle waves-effect waves-dark">@this.User.Identity.Name <b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        @if (this.User.IsInRole(GlobalConstants.TrainerRoleName))
-                                        {
-                                            <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Trainers" asp-action="Clients">Clients</a></li>
-                                            <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Trainers" asp-action="Classes">Classes</a></li>
-                                        }
-                                        else
-                                        {
-                                            <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Users" asp-action="Workouts">My workouts</a></li>
-                                            <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Users" asp-action="MealPlans">My meal plans</a></li>
-                                            <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Users" asp-action="Profile">Profile</a></li>
-                                        }
-                                    </ul>
-                                </li>
-
-                                <form style="color:red"  asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
-                                    <li><button class="btn-theme" id="LogOut" style="position: absolute; padding: 5px 20px; margin-top: 14px;" background-color="Transparent" type="submit" >Logout</button></li>
-                                </form>
-                                if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-                                {
-                                    <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Trainers" asp-action="Create">Create Trainer</a></li>
-                                }
-                              
+                                <li><a class="waves-effect waves-dark" asp-area="" asp-controller="Trainers" asp-action="Create">Create Trainer</a></li>
                             }
 
+                        }
 
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- end header -->
+
+    @RenderBody()
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="widget">
+                        <h5 style="font-size: 20px" class="widgetheading"><a asp-controller="Workouts" asp-action="All">Workouts</a></h5>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="widget">
+                        <h5 style="font-size: 20px" style="font-size: 20px" class="widgetheading"><a asp-controller="MealPlans" asp-action="All">Meal plans</a></h5>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="widget">
+                        <h5 style="font-size: 20px" class="widgetheading"><a asp-controller="Trainers" asp-action="All">Trainers</a></h5>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="widget">
+                        <h5 style="font-size: 20px" class="widgetheading"><a a asp-controller="Classes" asp-action="All">Classes</a></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="sub-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="copyright">
+                            <p>
+                                <span>&copy; Fitness @DateTime.Now.Year All right reserved. </span> <a href="https://webthemez.com/free-bootstrap-templates/" target="_blank">Free Bootstrap Template</a> by WebThemez.com
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <ul class="social-network">
+                            <li><a class="waves-effect waves-dark" href="#" data-placement="top" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                            <li><a class="waves-effect waves-dark" href="#" data-placement="top" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                            <li><a class="waves-effect waves-dark" href="#" data-placement="top" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a class="waves-effect waves-dark" href="#" data-placement="top" title="Pinterest"><i class="fa fa-pinterest"></i></a></li>
+                            <li><a class="waves-effect waves-dark" href="#" data-placement="top" title="Google plus"><i class="fa fa-google-plus"></i></a></li>
                         </ul>
                     </div>
                 </div>
             </div>
-        </header>
-        <!-- end header -->
-       
-        @RenderBody()
-        
-        <footer>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="widget">
-                            <h5 style="font-size: 20px" class="widgetheading"><a asp-controller="Workouts" asp-action="All">Workouts</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="widget">
-                            <h5 style="font-size: 20px"style="font-size: 20px" class="widgetheading"><a asp-controller="MealPlans" asp-action="All">Meal plans</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="widget">
-                            <h5 style="font-size: 20px" class="widgetheading"><a asp-controller="Trainers" asp-action="All">Trainers</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="widget">
-                            <h5 style="font-size: 20px" class="widgetheading"><a a asp-controller="Classes" asp-action="All">Classes</a></h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="sub-footer">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="copyright">
-                                <p>
-                                    <span>&copy; Fitness @DateTime.Now.Year All right reserved. </span> <a href="https://webthemez.com/free-bootstrap-templates/" target="_blank">Free Bootstrap Template</a> by WebThemez.com
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <ul class="social-network">
-                                <li><a class="waves-effect waves-dark" href="#" data-placement="top" title="Facebook"><i class="fa fa-facebook"></i></a></li>
-                                <li><a class="waves-effect waves-dark" href="#" data-placement="top" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-                                <li><a class="waves-effect waves-dark" href="#" data-placement="top" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
-                                <li><a class="waves-effect waves-dark" href="#" data-placement="top" title="Pinterest"><i class="fa fa-pinterest"></i></a></li>
-                                <li><a class="waves-effect waves-dark" href="#" data-placement="top" title="Google plus"><i class="fa fa-google-plus"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        </div>
+    </footer>
 
     <a href="#" class="scrollup waves-effect waves-dark"><i class="fa fa-angle-up active"></i></a>
     <!-- javascript
@@ -163,6 +163,7 @@
     <script src="/template/js/jquery.magnific-popup.min.js"></script>
     <script src="/template/js/animate.js"></script>
     <script src="/template/js/custom.js"></script>
+    <script src="~/js/deleteJs.js"></script>
     @RenderSection("Scripts", false)
 </body>
 </html>

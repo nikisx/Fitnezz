@@ -108,11 +108,12 @@
                                         </form>
                                     </td>
                                     <td>
-                                        <form method="post" asp-controller="Workouts" asp-action="Delete" asp-route-id="@workout.Id">
+                                        @*<form method="post" asp-controller="Workouts" asp-action="Delete" asp-route-id="@workout.Id">
 
                                         <button type="submit" class="btn">Delete</button>
-                                        </form>
-                                        @*<a href="/Workouts/Delete/@workout.Id">Delete</a>*@
+                                        </form>*@
+                                        <button type="submit" class="btn delete" data-id="@workout.Id" data-controller="Workouts" data-action="Delete"
+                                                data-body-message="Delete this workout?"> Delete</button>
                                     </td>
                                 }
                             </tr>
