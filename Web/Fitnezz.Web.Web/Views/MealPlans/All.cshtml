@@ -34,7 +34,10 @@
                         @if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                         {
                             <div>
-                                <a href="/MealPLans/Delete/@mealPlan.Id" style="width: 410px;" class="btn">Delete</a>
+                                <form  asp-action="Delete" asp-route-id="@mealPlan.Id" method="post">
+
+                                <button style="width: 410px;" class="btn">Delete</button>
+                                </form>
                             </div>
 
                         }
@@ -82,12 +85,11 @@
             </div>
         }
 
+
         @{
             var prevDisabled = !Model.ViewModel.PreviousPage ? "disabled" : "";
             var nextDisabled = !Model.ViewModel.NextPage ? "disabled" : "";
         }
-
-
 
         <div style="margin-top: 30%; margin-left: 37%">
             <a asp-action="All" asp-route-pageNumber="@(Model.ViewModel.PageIndex - 1) " class="btn @prevDisabled">Previous</a>
