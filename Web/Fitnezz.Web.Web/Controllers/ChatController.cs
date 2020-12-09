@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Fitnezz.Web.Common;
 using Fitnezz.Web.Services.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +28,15 @@ namespace Fitnezz.Web.Web.Controllers
 
             if (!this.chatService.ChatExist(chatId))
             {
-                chatId = id + this.usersService.GetUserByUserName(this.User.Identity.Name).Id;
+                if (this.User.IsInRole(GlobalConstants.TrainerRoleName))
+                {
+                    chatId = this.usersService.GetTrainer(this.User.Identity.Name).Id + id;
+                }
+                else
+                {
+                    chatId = id + this.usersService.GetUserByUserName(this.User.Identity.Name).Id;
+                }
+
                 if (!this.chatService.ChatExist(chatId))
                 {
                     await this.chatService.CreateChat(chatId);
