@@ -40,7 +40,7 @@ namespace Fitnezz.Web.Services.Data
                 Id = x.Id,
             });
 
-            var paginatedList = new PaginatedList<AllMealPLansViewModel>().CreateAsync(mealPlans, pageNumber, 6).GetAwaiter().GetResult();
+            var paginatedList = new PaginatedList<AllMealPLansViewModel>().CreateAsync(mealPlans, pageNumber, 4).GetAwaiter().GetResult();
 
             return paginatedList;
         }

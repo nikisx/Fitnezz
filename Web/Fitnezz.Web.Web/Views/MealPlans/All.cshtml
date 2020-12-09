@@ -8,8 +8,8 @@
 
 <h1 style="position: absolute; left: 40%" class="col-md-3">Our Meal <span class="color">Plans</span></h1>
 
-<div style="overflow: hidden">
-    <div style="margin-top: 100px;" class="row service-v1 margin-bottom-40">
+<div style="overflow: hidden;">
+    <div style="margin-top: 100px;" class="row">
 
         <form method="post" asp-controller="Search" asp-action="MealPlansSearch" class="form-inline d-flex justify-content-center md-form form-sm mt-0">
             <input style="margin-left: 43%;" name="searchWord" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search">
@@ -89,7 +89,7 @@
             var nextDisabled = !Model.ViewModel.NextPage ? "disabled" : "";
         }
 
-        <div style="margin-top: 30%; margin-left: 37%">
+        <div style="margin-top: 5%; margin-left: 37%">
             <a asp-action="All" asp-route-pageNumber="@(Model.ViewModel.PageIndex - 1) " class="btn @prevDisabled">Previous</a>
             @for (int i = Model.ViewModel.PageIndex - 3; i < Model.ViewModel.PageIndex; i++)
             {
