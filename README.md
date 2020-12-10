@@ -21,8 +21,8 @@ MSSQL Server
 SignalR  
 HangFire  
 SendGrid  
-Bootstrap 
-AJAX  
+Bootstrap  
+AJAX   
 jQuery  
 Facebook for developers  
 Stripe   
