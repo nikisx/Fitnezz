@@ -306,44 +306,45 @@
         color: #48b0f7 !important
     }
 </style>
-
+<input type="hidden" id="user" value="@this.User.Identity.Name"/>
 <div style="margin-left: 30%" class="page-content page-container" id="page-content">
     <div class="padding">
         <div class="row container d-flex justify-content-center">
             <div class="col-md-8">
                 <div class="card card-bordered">
-                    <div class="ps-container ps-theme-default ps-active-y" id="chat-content" style="overflow-y: scroll !important; height: 400px !important;">
-                        
+                    <div class="ps-container" id="chat-content" style="overflow-y: scroll !important; height: 400px !important; background-color:#cac7c7">
+
                         @foreach (var message in Model.Messages)
                         {
                             @if (this.User.Identity.Name == message.UserName)
                             {
                                 <div style="margin-left:70%" class="media media-chat media-chat-reverse">
-                                    <div  class="media-body">
-                                        <p>@message.Content</p>
+                                    <div class="media-body">
+                                        <p style="color: black" class="meta"><time>@message.UserName</time></p>
+                                        <p style="border-radius: 10px;">@message.Content</p>
                                         <p style="color: black" class="meta"><time datetime="2018">@message.Time</time></p>
-                                        <p style="color: black" class="meta"><time >@message.UserName</time></p>
                                     </div>
                                 </div>
                             }
                             else
                             {
-                                
-                            <div class="media media-chat">
-                            <div class="media-body">
-                                <p>@message.Content</p>
-                                <p class="meta"><time datetime="2018">@message.Time.ToShortTimeString()</time></p>
-                                <p class="meta"><time >@message.UserName</time></p>
-                            </div>
-                        </div>
+
+                                <div class="media media-chat">
+                                    <div class="media-body">
+                                        <p style="color: black" class="meta"><time>@message.UserName</time></p>
+                                        <p style="border-radius: 10px;">@message.Content</p>
+                                        <p class="meta"><time datetime="2018">@message.Time</time></p>
+                                    </div>
+                                </div>
                             }
-                     
+
                         }
                     </div>
                     <div class="publisher bt-1 border-light">
-                        <form method="post" asp-controller="Chat" asp-action="CreateMessage">
-                            <input type="hidden" name="chatId" value="@Model.Id"/>
-                            <input style="width: 640px" class="publisher-input" name="message" type="text" placeholder="Write something"><button type="submit" class="publisher-btn text-info" href="#" data-abc="true"><i class="fa fa-reply"></i></button>
+                        <form method="post" onsubmit="sendMessage(event)" asp-controller="Chat" asp-action="CreateMessage">
+                            <input type="hidden" name="chatId" value="@Model.Id" />
+                            <input type="hidden" id="connection" name="connectionId" value="" />
+                            <input style="width: 640px" id="sender" class="publisher-input" name="message" type="text" placeholder="Write something"><button type="submit" class="publisher-btn text-info" href="#" data-abc="true"><i class="fa fa-reply"></i></button>
                         </form>
                     </div>
                 </div>
@@ -351,3 +352,13 @@
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <script>
+        var objDiv = document.getElementById("chat-content");
+        objDiv.scrollTop = objDiv.scrollHeight;
+    </script>
+    <script src="~/js/signalr.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="~/js/chat.js"></script>
+}

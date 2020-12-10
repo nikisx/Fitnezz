@@ -1,4 +1,5 @@
 ﻿using System;
+using Fitnezz.Web.Web.Hubs;
 using Hangfire;
 using Hangfire.MemoryStorage;
 using Stripe;
@@ -74,6 +75,7 @@ namespace Fitnezz.Web.Web
             services.AddSingleton(this.configuration);
 
             services.Configure<StripeSettings>(configuration.GetSection("Stripe"));
+            services.AddSignalR();
 
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
@@ -110,6 +112,7 @@ namespace Fitnezz.Web.Web
             recurringJobManager.AddOrUpdate("Send email", () => serviceProvider.GetService<ICardsService>().SendEmailForLastDay(), Cron.Daily);
             app.UseStatusCodePagesWithRedirects("/Home/StatusCodeError?statusCode={0}");
             StripeConfiguration.SetApiKey(this.configuration.GetSection("Stripe")["SecretKey"]);
+
             if (env.IsDevelopment())
             {
                 app.UseHangfireDashboard();
@@ -133,7 +136,8 @@ namespace Fitnezz.Web.Web
 
             app.UseEndpoints(
                 endpoints =>
-                    {
+                {
+                        endpoints.MapHub<ChatHub>("/chatHub");
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();

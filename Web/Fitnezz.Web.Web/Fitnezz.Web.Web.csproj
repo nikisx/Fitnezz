@@ -49,4 +49,8 @@
     <ProjectReference Include="..\Fitnezz.Web.Web.Infrastructure\Fitnezz.Web.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\Fitnezz.Web.Web.ViewModels\Fitnezz.Web.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\signalr\dist\browser\" />
+  </ItemGroup>
 </Project>
