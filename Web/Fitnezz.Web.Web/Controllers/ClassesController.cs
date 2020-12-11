@@ -28,14 +28,14 @@ namespace Fitnezz.Web.Web.Controllers
         public IActionResult All()
         {
             var viewModel = this.classesService.GetAll();
-            return View(viewModel);
+            return this.View(viewModel);
         }
 
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public IActionResult Create()
         {
             var viewModel = new ClassCreateInputModel();
-            return View(viewModel);
+            return this.View(viewModel);
         }
 
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
@@ -141,6 +141,7 @@ namespace Fitnezz.Web.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Delete(int id)
         {
             await this.classesService.DeleteClass(id);

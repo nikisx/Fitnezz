@@ -43,7 +43,7 @@ connection.on("RecieveMessage", function (data) {
 });
 
 var joinRoom = function () {
-    var url = '/Chat/JoinRoom/' + connectionIdGlobal + '/@Model.Id';
+    var url = "/Chat/JoinRoom/' + connectionIdGlobal + '/@Model.Id";
     axios.post(url, null)
         .then(res => {
             console.log("Room Joined!", res);

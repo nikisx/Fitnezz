@@ -72,6 +72,7 @@ namespace Fitnezz.Web.Web.Controllers
             return this.View("CalculatedCalories", viewModel);
         }
 
+        [Authorize]
         public IActionResult CalculatedCalories(CalculatedCaloriesViewModel viewModel)
         {
             return this.View(viewModel);

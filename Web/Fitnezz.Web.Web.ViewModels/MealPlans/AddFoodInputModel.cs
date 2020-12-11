@@ -8,12 +8,13 @@ namespace Fitnezz.Web.Web.ViewModels.MealPlans
     public class AddFoodInputModel
     {
         public int Id { get; set; }
+
         [Required]
         [MinLength(3)]
-        [MaxLength(20)]
+        [MaxLength(30)]
         public string Name { get; set; }
 
-        [Range(20, 2000)]
+        [Range(1, 2000)]
         [Required]
         public int Calories { get; set; }
 

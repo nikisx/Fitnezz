@@ -7,6 +7,7 @@ using Fitnezz.Web.Data.Models;
 using Fitnezz.Web.Services.Data;
 using Fitnezz.Web.Web.ViewModels;
 using Fitnezz.Web.Web.ViewModels.Workouts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -42,8 +43,14 @@ namespace Fitnezz.Web.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Create(string workoutName,string isPublic)
         {
+            if (!this.User.IsInRole(GlobalConstants.TrainerRoleName) && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                return this.NotFound();
+            }
+
             if (workoutName == null || string.IsNullOrWhiteSpace(workoutName.TrimEnd()) || workoutName.TrimEnd().Length < 5 || workoutName.TrimEnd().Length > 30)
             {
                 this.TempData["sErrMsg"] = "Workout name cannot be empty and should be between 5 and 30 characters";
@@ -78,15 +85,26 @@ namespace Fitnezz.Web.Web.Controllers
             return this.View(model);
         }
 
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
+            if (!this.User.IsInRole(GlobalConstants.TrainerRoleName) && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                return this.NotFound();
+            }
             await this.workoutsService.DeleteWorkout(id);
 
             return this.RedirectToAction("All");
         }
 
+        [Authorize]
         public IActionResult AddExerciseToWorkout(int workoutId)
         {
+            if (!this.User.IsInRole(GlobalConstants.TrainerRoleName) && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                return this.NotFound();
+            }
+
             this.ViewBag.WorkoutName = this.workoutsService.GetWorkoutName(workoutId);
             // maybe a exercise controller
             var input = new AddExerciseToWorkoutInputModel();
@@ -94,9 +112,15 @@ namespace Fitnezz.Web.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> AddExerciseToWorkout(AddExerciseToWorkoutInputModel input)
         {
-            if (!ModelState.IsValid)
+            if (!this.User.IsInRole(GlobalConstants.TrainerRoleName) && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                return this.NotFound();
+            }
+
+            if (!this.ModelState.IsValid)
             {
                 return this.View(input);
             }
@@ -113,6 +137,7 @@ namespace Fitnezz.Web.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = GlobalConstants.TrainerRoleName)]
         public async Task<IActionResult> AddWorkoutToUser(string username, int workoutId)
         {
 

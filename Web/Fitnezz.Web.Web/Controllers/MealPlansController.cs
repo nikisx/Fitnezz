@@ -7,6 +7,7 @@ using Fitnezz.Web.Data.Models;
 using Fitnezz.Web.Services.Data;
 using Fitnezz.Web.Web.ViewModels;
 using Fitnezz.Web.Web.ViewModels.MealPlans;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -72,6 +73,8 @@ namespace Fitnezz.Web.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        [Authorize(Roles = GlobalConstants.TrainerRoleName)]
         public async Task<IActionResult> Create(AddMealPlanInputModel input)
         {
             var viewModel = new ComplexViewModelForMealPlans()
@@ -88,9 +91,10 @@ namespace Fitnezz.Web.Web.Controllers
 
             await this.mealPlansService.CreateMealPLan(input);
 
-            return RedirectToAction("All");
+            return this.RedirectToAction("All");
         }
 
+        [Authorize(Roles = GlobalConstants.TrainerRoleName)]
         public async Task<IActionResult> AddMealPlanToUser(string username, int mealPlanId)
         {
             var user = this.usersService.GetUserByUserName(username);
@@ -131,17 +135,28 @@ namespace Fitnezz.Web.Web.Controllers
             return this.RedirectToAction("All");
         }
 
+        [Authorize]
         public IActionResult CreateFood(int mealId)
         {
+            if (!this.User.IsInRole(GlobalConstants.TrainerRoleName) && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                return this.NotFound();
+            }
+
             this.ViewBag.MealName = this.mealPlansService.GetMealName(mealId);
             var input = new AddFoodInputModel();
             //maybe a food controller
             return this.View(input);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateFood(AddFoodInputModel input)
         {
+            if (!this.User.IsInRole(GlobalConstants.TrainerRoleName) && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                return this.NotFound();
+            }
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);
@@ -152,33 +167,56 @@ namespace Fitnezz.Web.Web.Controllers
             return this.RedirectToAction("All");
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateMeal(string mealName, int mealPlanId)
         {
-            if ( mealName == null || mealName.Length < 5 || mealName.Length > 40 || string.IsNullOrWhiteSpace(mealName.TrimEnd()))
+            if (!this.User.IsInRole(GlobalConstants.TrainerRoleName) && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
             {
-                return Redirect($"/MealPlans/Details?id={mealPlanId}");
+                return this.NotFound();
             }
+
+            if (mealName == null || mealName.Length < 5 || mealName.Length > 40 || string.IsNullOrWhiteSpace(mealName.TrimEnd()))
+            {
+                return this.Redirect($"/MealPlans/Details?id={mealPlanId}");
+            }
+
             await this.mealPlansService.CreateMeal(mealName, mealPlanId);
             //maybe a food controller
             return this.Redirect($"/MealPlans/Details?id={mealPlanId}");
         }
 
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
+            if (!this.User.IsInRole(GlobalConstants.TrainerRoleName) && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                return this.NotFound();
+            }
             await this.mealPlansService.DeleteMealPLan(id);
             return this.RedirectToAction("All");
         }
 
+        [Authorize]
         public async Task<IActionResult> DeleteFood(int mealPlanId, int foodId)
         {
+            if (!this.User.IsInRole(GlobalConstants.TrainerRoleName) && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                return this.NotFound();
+            }
+
             await this.mealPlansService.DeleteFood(foodId);
 
             return this.Redirect($"/MealPlans/Details?id={mealPlanId}");
         }
 
+        [Authorize]
         public async Task<IActionResult> DeleteMeal(int mealId, int mealPlanId)
         {
+            if (!this.User.IsInRole(GlobalConstants.TrainerRoleName) && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                return this.NotFound();
+            }
             await this.mealPlansService.DeleteMeal(mealId);
 
             return this.Redirect($"/MealPlans/Details?id={mealPlanId}");
