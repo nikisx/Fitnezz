@@ -90,7 +90,15 @@
                             {
 
                                 <tr class="row">
-                                    <td style="font-size: 20px; color: aliceblue" class="col-md-6 ">@workout.Name</td>
+                                    @if (workout.IsDeleted)
+                                    {
+
+                                        <td style="font-size: 20px; color: red" class="col-md-6 ">@workout.Name</td>
+                                    }
+                                    else
+                                    {
+                                        <td style="font-size: 20px; color: aliceblue" class="col-md-6 ">@workout.Name</td>
+                                    }
                                     <td style="font-size: 20px; color: aliceblue" class="col-md-6 ">@workout.ExercisesCount</td>
                                     <td class="col-lg-6">
                                         <div class="button-holder">
@@ -107,17 +115,28 @@
                                                 <button asp-area="" asp-controller="Workouts" asp-action="AddWorkoutToUser" type="submit" class="btn btn-sm"> Add to User</button>
                                             </form>
                                         </td>
-                                        <td>
-                                            @*<form method="post" asp-controller="Workouts" asp-action="Delete" asp-route-id="@workout.Id">
+                                        @if (workout.IsDeleted == false)
+                                        {
+                                            <td>
+                                                @*<form method="post" asp-controller="Workouts" asp-action="Delete" asp-route-id="@workout.Id">
 
-                                                <button type="submit" class="btn">Delete</button>
-                                                </form>*@
+                                                    <button type="submit" class="btn">Delete</button>
+                                                    </form>*@
 
-                                            <button type="submit" class="btn delete" data-id="@workout.Id" data-controller="Workouts" data-action="Delete"
-                                                    data-body-message="Delete this workout?">
-                                                Delete
-                                            </button>
-                                        </td>
+                                                <button type="submit" class="btn delete" data-id="@workout.Id" data-controller="Workouts" data-action="Delete"
+                                                        data-body-message="Delete this workout?">
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                <a class="btn" asp-action="RestoreWorkout" asp-route-id="@workout.Id">
+                                                    Restore
+                                                </a>
+                                            </td>
+                                        }
                                     }
                                 </tr>
                             }

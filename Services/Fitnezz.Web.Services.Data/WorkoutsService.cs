@@ -122,5 +122,29 @@ namespace Fitnezz.Web.Services.Data
 
             return paginatedList;
         }
+
+        public PaginatedList<AllWourkoutsViewModel> GetAllWithDeletedWorkouts(int pageNumber)
+        {
+            var allPublicWorkouts = this.workoutsRepository.AllWithDeleted().OrderByDescending(x => x.CreatedOn).Select(x =>
+                new AllWourkoutsViewModel
+                {
+                    IsDeleted = x.IsDeleted,
+                    Name = x.Name,
+                    ExercisesCount = x.Exercises.Count,
+                    Id = x.Id,
+                });
+
+            var paginatedList = new PaginatedList<AllWourkoutsViewModel>().CreateAsync(allPublicWorkouts, pageNumber, 5).GetAwaiter().GetResult();
+
+            return paginatedList;
+        }
+
+        public async Task RestoreWorkout(int id)
+        {
+            var workout = this.workoutsRepository.AllWithDeleted().FirstOrDefault(x => x.Id == id);
+
+            this.workoutsRepository.Undelete(workout);
+            await this.workoutsRepository.SaveChangesAsync();
+        }
     }
 }

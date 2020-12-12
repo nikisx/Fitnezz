@@ -30,9 +30,13 @@ namespace Fitnezz.Web.Web.Controllers
         {
             PaginatedList<AllWourkoutsViewModel> viewModel = null;
 
-            if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            if (this.User.IsInRole(GlobalConstants.TrainerRoleName))
             {
                  viewModel = this.workoutsService.GetAll(pageNumber);
+            }
+            else if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                viewModel = this.workoutsService.GetAllWithDeletedWorkouts(pageNumber);
             }
             else
             {
@@ -165,6 +169,13 @@ namespace Fitnezz.Web.Web.Controllers
             await this.workoutsService.AddWorkoutToUserAsync(user.Id, workoutId);
 
             return this.Redirect("/Workouts/All");
+        }
+
+        public async Task<IActionResult> RestoreWorkout(int id)
+        {
+            await this.workoutsService.RestoreWorkout(id);
+
+            return this.RedirectToAction("All");
         }
     }
 }

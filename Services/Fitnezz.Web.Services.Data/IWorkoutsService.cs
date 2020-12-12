@@ -23,5 +23,9 @@ namespace Fitnezz.Web.Services.Data
         Task AddWorkoutToUserAsync(string userId, int workoutId);
 
         PaginatedList<AllWourkoutsViewModel> GetAllPublic(int pageNumber);
+
+        PaginatedList<AllWourkoutsViewModel> GetAllWithDeletedWorkouts(int pageNumber);
+
+        Task RestoreWorkout(int id);
     }
 }
