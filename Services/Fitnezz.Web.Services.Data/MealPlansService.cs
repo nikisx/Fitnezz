@@ -33,10 +33,10 @@ namespace Fitnezz.Web.Services.Data
             {
                 Name = x.Name,
                 Img = x.Img,
-                Calories = this.mealRepository.All().Where(a => a.MealPlanId == x.Id).Select(c => c.Foods.Sum(f => f.Calories)).ToList(),
-                Proteins = this.mealRepository.All().Where(a => a.MealPlanId == x.Id).Select(c => c.Foods.Sum(f => f.Proteins)).ToList(),
-                Carbs = this.mealRepository.All().Where(a => a.MealPlanId == x.Id).Select(c => c.Foods.Sum(f => f.Carbs)).ToList(),
-                Fats = this.mealRepository.All().Where(a => a.MealPlanId == x.Id).Select(c => c.Foods.Sum(f => f.Fats)).ToList(),
+                Calories = this.foodRepository.All().Where(f=> f.Meal.MealPlanId == x.Id).Select(c=> c.Calories).Sum(),
+                Proteins = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id).Select(c => c.Proteins).Sum(),
+                Carbs = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id).Select(c => c.Carbs).Sum(),
+                Fats = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id).Select(c => c.Fats).Sum(),
                 Id = x.Id,
             });
 
@@ -164,10 +164,10 @@ namespace Fitnezz.Web.Services.Data
             {
                 Name = x.Name,
                 Img = x.Img,
-                Calories = this.mealRepository.All().Where(a => a.MealPlanId == x.Id).Select(c => c.Foods.Sum(f => f.Calories)).ToList(),
-                Proteins = this.mealRepository.All().Where(a => a.MealPlanId == x.Id).Select(c => c.Foods.Sum(f => f.Proteins)).ToList(),
-                Carbs = this.mealRepository.All().Where(a => a.MealPlanId == x.Id).Select(c => c.Foods.Sum(f => f.Carbs)).ToList(),
-                Fats = this.mealRepository.All().Where(a => a.MealPlanId == x.Id).Select(c => c.Foods.Sum(f => f.Fats)).ToList(),
+                Calories = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id).Select(c => c.Calories).Sum(),
+                Proteins = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id).Select(c => c.Proteins).Sum(),
+                Carbs = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id).Select(c => c.Carbs).Sum(),
+                Fats = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id).Select(c => c.Fats).Sum(),
                 Id = x.Id,
             });
 

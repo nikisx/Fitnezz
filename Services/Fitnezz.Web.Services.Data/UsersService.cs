@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using Fitnezz.Web.Data.Common.Repositories;
 using Fitnezz.Web.Data.Models;
 using Fitnezz.Web.Web.ViewModels;
@@ -16,14 +15,14 @@ namespace Fitnezz.Web.Services.Data
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
         private readonly IDeletableEntityRepository<Workout> workoutsRepository;
         private readonly IDeletableEntityRepository<TraineesWorkouts> userWourkoutsRepository;
-        private readonly IDeletableEntityRepository<Meal> mealRepository;
+        private readonly IDeletableEntityRepository<Food> foodRepository;
 
-        public UsersService(IDeletableEntityRepository<ApplicationUser> userRepository, IDeletableEntityRepository<Workout> workoutsRepository, IDeletableEntityRepository<TraineesWorkouts> userWourkoutsRepository,IDeletableEntityRepository<Meal> mealRepository)
+        public UsersService(IDeletableEntityRepository<ApplicationUser> userRepository, IDeletableEntityRepository<Workout> workoutsRepository, IDeletableEntityRepository<TraineesWorkouts> userWourkoutsRepository,IDeletableEntityRepository<Food> foodRepository)
         {
             this.userRepository = userRepository;
             this.workoutsRepository = workoutsRepository;
             this.userWourkoutsRepository = userWourkoutsRepository;
-            this.mealRepository = mealRepository;
+            this.foodRepository = foodRepository;
         }
 
         public ApplicationUser GetUserByUserName(string username)
@@ -64,14 +63,13 @@ namespace Fitnezz.Web.Services.Data
             return this.userRepository.All().Where(x => x.Id == userId).Select(x => x.MealPlans.Select(w =>
                 new AllMealPLansViewModel()
                 {
-                    UserId = x.Id,
-                    Id = w.MealPlan.Id,
                     Name = w.MealPlan.Name,
                     Img = w.MealPlan.Img,
-                    Calories = this.mealRepository.All().Where(a => a.MealPlanId == w.MealPlan.Id).Select(c => c.Foods.Sum(f => f.Calories)).ToList(),
-                    Proteins = this.mealRepository.All().Where(a => a.MealPlanId == w.MealPlan.Id).Select(c => c.Foods.Sum(f => f.Proteins)).ToList(),
-                    Carbs = this.mealRepository.All().Where(a => a.MealPlanId == w.MealPlan.Id).Select(c => c.Foods.Sum(f => f.Carbs)).ToList(),
-                    Fats = this.mealRepository.All().Where(a => a.MealPlanId == w.MealPlan.Id).Select(c => c.Foods.Sum(f => f.Fats)).ToList(),
+                    Calories = this.foodRepository.All().Where(f => f.Meal.MealPlanId == w.Id).Select(c => c.Calories).Sum(),
+                    Proteins = this.foodRepository.All().Where(f => f.Meal.MealPlanId == w.Id).Select(c => c.Proteins).Sum(),
+                    Carbs = this.foodRepository.All().Where(f => f.Meal.MealPlanId == w.Id).Select(c => c.Carbs).Sum(),
+                    Fats = this.foodRepository.All().Where(f => f.Meal.MealPlanId == w.Id).Select(c => c.Fats).Sum(),
+                    Id = w.MealPlanId,
 
                 }).ToList()).ToList();
         }

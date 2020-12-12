@@ -36,10 +36,10 @@
                             </div>
                             <div class="card-content">
                                 <p>
-                                    Calories: @item.Calories.Sum()
+                                    Calories: @item.Calories
                                 </p>
                                 <p>
-                                    Proteins: @item.Proteins.Sum(), Carbs: @item.Carbs.Sum(), Fats: @item.Fats.Sum()
+                                    Proteins: @item.Proteins, Carbs: @item.Carbs, Fats: @item.Fats
                                 </p>
                                 @if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                                 {

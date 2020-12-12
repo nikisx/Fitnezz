@@ -22,10 +22,10 @@
                     </div>
                     <div class="card-content">
                         <p>
-                            Calories: @mealPlan.Calories.Sum()
+                            Calories: @mealPlan.Calories
                         </p>
                         <p>
-                            Proteins: @mealPlan.Proteins.Sum(), Carbs: @mealPlan.Carbs.Sum(), Fats: @mealPlan.Fats.Sum()
+                            Proteins: @mealPlan.Proteins, Carbs: @mealPlan.Carbs, Fats: @mealPlan.Fats
                         </p>
                         @if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                         {

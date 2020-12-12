@@ -25,22 +25,21 @@
                         <a href="/MealPlans/Details?id=@mealPlan.Id" class="card-title">@mealPlan.Name</a>
                     </div>
                     <div class="card-content">
-                        <p>
-                            Calories: @mealPlan.Calories.Sum()
-                        </p>
-                        <p>
-                            Proteins: @mealPlan.Proteins.Sum(), Carbs: @mealPlan.Carbs.Sum(), Fats: @mealPlan.Fats.Sum()
-                        </p>
-                        @if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-                        {
-                            <button style="width: 410px" type="submit" class="btn delete" data-id="@mealPlan.Id" data-controller="MealPlans" data-action="Delete"
-                                    data-body-message="Delete this meal plan?">
-                                Delete
-                            </button>
+                            <p>
+                                Calories: @mealPlan.Calories
+                            </p>
+                            <p>
+                                Proteins: @mealPlan.Proteins, Carbs: @mealPlan.Carbs, Fats: @mealPlan.Fats
+                            </p>
+                            @if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                            {
+                                <button style="width: 410px" type="submit" class="btn delete" data-id="@mealPlan.Id" data-controller="MealPlans" data-action="Delete"
+                                        data-body-message="Delete this meal plan?">
+                                    Delete
+                                </button>
 
-                        }
-                    </div>
-
+                            }
+                        </div>
                 </div>
                 @if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                 {
