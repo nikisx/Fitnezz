@@ -1,4 +1,7 @@
 ﻿@model ComplexModel
+@{
+    this.ViewData["Title"] = "Profile";
+}
 <style>
     .tabs .tab a:hover, .tabs .tab a.active {
         background-color: #ec4141;
@@ -8,71 +11,71 @@
 <h1 style="margin-left: 43%">Manage your account</h1>
 
 <div style="overflow: hidden">
-<div style="margin-left: 20%;margin-bottom: 200px" class="row">
-    <div class="col-md-10">
+    <div style="margin-left: 20%;margin-bottom: 200px" class="row">
+        <div class="col-md-10">
 
-        <div class="tab-section">
-            <div class="s12">
-                <ul class="tabs">
-                    <li class="tab col s4"><a href="#test1" class="waves-effect waves-dark">Profile</a></li>
-                    <li class="tab col s4"><a class="waves-effect waves-dark active" href="#test2">Card</a></li>
-                    <li class="tab col s4"><a href="#test3" class="waves-effect waves-dark">Classes</a></li>
-                </ul>
-            </div>
-            <div id="test1" class="col s12 container">
-                <form method="post" asp-action="Profile" name="sentMessage" id="contactForm">
-                    <div class="input-field">
-                        <label asp-for="InputModel.UserName">Username</label>
-                        <input asp-for="InputModel.UserName" />
-                        <span style="color: red" asp-validation-for="InputModel.UserName"></span>
-                    </div>
-                    <div class="input-field">
-                        <label asp-for="InputModel.Age">Age</label>
-                        <input asp-for="InputModel.Age" />
-                        <span style="color: red" asp-validation-for="InputModel.Age"></span>
-                    </div>
-                    <div class="input-field">
-                        <label asp-for="InputModel.Weight">Weight</label>
-                        <input asp-for="InputModel.Weight" />
-                        <span style="color: red" asp-validation-for="InputModel.Weight"></span>
-                    </div>
+            <div class="tab-section">
+                <div class="s12">
+                    <ul class="tabs">
+                        <li class="tab col s4"><a href="#test1" class="waves-effect waves-dark">Profile</a></li>
+                        <li class="tab col s4"><a class="waves-effect waves-dark active" href="#test2">Card</a></li>
+                        <li class="tab col s4"><a href="#test3" class="waves-effect waves-dark">Classes</a></li>
+                    </ul>
+                </div>
+                <div id="test1" class="col s12 container">
+                    <form method="post" asp-action="Profile" name="sentMessage" id="contactForm">
+                        <div class="input-field">
+                            <label asp-for="InputModel.UserName">Username</label>
+                            <input asp-for="InputModel.UserName" />
+                            <span style="color: red" asp-validation-for="InputModel.UserName"></span>
+                        </div>
+                        <div class="input-field">
+                            <label asp-for="InputModel.Age">Age</label>
+                            <input asp-for="InputModel.Age" />
+                            <span style="color: red" asp-validation-for="InputModel.Age"></span>
+                        </div>
+                        <div class="input-field">
+                            <label asp-for="InputModel.Weight">Weight</label>
+                            <input asp-for="InputModel.Weight" />
+                            <span style="color: red" asp-validation-for="InputModel.Weight"></span>
+                        </div>
 
-                    <div class="input-field">
-                        <label asp-for="InputModel.Height">Height</label>
-                        <input asp-for="InputModel.Height" />
-                        <span style="color: red" asp-validation-for="InputModel.Height"></span>
-                    </div>
-                    <div class="input-field">
-                        <label asp-for="InputModel.Goal">Goal</label>
-                        <input asp-for="InputModel.Goal" />
-                        <span style="color: red" asp-validation-for="InputModel.Goal"></span>
-                    </div>
+                        <div class="input-field">
+                            <label asp-for="InputModel.Height">Height</label>
+                            <input asp-for="InputModel.Height" />
+                            <span style="color: red" asp-validation-for="InputModel.Height"></span>
+                        </div>
+                        <div class="input-field">
+                            <label asp-for="InputModel.Goal">Goal</label>
+                            <input asp-for="InputModel.Goal" />
+                            <span style="color: red" asp-validation-for="InputModel.Goal"></span>
+                        </div>
 
-                    <button type="submit" class="btn btn-primary waves-effect waves-dark pull-right">Send</button><br />
-                </form>
-            </div>
-            <div id="test2" class="col s12 container">
-                <partial name="PartialCardVIew" model="@Model.ViewModel" />
+                        <button type="submit" class="btn btn-primary waves-effect waves-dark pull-right">Send</button><br />
+                    </form>
+                </div>
+                <div id="test2" class="col s12 container">
+                    <partial name="PartialCardVIew" model="@Model.ViewModel" />
 
-                @if (Model.Trainer != null && Model.ViewModel != null)
-                {
-                    <partial name="PartialTrainerView" model="@Model.Trainer" />
-                }
-            </div>
-            <div id="test3" class="col s12 container">
-                @if (Model.ClassesViewModel == null)
-                {
+                    @if (Model.Trainer != null && Model.ViewModel != null)
+                    {
+                        <partial name="PartialTrainerView" model="@Model.Trainer" />
+                    }
+                </div>
+                <div id="test3" class="col s12 container">
+                    @if (Model.ClassesViewModel == null)
+                    {
 
-                    <div style="margin: 200px 395px">
-                        <a style="font-size: 50px;" asp-controller="Cards" asp-action="Create"> Become a member</a>
-                    </div>
-                }
-                else
-                {
-                    <partial name="PartialClassesView" model="@Model.ClassesViewModel" />
-                }
+                        <div style="margin: 200px 395px">
+                            <a style="font-size: 50px;" asp-controller="Cards" asp-action="Create"> Become a member</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <partial name="PartialClassesView" model="@Model.ClassesViewModel" />
+                    }
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>

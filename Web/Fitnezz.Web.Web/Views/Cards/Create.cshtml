@@ -1,18 +1,22 @@
 ﻿@using Microsoft.Extensions.Options
 @inject IOptions<StripeSettings> Stripe
 
-<h1  style="font-size: 70px; margin-left: 30%; " class="col-md-6">Join our <span class="color">Fitness</span></h1>
-<h1  style=" margin-left: 35%; " class="col-md-6">Get a card for 1 month</h1>
-<h1  style=" margin-left: 35%; " class="col-md-6">With all of our benefits</h1>
-<h1  style=" margin-left: 40%; " class="col-md-6">Amount $60.00</h1>
+@{
+    this.ViewData["Title"] = "Become member";
+}
+
+<h1 style="font-size: 70px; margin-left: 30%; " class="col-md-6">Join our <span class="color">Fitness</span></h1>
+<h1 style=" margin-left: 35%; " class="col-md-6">Get a card for 1 month</h1>
+<h1 style=" margin-left: 35%; " class="col-md-6">With all of our benefits</h1>
+<h1 style=" margin-left: 40%; " class="col-md-6">Amount $60.00</h1>
 <div style="margin-top: 24%; margin-left: 37%; margin-bottom: 10%;">
-    
+
     <form style=" margin-left: 12%;" asp-action="Charge" method="post">
         <script class="stripe-button" src="//checkout.stripe.com/v2/checkout.js"
                 data-key="@Stripe.Value.PublishableKey"
                 data-descripiton="Test Description"
                 data-amount="6000"></script>
-        
+
     </form>
-    
+
 </div>

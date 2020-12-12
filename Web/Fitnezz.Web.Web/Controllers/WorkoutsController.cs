@@ -171,6 +171,7 @@ namespace Fitnezz.Web.Web.Controllers
             return this.Redirect("/Workouts/All");
         }
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> RestoreWorkout(int id)
         {
             await this.workoutsService.RestoreWorkout(id);

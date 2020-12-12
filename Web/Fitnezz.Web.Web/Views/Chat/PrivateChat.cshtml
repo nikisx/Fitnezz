@@ -1,4 +1,7 @@
 ﻿@model Fitnezz.Web.Data.Models.Chat
+@{
+    this.ViewData["Title"] = "Chat";
+}
 <style>
     .card-bordered {
         border: 1px solid #ebebeb
@@ -306,7 +309,7 @@
         color: #48b0f7 !important
     }
 </style>
-<input type="hidden" id="user" value="@this.User.Identity.Name"/>
+<input type="hidden" id="user" value="@this.User.Identity.Name" />
 <div style="margin-left: 30%" class="page-content page-container" id="page-content">
     <div class="padding">
         <div class="row container d-flex justify-content-center">

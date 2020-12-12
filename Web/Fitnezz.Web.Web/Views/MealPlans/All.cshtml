@@ -1,11 +1,11 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿
 @using Fitnezz.Web.Common
+
 @model Fitnezz.Web.Web.ViewModels.MealPlans.ComplexViewModelForMealPlans
 
+@{
+    this.ViewData["Title"] = "All Meal Plans, page " + Model.ViewModel.PageIndex;
+}
 <h1 style="position: absolute; left: 40%" class="col-md-3">Our Meal <span class="color">Plans</span></h1>
 
 <div style="overflow: hidden;">
@@ -25,28 +25,28 @@
                         <a href="/MealPlans/Details?id=@mealPlan.Id" class="card-title">@mealPlan.Name</a>
                     </div>
                     <div class="card-content">
-                            <p>
-                                Calories: @mealPlan.Calories
-                            </p>
-                            <p>
-                                Proteins: @mealPlan.Proteins, Carbs: @mealPlan.Carbs, Fats: @mealPlan.Fats
-                            </p>
-                            @if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-                            {
-                                <button style="width: 410px" type="submit" class="btn delete" data-id="@mealPlan.Id" data-controller="MealPlans" data-action="Delete"
-                                        data-body-message="Delete this meal plan?">
-                                    Delete
-                                </button>
+                        <p>
+                            Calories: @mealPlan.Calories
+                        </p>
+                        <p>
+                            Proteins: @mealPlan.Proteins, Carbs: @mealPlan.Carbs, Fats: @mealPlan.Fats
+                        </p>
+                        @if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                        {
+                            <button style="width: 410px" type="submit" class="btn delete" data-id="@mealPlan.Id" data-controller="MealPlans" data-action="Delete"
+                                    data-body-message="Delete this meal plan?">
+                                Delete
+                            </button>
 
-                            }
-                        </div>
+                        }
+                    </div>
                 </div>
                 @if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                 {
 
                     <form method="post">
-                        <input style="display: none" name="mealPlanId" value="@mealPlan.Id"/>
-                        <input type="text" name="username" placeholder="Username" style="width: 100px"/>
+                        <input style="display: none" name="mealPlanId" value="@mealPlan.Id" />
+                        <input type="text" name="username" placeholder="Username" style="width: 100px" />
                         <button asp-area="" asp-controller="MealPlans" asp-action="AddMealPlanToUser" type="submit" class="btn btn-sm"> Add to User</button>
                     </form>
                 }

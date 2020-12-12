@@ -1,87 +1,85 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿
 @using Fitnezz.Web.Common
 @model Fitnezz.Web.Web.ViewModels.Workouts.DetailsWorkoutsVIewModel
+
+@{
+    this.ViewData["Title"] = $"Workout - {Model.Name}";
+}
 <style>
     .divBtn {
         position: absolute;
         top: 50%;
         left: 44%;
-       
     }
 
     #workoutBtn {
-        border-style: none; 
-        padding: 15px 30px; 
+        border-style: none;
+        padding: 15px 30px;
         background: #ec4141;
-        font-size:30px;
+        font-size: 30px;
         color: white;
-      
         text-decoration: none;
     }
 
-    #workoutBtn:hover {
-        background: transparent;
-        border: 4px #ec4141 solid;
-    }
+        #workoutBtn:hover {
+            background: transparent;
+            border: 4px #ec4141 solid;
+        }
 </style>
 
 <div style="margin-bottom: 450px">
-<h1 style="text-align: center; ">@Model.Name</h1>
+    <h1 style="text-align: center; ">@Model.Name</h1>
 
     <table style="width: 1000px; position: absolute; left: 25%;" class="table table-striped">
         <thead>
-        <tr  style="width: 500px">
-            <th  style="font-size: 30px;color:#e62026">Name</th>
-            <th  style="font-size: 30px;color:#e62026">Sets</th>
-            <th  style="font-size: 30px;color:#e62026">Reps</th>
-            <th  style="font-size: 30px;color:#e62026">Distance</th>
-            <th  style="font-size: 30px;color:#e62026">Time</th>
-            <th  style="font-size: 30px;color:#e62026">Link</th>
-        </tr>
+            <tr style="width: 500px">
+                <th style="font-size: 30px;color:#e62026">Name</th>
+                <th style="font-size: 30px;color:#e62026">Sets</th>
+                <th style="font-size: 30px;color:#e62026">Reps</th>
+                <th style="font-size: 30px;color:#e62026">Distance</th>
+                <th style="font-size: 30px;color:#e62026">Time</th>
+                <th style="font-size: 30px;color:#e62026">Link</th>
+            </tr>
         </thead>
         <tbody>
-        @foreach (var exercise in @Model.Exercises)
-        {
-            <tr>
-                <td>@exercise.Name</td>
-                <td>@exercise.Sets</td>
-                @if (@exercise.Reps == null)
-                {
-                    <td>None</td>
-                }
-                else
-                {
+            @foreach (var exercise in @Model.Exercises)
+            {
+                <tr>
+                    <td>@exercise.Name</td>
+                    <td>@exercise.Sets</td>
+                    @if (@exercise.Reps == null)
+                    {
+                        <td>None</td>
+                    }
+                    else
+                    {
 
-                    <td>@exercise.Reps</td>
-                }
-                @if (@exercise.Distance == null)
-                {
-                    <td>None</td>
-                }
-                else
-                {
+                        <td>@exercise.Reps</td>
+                    }
+                    @if (@exercise.Distance == null)
+                    {
+                        <td>None</td>
+                    }
+                    else
+                    {
 
-                    <td>@exercise.Distance</td>
-                }
-                @if (@exercise.Time == null)
-                {
-                    <td>None</td>
-                }
-                else
-                {
-                    <td>@exercise.Time</td>
-                }
-                <td><a href="@exercise.Link">Link</a></td>
+                        <td>@exercise.Distance</td>
+                    }
+                    @if (@exercise.Time == null)
+                    {
+                        <td>None</td>
+                    }
+                    else
+                    {
+                        <td>@exercise.Time</td>
+                    }
+                    <td><a href="@exercise.Link">Link</a></td>
 
-            </tr>
-        }
+                </tr>
+            }
         </tbody>
     </table>
-    
+
     @if (this.User.IsInRole(GlobalConstants.TrainerRoleName))
     {
         <div class="divBtn">

@@ -4,9 +4,10 @@
 @using Fitnezz.Web.Common
 @using System.Net
 
-@{
-}
 @model PaginatedList<AllWourkoutsViewModel>
+@{
+    this.ViewData["Title"] = "All Workouts, page " + Model.PageIndex;
+}
 <style>
     #workoutBtn {
         border-style: none;

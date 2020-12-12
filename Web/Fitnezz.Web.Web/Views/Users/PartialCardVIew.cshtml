@@ -1,6 +1,7 @@
 ﻿@using Microsoft.Extensions.Options
 @model GetUserCardViewModel
 @inject IOptions<StripeSettings> Stripe
+
 @if (Model != null)
 {
 
@@ -14,7 +15,7 @@
                         <p>From:</p>
                         <p>@Model.FromDate</p>
                     </div>
-                    
+
                     <div>
                         <p style="margin-left: 80%">To: </p>
                         <p style="margin-left: 80%">@Model.DueDate</p>
