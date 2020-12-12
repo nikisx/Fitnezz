@@ -27,3 +27,5 @@ jQuery
 Facebook for developers  
 Stripe   
 Google maps  
+# Link
+https://fitnezz.azurewebsites.net
