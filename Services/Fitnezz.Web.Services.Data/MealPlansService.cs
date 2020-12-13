@@ -183,5 +183,33 @@ namespace Fitnezz.Web.Services.Data
             this.mealRepository.Delete(meal);
             await this.mealRepository.SaveChangesAsync();
         }
+
+        public PaginatedList<AllMealPLansViewModel> GetAllWithDeletedMealPlans(int pageNumber)
+        {
+            var allMealPlans = this.mealPlanRepository.AllWithDeleted().OrderByDescending(x => x.CreatedOn).Select(x =>
+                new AllMealPLansViewModel
+                {
+                    IsDeleted = x.IsDeleted,
+                    Name = x.Name,
+                    Img = x.Img,
+                    Calories = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id).Select(c => c.Calories).Sum(),
+                    Proteins = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id).Select(c => c.Proteins).Sum(),
+                    Carbs = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id).Select(c => c.Carbs).Sum(),
+                    Fats = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id).Select(c => c.Fats).Sum(),
+                    Id = x.Id,
+                });
+
+            var paginatedList = new PaginatedList<AllMealPLansViewModel>().CreateAsync(allMealPlans, pageNumber, 5).GetAwaiter().GetResult();
+
+            return paginatedList;
+        }
+
+        public async Task RestoreMealPlan(int id)
+        {
+            var workout = this.mealPlanRepository.AllWithDeleted().FirstOrDefault(x => x.Id == id);
+
+            this.mealPlanRepository.Undelete(workout);
+            await this.mealPlanRepository.SaveChangesAsync();
+        }
     }
 }

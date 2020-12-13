@@ -33,10 +33,20 @@
                         </p>
                         @if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                         {
-                            <button style="width: 410px" type="submit" class="btn delete" data-id="@mealPlan.Id" data-controller="MealPlans" data-action="Delete"
-                                    data-body-message="Delete this meal plan?">
-                                Delete
-                            </button>
+                            if (mealPlan.IsDeleted == true)
+                            {
+                                <a style="width: 410px"  class="btn" asp-route-id="@mealPlan.Id" asp-controller="MealPlans" asp-action="Restore">
+                                    Restore
+                                </a>
+                            }
+                            else
+                            {
+                                <button style="width: 410px" type="submit" class="btn delete" data-id="@mealPlan.Id" data-controller="MealPlans" data-action="Delete"
+                                        data-body-message="Delete this meal plan?">
+                                    Delete
+                                </button>
+                            }
+                          
 
                         }
                     </div>

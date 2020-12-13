@@ -31,5 +31,9 @@ namespace Fitnezz.Web.Services.Data
         PaginatedList<AllMealPLansViewModel> GetAllPublic(int pageNumber);
 
         Task DeleteMeal(int mealId);
+
+        PaginatedList<AllMealPLansViewModel> GetAllWithDeletedMealPlans(int pageNumber);
+
+        Task RestoreMealPlan(int id);
     }
 }

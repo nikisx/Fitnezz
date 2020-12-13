@@ -16,6 +16,8 @@ namespace Fitnezz.Web.Web.ViewModels.MealPlans
             //this.Fats = new List<int>();
         }
 
+        public bool IsDeleted { get; set; }
+
         public int Id { get; set; }
 
         public string Name { get; set; }

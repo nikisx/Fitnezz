@@ -30,9 +30,13 @@ namespace Fitnezz.Web.Web.Controllers
         {
             PaginatedList<AllMealPLansViewModel> model = null;
 
-            if (this.User.IsInRole(GlobalConstants.TrainerRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            if (this.User.IsInRole(GlobalConstants.TrainerRoleName))
             {
                 model = this.mealPlansService.GetAll(pageNumber);
+            }
+            else if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                model = this.mealPlansService.GetAllWithDeletedMealPlans(pageNumber);
             }
             else
             {
@@ -46,7 +50,7 @@ namespace Fitnezz.Web.Web.Controllers
               ViewModel = model,
             };
 
-            return View(viewModel);
+            return this.View(viewModel);
         }
 
         public IActionResult Details(int id)
@@ -225,6 +229,13 @@ namespace Fitnezz.Web.Web.Controllers
         public PartialViewResult ShowError(string sErrorMessage)
         {
             return this.PartialView("_ErrorPopup");
+        }
+
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        public async Task<IActionResult> Restore(int id)
+        {
+            await this.mealPlansService.RestoreMealPlan(id);
+            return this.RedirectToAction("All");
         }
     }
 }
