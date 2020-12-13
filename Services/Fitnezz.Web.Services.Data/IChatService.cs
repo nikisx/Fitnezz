@@ -7,7 +7,7 @@ namespace Fitnezz.Web.Services.Data
     {
         Chat GetChat(string id);
 
-        Task<Message> CreateMessage(string chatId, string content, string username);
+        Task<MessageViewModel> CreateMessage(string chatId, string content, string username);
 
         bool ChatExist(string chatId);
 

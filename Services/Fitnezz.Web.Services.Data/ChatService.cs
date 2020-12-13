@@ -26,7 +26,7 @@ namespace Fitnezz.Web.Services.Data
             }).FirstOrDefault();
         }
 
-        public async Task<Message> CreateMessage(string chatId, string content, string username)
+        public async Task<MessageViewModel> CreateMessage(string chatId, string content, string username)
         {
             var message = new Message()
             {
@@ -38,7 +38,14 @@ namespace Fitnezz.Web.Services.Data
 
             await this.messageRepository.AddAsync(message);
             await this.messageRepository.SaveChangesAsync();
-            return message;
+            var messageToReturn = new MessageViewModel()
+            {
+                ChatId = message.ChatId,
+                Content = message.Content,
+                Time = string.Format("{0:G}", message.Time),
+                UserName = message.UserName,
+            };
+            return messageToReturn;
         }
 
         public bool ChatExist(string chatId)

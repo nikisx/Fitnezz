@@ -28,7 +28,7 @@ connection.on("RecieveMessage", function (data) {
     var time = document.createElement("p");
     $(time).addClass('meta');
     $(time).css("color", "black");
-    time.appendChild(document.createTextNode(data.time));
+    time.appendChild(document.createTextNode(data.time.toLocaleString()));
 
     messageBody.appendChild(userName);
     messageBody.appendChild(content);
