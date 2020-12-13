@@ -17,7 +17,7 @@ namespace Fitnezz.Web.Web.Controllers
         private readonly IMealPlansService mealPlansService;
         private readonly ICardsService cardsService;
 
-        public UsersController(IUsersService usersService,IWorkoutsService workoutsService,IMealPlansService mealPlansService,ICardsService cardsService)
+        public UsersController(IUsersService usersService, IWorkoutsService workoutsService, IMealPlansService mealPlansService, ICardsService cardsService)
         {
             this.usersService = usersService;
             this.workoutsService = workoutsService;

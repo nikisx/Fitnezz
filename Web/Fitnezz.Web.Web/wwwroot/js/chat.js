@@ -3,7 +3,7 @@
 var connectionIdGlobal = '';
 
 connection.on("RecieveMessage", function (data) {
-    const  message = document.createElement("div");
+    const message = document.createElement("div");
 
     if (data.userName === document.querySelector("#user").value) {
         $(message).addClass('media media-chat media-chat-reverse');
@@ -43,7 +43,7 @@ connection.on("RecieveMessage", function (data) {
 });
 
 var joinRoom = function () {
-    var url = "/Chat/JoinRoom/' + connectionIdGlobal + '/@Model.Id";
+    var url = '/Chat/JoinRoom/' + connectionIdGlobal + '/@Model.Id';
     axios.post(url, null)
         .then(res => {
             console.log("Room Joined!", res);
@@ -69,9 +69,9 @@ var sendMessage = function (event) {
     var data = new FormData(event.target);
     document.getElementById("sender").value = '';
     axios.post("/Chat/CreateMessage", data).then(res => {
-        console.log("Message Sent!");
-    })
+            console.log("Message Sent!");
+        })
         .catch(err => {
             console.log("Failed to send message!");
-        })
+        });
 }

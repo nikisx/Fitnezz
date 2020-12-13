@@ -18,7 +18,7 @@ namespace Fitnezz.Web.Web.Controllers
         private readonly IClassesService classesService;
         private readonly IUsersService usersService;
 
-        public ClassesController(IWebHostEnvironment environment,IClassesService classesService,IUsersService usersService)
+        public ClassesController(IWebHostEnvironment environment ,IClassesService classesService ,IUsersService usersService)
         {
             this.environment = environment;
             this.classesService = classesService;
@@ -92,7 +92,7 @@ namespace Fitnezz.Web.Web.Controllers
                     return this.View("All", this.classesService.GetAll());
                 }
 
-                if (this.classesService.IsUserJoined(user.CardId,id))
+                if (this.classesService.IsUserJoined(user.CardId, id))
                 {
                     this.TempData["sErrMsg"] = "Already joined";
                     return this.View("All", this.classesService.GetAll());

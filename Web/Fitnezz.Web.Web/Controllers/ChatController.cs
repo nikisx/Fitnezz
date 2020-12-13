@@ -59,13 +59,7 @@ namespace Fitnezz.Web.Web.Controllers
             var username = this.User.Identity.Name;
             var messageToSent = await this.chatService.CreateMessage(chatId, message, username);
             await this.chat.Groups.AddToGroupAsync(connectionId, chatId);
-            await this.chat.Clients.Group(chatId).SendAsync("RecieveMessage", new Message()
-            {
-                UserName = messageToSent.UserName,
-                ChatId = messageToSent.ChatId,
-                Content = messageToSent.Content,
-                Time = DateTime.Parse(messageToSent.Time.ToString("dd/MM/yyyy hh:mm:ss")),
-            });
+            await this.chat.Clients.Group(chatId).SendAsync("RecieveMessage", messageToSent);
             return this.RedirectToAction("PrivateChat", new { id = chatId });
         }
 

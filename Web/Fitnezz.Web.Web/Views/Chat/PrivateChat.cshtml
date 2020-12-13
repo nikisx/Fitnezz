@@ -345,7 +345,7 @@
                     </div>
                     <div class="publisher bt-1 border-light">
                         <form method="post" onsubmit="sendMessage(event)" asp-controller="Chat" asp-action="CreateMessage">
-                            <input type="hidden" name="chatId" value="@Model.Id" />
+                            <input type="hidden" id="chatId" name="chatId" value="@Model.Id" />
                             <input type="hidden" id="connection" name="connectionId" value="" />
                             <input style="width: 640px" id="sender" class="publisher-input" name="message" type="text" placeholder="Write something"><button type="submit" class="publisher-btn text-info" href="#" data-abc="true"><i class="fa fa-reply"></i></button>
                         </form>

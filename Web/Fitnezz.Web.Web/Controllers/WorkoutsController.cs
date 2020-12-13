@@ -48,7 +48,7 @@ namespace Fitnezz.Web.Web.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Create(string workoutName,string isPublic)
+        public async Task<IActionResult> Create(string workoutName, string isPublic)
         {
             if (!this.User.IsInRole(GlobalConstants.TrainerRoleName) && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
             {
