@@ -1,0 +1,9 @@
+﻿@media screen and (max-width: 360px) {
+    #extLogin {
+        margin-top: 95%;
+    }
+
+    .account {
+       width: 330px
+    }
+}
