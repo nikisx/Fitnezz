@@ -1,0 +1,29 @@
+﻿.divBtn {
+    position: absolute;
+    top: 50%;
+    left: 44%;
+}
+
+#workoutBtn {
+    border-style: none;
+    padding: 15px 30px;
+    background: #ec4141;
+    font-size: 30px;
+    color: white;
+    text-decoration: none;
+}
+
+#workoutBtn:hover {
+    background: transparent;
+    border: 4px #ec4141 solid;
+}
+
+.wrkInfo {
+    font-size: 30px;
+}
+
+#exercise {
+    width: 1000px;
+    position: absolute;
+    left: 25%;
+}

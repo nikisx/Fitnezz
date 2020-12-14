@@ -1,0 +1,14 @@
+﻿
+label {
+    font-size: 3.8rem
+}
+
+#nameInput {
+    width: 800px
+}
+
+#form {
+    position: absolute;
+    top: 27%;
+    left: 30%
+}

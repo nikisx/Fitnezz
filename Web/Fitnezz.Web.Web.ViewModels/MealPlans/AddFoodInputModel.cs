@@ -11,7 +11,7 @@ namespace Fitnezz.Web.Web.ViewModels.MealPlans
 
         [Required]
         [MinLength(3)]
-        [MaxLength(30)]
+        [MaxLength(60)]
         public string Name { get; set; }
 
         [Range(1, 2000)]

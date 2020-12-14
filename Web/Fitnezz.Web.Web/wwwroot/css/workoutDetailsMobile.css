@@ -1,0 +1,35 @@
+﻿@media screen and (max-width: 360px) {
+    .wrkInfo {
+        font-size: 15px;
+    }
+
+    #exercise {
+        width: 100%;
+        position: absolute;
+        left: 1%;
+    }
+
+    td {
+        font-size: 11px;
+    }
+
+    .divBtn {
+        position: absolute;
+        top: 50%;
+        left: 32%;
+    }
+
+    #workoutBtn {
+        border-style: none;
+        padding: 10px 20px;
+        background: #ec4141;
+        font-size: 15px;
+        color: white;
+        text-decoration: none;
+    }
+
+    #workoutBtn:hover {
+        background: transparent;
+        border: 4px #ec4141 solid;
+    }
+}

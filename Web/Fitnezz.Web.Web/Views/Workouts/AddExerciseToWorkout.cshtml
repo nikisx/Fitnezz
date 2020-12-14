@@ -1,41 +1,38 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-@model Fitnezz.Web.Web.ViewModels.Workouts.AddExerciseToWorkoutInputModel
-<h1 style="text-align: center">Add Exercise to @ViewBag.WorkoutName</h1>
+﻿@model Fitnezz.Web.Web.ViewModels.Workouts.AddExerciseToWorkoutInputModel
+    <link href="~/css/addExercise.css" rel="stylesheet" />
+<link href="~/css/addExerciseMobile.css" rel="stylesheet" />
 
+<h1 style="text-align: center">Add Exercise to @ViewBag.WorkoutName</h1>
 <div style="margin-bottom: 700px">
-    <form asp-controller="Workouts" asp-action="AddExerciseToWorkout" style="position: absolute; top: 25%; left: 30%" method="post">
+    <form asp-controller="Workouts" asp-action="AddExerciseToWorkout" id="form" method="post">
         <div class="form-group; ">
             <div>
-                <label asp-for="Name" style="font-size: 3.8rem">Name of the Exercise</label>
-                <input asp-for="Name"  class="form-control" style="width: 800px" placeholder="Name">
+                <label asp-for="Name" >Name of the Exercise</label>
+                <input asp-for="Name" id="nameInput" class="form-control"  placeholder="Name">
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div>
-                <label asp-for="Sets" style="font-size: 3.8rem">Sets of the Exercise</label>
-                <input asp-for="Sets"  class="form-control" style="width: 800px" placeholder="Sets">
+                <label asp-for="Sets" >Sets of the Exercise</label>
+                <input asp-for="Sets"  class="form-control"  placeholder="Sets">
                 <span asp-validation-for="Sets" class="text-danger"></span>
             </div>
             <div>
-                <label asp-for="Reps" style="font-size: 3.8rem">Repetitions of the Exercise</label>
-                <input asp-for="Reps"  class="form-control" style="width: 800px" placeholder="Reps">
+                <label asp-for="Reps" >Repetitions of the Exercise</label>
+                <input asp-for="Reps"  class="form-control"  placeholder="Reps">
                 <span asp-validation-for="Reps" class="text-danger"></span>
             </div>
             <div>
-                <label asp-for="Distance" style="font-size: 3.8rem">Distance of the Exercise</label>
-                <input asp-for="Distance"  class="form-control" style="width: 800px" placeholder="Distance in meters">
+                <label asp-for="Distance" >Distance of the Exercise</label>
+                <input asp-for="Distance"  class="form-control"  placeholder="Distance in meters">
                 <span asp-validation-for="Distance" class="text-danger"></span>
             </div>
             <div>
-                <label asp-for="Time" style="font-size: 3.8rem">Time of the Exercise</label>
-                <input asp-for="Time" class="form-control" style="width: 800px" placeholder="Time">
+                <label asp-for="Time" >Time of the Exercise</label>
+                <input asp-for="Time" class="form-control"  placeholder="Time">
                 <span asp-validation-for="Time" class="text-danger"></span>
             </div>
-            <label asp-for="Link" style="font-size: 3.8rem">Link of the Exercise</label>
-            <input asp-for="Link" class="form-control" style="width: 800px" placeholder="Link">
+            <label asp-for="Link" >Link of the Exercise</label>
+            <input asp-for="Link" class="form-control" placeholder="Link">
             <span asp-validation-for="Link" class="text-danger"></span>
         </div>
         

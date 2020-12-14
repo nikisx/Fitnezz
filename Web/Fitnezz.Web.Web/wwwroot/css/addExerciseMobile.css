@@ -1,0 +1,15 @@
+﻿@media screen and (max-width: 460px) {
+    label {
+        font-size: 20px;
+    }
+
+    #nameInput {
+        width: 250px
+    }
+
+    #form {
+        position: absolute;
+        top: 37%;
+        left: 15%
+    }
+}

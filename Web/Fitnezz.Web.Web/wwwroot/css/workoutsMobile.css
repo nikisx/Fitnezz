@@ -1,12 +1,12 @@
-﻿@media screen and (max-width: 360px) {
+﻿@media screen and (max-width: 460px) {
     .details {
         position: absolute;
         right: 2%;
     }
 
    #dets{
-       width: 70px;
-       font-size: 12px;
+       width: 50px;
+       font-size: 8px;
    }
     #search {
         position: absolute;
@@ -14,5 +14,68 @@
         width: 100px;
         top: 124px;
 
+    }
+    #username {
+        width: 30px;
+    }
+    #addToUser {
+        width: 40px;
+        height: 33px;
+        font-size: 6px;
+        white-space: normal;
+    }
+    #del {
+        position: absolute;
+        right: 17%;
+        width: 50px;
+        font-size: 8px;
+        text-align: center;
+    }
+
+    #workoutBtn {
+        border-style: none;
+        padding: 5px 10px;
+        background: #ec4141;
+        font-size: 15px;
+        color: white;
+        text-decoration: none;
+    }
+
+    .divBtn {
+        position: absolute;
+        top: 20px;
+        left: 60%;
+    }
+
+    #workoutName {
+        width: 100px
+    }
+
+    #isPublic {
+        display: block;
+        margin-bottom: 10px;
+        width: 100px;
+        
+    }
+
+    #btnSave {
+        width: 50px;
+        font-size: 9px;
+        padding: 0px;
+        height: 20px;
+    }
+
+    #createWorkout {
+        display: none;
+        position: absolute;
+        left: 65%;
+        top: 18%
+    }
+
+    #canceltBtn {
+        width: 50px;
+        font-size: 9px;
+        padding: 0px;
+        height: 20px;
     }
 }

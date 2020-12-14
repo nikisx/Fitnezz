@@ -1,0 +1,43 @@
+﻿#workoutBtn {
+    border-style: none;
+    padding: 15px 30px;
+    background: #ec4141;
+    font-size: 30px;
+    color: white;
+    text-decoration: none;
+}
+
+.divBtn {
+    position: absolute;
+    top: 80px;
+    left: 70%;
+}
+
+#workoutBtn:hover {
+    background: transparent;
+    border: 4px #ec4141 solid;
+}
+
+#username {
+    width: 100px;
+}
+
+#createWorkout {
+    display: none;
+    position: absolute;
+    left: 95%;
+    top: 19%
+}
+
+#workoutName {
+    width: 300px
+}
+
+#isPublic {
+    display: block;
+    margin-bottom: 10px
+}
+
+#canceltBtn {
+    margin-left: 30px;
+}
