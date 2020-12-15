@@ -3,16 +3,17 @@ My project for Asp.net Core Course in SoftUni
 # Description
 You can either be trainer or trainee 
 
-If you are logged as trainee you can join classes,calculate your calories and choose your trainer. You can join with membership and see when it ends and see what training program to follow. You can see also what eating plans you have and what exercises 
+You can either be trainer or trainee
 
-If you're logged as trainer you can see how many clients have chosen you for their trainer
-You can communicate with them via chat or messages and for each you can give training to follow and a meal plan. 
+If you are logged as trainee you can join classes, calculate your calories and choose your trainer. You can join with membership,see when it ends and what training program to follow. You can also see what eating plans and exercises you have.
 
-When u are logged u will have a profile drop-down menu options. 
+If you're logged as trainer you can see how many clients have chosen you for their trainer and you can communicate with them via chat or messages. You can give trainings and meal plans for each trainee to follow. 
 
-Classes are visualized and every class has collection of trainers which the user can assign to 
+When you are logged you will have a profile drop-down menu options. 
 
-Facebook login and when the user makes a card he must fill age weight goal and height 
+Classes are visualized and every class has collection of trainers which the user can assign to.
+
+You can register with Facebook and immediately you will be asked to fill age, weight, goal and height.
 
 # Built with
 ASP.NET CORE 3.1   
