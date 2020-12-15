@@ -27,37 +27,15 @@ namespace Sandbox
     {
         public static int Main(string[] args)
         {
-            int n = int.Parse(Console.ReadLine());
+            int n = 123;
 
-            string roll1 = "";
-            string roll2 = "";
+            int first = n/100;
+            int second = (n%100)/10;
+            int third = (n%100)%10;
 
-            for (int i = 0; i < n; i++)
-            {
-                int[] newarr = (Console.ReadLine())
-                    .Split()
-                    .Select(int.Parse)
-                    .ToArray();
-
-                for (int j = 0; j < newarr.Length; j++)
-                {
-
-                    if (i % 2 == 0)
-                    {
-                        roll1 += newarr[0] + " ";
-                        roll2 += newarr[1] + " ";
-                    }
-                    if (i % 2 == 1)
-                    {
-                        roll2 += newarr[0] + " ";
-                        roll1 += newarr[1] + " ";
-                    }
-                    break;
-                }
-            }
-            Console.WriteLine(roll1);
-            Console.WriteLine(roll2);
-
+            Console.WriteLine(first);
+            Console.WriteLine(second);
+            Console.WriteLine(third);
             return 1;
 
             Console.WriteLine($"{typeof(Program).Namespace} ({string.Join(" ", args)}) starts working...");
