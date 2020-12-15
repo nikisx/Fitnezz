@@ -1,4 +1,4 @@
-﻿@media screen and (max-width: 360px) {
+﻿@media screen and (max-width: 560px) {
     .wrkInfo {
         font-size: 15px;
     }
@@ -28,8 +28,8 @@
         text-decoration: none;
     }
 
-    #workoutBtn:hover {
-        background: transparent;
-        border: 4px #ec4141 solid;
-    }
+        #workoutBtn:hover {
+            background: transparent;
+            border: 4px #ec4141 solid;
+        }
 }

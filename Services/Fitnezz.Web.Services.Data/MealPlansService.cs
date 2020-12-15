@@ -33,10 +33,10 @@ namespace Fitnezz.Web.Services.Data
             {
                 Name = x.Name,
                 Img = x.Img,
-                Calories = this.foodRepository.All().Where(f=> f.Meal.MealPlanId == x.Id).Select(c=> c.Calories).Sum(),
-                Proteins = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id).Select(c => c.Proteins).Sum(),
-                Carbs = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id).Select(c => c.Carbs).Sum(),
-                Fats = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id).Select(c => c.Fats).Sum(),
+                Calories = this.foodRepository.All().Where(f=> f.Meal.MealPlanId == x.Id && f.Meal.IsDeleted == false).Select(c=> c.Calories).Sum(),
+                Proteins = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id && f.Meal.IsDeleted == false).Select(c => c.Proteins).Sum(),
+                Carbs = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id && f.Meal.IsDeleted == false).Select(c => c.Carbs).Sum(),
+                Fats = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id && f.Meal.IsDeleted == false).Select(c => c.Fats).Sum(),
                 Id = x.Id,
             });
 
@@ -132,7 +132,7 @@ namespace Fitnezz.Web.Services.Data
         {
             var food = this.foodRepository.All().FirstOrDefault(x => x.Id == id);
 
-            this.foodRepository.Delete(food);
+            this.foodRepository.HardDelete(food);
             await this.foodRepository.SaveChangesAsync();
         }
 
@@ -164,10 +164,10 @@ namespace Fitnezz.Web.Services.Data
             {
                 Name = x.Name,
                 Img = x.Img,
-                Calories = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id).Select(c => c.Calories).Sum(),
-                Proteins = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id).Select(c => c.Proteins).Sum(),
-                Carbs = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id).Select(c => c.Carbs).Sum(),
-                Fats = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id).Select(c => c.Fats).Sum(),
+                Calories = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id && f.Meal.IsDeleted == false).Select(c => c.Calories).Sum(),
+                Proteins = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id && f.Meal.IsDeleted == false).Select(c => c.Proteins).Sum(),
+                Carbs = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id && f.Meal.IsDeleted == false).Select(c => c.Carbs).Sum(),
+                Fats = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id && f.Meal.IsDeleted == false).Select(c => c.Fats).Sum(),
                 Id = x.Id,
             });
 
@@ -189,13 +189,12 @@ namespace Fitnezz.Web.Services.Data
             var allMealPlans = this.mealPlanRepository.AllWithDeleted().OrderByDescending(x => x.CreatedOn).Select(x =>
                 new AllMealPLansViewModel
                 {
-                    IsDeleted = x.IsDeleted,
                     Name = x.Name,
                     Img = x.Img,
-                    Calories = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id).Select(c => c.Calories).Sum(),
-                    Proteins = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id).Select(c => c.Proteins).Sum(),
-                    Carbs = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id).Select(c => c.Carbs).Sum(),
-                    Fats = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id).Select(c => c.Fats).Sum(),
+                    Calories = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id && f.Meal.IsDeleted == false).Select(c => c.Calories).Sum(),
+                    Proteins = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id && f.Meal.IsDeleted == false).Select(c => c.Proteins).Sum(),
+                    Carbs = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id && f.Meal.IsDeleted == false).Select(c => c.Carbs).Sum(),
+                    Fats = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id && f.Meal.IsDeleted == false).Select(c => c.Fats).Sum(),
                     Id = x.Id,
                 });
 
