@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Fitnezz.Web.Services.Messaging;
-
-namespace Fitnezz.Web.Services.Data.Tests
+﻿namespace Fitnezz.Web.Services.Data.Tests
 {
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -11,11 +9,9 @@ namespace Fitnezz.Web.Services.Data.Tests
     using Fitnezz.Web.Data.Common.Repositories;
     using Fitnezz.Web.Data.Models;
     using Fitnezz.Web.Data.Repositories;
-
+    using Fitnezz.Web.Services.Messaging;
     using Microsoft.EntityFrameworkCore;
-
     using Moq;
-
     using Xunit;
 
     public class CardServiceTests
@@ -52,7 +48,7 @@ namespace Fitnezz.Web.Services.Data.Tests
         public async Task ReturnTheCorrectCardDueDate()
         {
             this.cardRepo.Setup(x => x.AddAsync(It.IsAny<Card>())).Callback((Card card) => db.Add(card));
-            this.cardRepo.Setup(x => x.All()).Returns(db.AsQueryable);
+            this.cardRepo.Setup(x => x.All()).Returns(this.db.AsQueryable());
             var service = new CardsService(this.userRepo.Object, this.cardRepo.Object, this.classesRepo.Object, this.cardsCLassesRepo.Object, this.emailSender.Object);
 
             await service.Create("TestId");

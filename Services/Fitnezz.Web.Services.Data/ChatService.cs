@@ -1,14 +1,16 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Fitnezz.Web.Data.Common.Repositories;
-using Fitnezz.Web.Data.Models;
-
-namespace Fitnezz.Web.Services.Data
+﻿namespace Fitnezz.Web.Services.Data
 {
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using Fitnezz.Web.Data.Common.Repositories;
+    using Fitnezz.Web.Data.Models;
+
     public class ChatService : IChatService
     {
         private readonly IDeletableEntityRepository<Chat> chatRepository;
+
         private readonly IDeletableEntityRepository<Message> messageRepository;
 
         public ChatService(IDeletableEntityRepository<Chat> chatRepository, IDeletableEntityRepository<Message> messageRepository)
