@@ -1,0 +1,26 @@
+﻿@media screen and (max-width: 560px) {
+    .trainerImage {
+        height: 150px;
+        width: 90px;
+    }
+
+    #trainerCard {
+        width: 270px;
+        margin-left: 1%;
+    }
+
+    #trainerInfoCard {
+        margin-left: 20px;
+        width: 170px;
+    }
+
+    #hireBtn {
+        width: 150px;
+    }
+
+    #title {
+        font-size: 30px;
+        margin-left: 17%;
+    }
+}
+

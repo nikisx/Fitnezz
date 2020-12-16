@@ -1,7 +1,6 @@
 ﻿.divBtn {
-    position: absolute;
-    top: 50%;
-    left: 44%;
+    margin-top: 10%;
+    margin-left: 42%;
 }
 
 #workoutBtn {
@@ -24,6 +23,5 @@
 
 #exercise {
     width: 1000px;
-    position: absolute;
-    left: 25%;
+    margin-left: 25%;
 }

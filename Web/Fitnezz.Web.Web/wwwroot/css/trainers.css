@@ -40,3 +40,22 @@
 .number3 {
     font-weight: 500
 }
+
+#title {
+    font-size: 50px;
+    margin-left: 35%;
+}
+
+.trainerImage {
+    height: 200px;
+    width: 155px;
+}
+
+#trainerInfoCard {
+    margin-left: 50px;
+    width: 200px;
+}
+
+#hireBtn {
+    width: 250px;
+}
