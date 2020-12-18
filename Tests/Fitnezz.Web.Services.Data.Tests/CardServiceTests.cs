@@ -22,10 +22,12 @@
         private readonly Mock<IRepository<CardsClasses>> cardsCLassesRepo;
         private readonly Mock<IEmailSender> emailSender;
         private readonly List<Card> db;
+        private readonly List<Class> dbClasses;
 
         public CardServiceTests()
         {
             this.db = new List<Card>();
+            this.dbClasses = new List<Class>();
             this.cardRepo = new Mock<IRepository<Card>>();
             this.classesRepo = new Mock<IDeletableEntityRepository<Class>>();
             this.cardsCLassesRepo = new Mock<IRepository<CardsClasses>>();
@@ -77,7 +79,7 @@
         {
             this.cardRepo.Setup(x => x.AddAsync(It.IsAny<Card>())).Callback((Card card) => db.Add(card));
             this.cardRepo.Setup(x => x.Delete(It.IsAny<Card>())).Callback((Card card) => db.Remove(card));
-            this.cardRepo.Setup(x => x.All()).Returns(db.AsQueryable());
+            this.cardRepo.Setup(x => x.All()).Returns(db.AsQueryable);
             var service = new CardsService(this.userRepo.Object, this.cardRepo.Object, this.classesRepo.Object, this.cardsCLassesRepo.Object, this.emailSender.Object);
 
             await service.Create("TestId");
@@ -90,20 +92,32 @@
         }
 
         [Fact]
-        public async Task GetCorrectCardTest()
+        public async Task GetUserClassesTest()
         {
-            this.cardRepo.Setup(x => x.AddAsync(It.IsAny<Card>())).Callback((Card card) => db.Add(new Card()
-            {
-                User = new ApplicationUser(),
-            }));
-            this.cardRepo.Setup(x => x.All()).Returns(db.AsQueryable());
+            this.cardRepo.Setup(x => x.AddAsync(It.IsAny<Card>())).Callback((Card card) => this.db.Add(card));
+            this.classesRepo.Setup(x => x.All()).Returns(this.dbClasses.AsQueryable());
             var service = new CardsService(this.userRepo.Object, this.cardRepo.Object, this.classesRepo.Object, this.cardsCLassesRepo.Object, this.emailSender.Object);
 
             await service.Create("TestId");
-            var card = service.GetCard("TestId").FromDate;
+            var cardId = this.db.FirstOrDefault().Id;
+            var userClasses = service.GetUserClasses(cardId);
 
-            Assert.Equal(DateTime.Now.ToShortDateString(), card);
+            Assert.NotNull(userClasses);
         }
 
+        [Fact]
+        public async Task DontDeleteIfACardIsValidTest()
+        {
+            this.cardRepo.Setup(x => x.AddAsync(It.IsAny<Card>())).Callback((Card card) => db.Add(card));
+            this.cardRepo.Setup(x => x.Delete(It.IsAny<Card>())).Callback((Card card) => db.Remove(card));
+            this.cardRepo.Setup(x => x.All()).Returns(db.AsQueryable);
+            var service = new CardsService(this.userRepo.Object, this.cardRepo.Object, this.classesRepo.Object, this.cardsCLassesRepo.Object, this.emailSender.Object);
+
+            await service.Create("TestId");
+            await service.DeleteInvalidCards();
+            var actual = this.db.Count;
+
+            Assert.Equal(1, actual);
+        }
     }
 }

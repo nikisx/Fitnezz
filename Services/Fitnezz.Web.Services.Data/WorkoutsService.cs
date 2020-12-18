@@ -64,7 +64,6 @@ namespace Fitnezz.Web.Services.Data
             }).FirstOrDefault();
         }
 
-
         public async Task CreateExercise(AddExerciseToWorkoutInputModel input)
         {
             var exercise = new Exercise()
