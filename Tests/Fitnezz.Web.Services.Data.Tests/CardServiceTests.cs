@@ -77,7 +77,7 @@
         {
             this.cardRepo.Setup(x => x.AddAsync(It.IsAny<Card>())).Callback((Card card) => db.Add(card));
             this.cardRepo.Setup(x => x.Delete(It.IsAny<Card>())).Callback((Card card) => db.Remove(card));
-            this.cardRepo.Setup(x => x.All()).Returns(db.AsQueryable);
+            this.cardRepo.Setup(x => x.All()).Returns(db.AsQueryable());
             var service = new CardsService(this.userRepo.Object, this.cardRepo.Object, this.classesRepo.Object, this.cardsCLassesRepo.Object, this.emailSender.Object);
 
             await service.Create("TestId");
@@ -87,6 +87,22 @@
             var actual = this.db.Count;
 
             Assert.Equal(0, actual);
+        }
+
+        [Fact]
+        public async Task GetCorrectCardTest()
+        {
+            this.cardRepo.Setup(x => x.AddAsync(It.IsAny<Card>())).Callback((Card card) => db.Add(new Card()
+            {
+                User = new ApplicationUser(),
+            }));
+            this.cardRepo.Setup(x => x.All()).Returns(db.AsQueryable());
+            var service = new CardsService(this.userRepo.Object, this.cardRepo.Object, this.classesRepo.Object, this.cardsCLassesRepo.Object, this.emailSender.Object);
+
+            await service.Create("TestId");
+            var card = service.GetCard("TestId").FromDate;
+
+            Assert.Equal(DateTime.Now.ToShortDateString(), card);
         }
 
     }
