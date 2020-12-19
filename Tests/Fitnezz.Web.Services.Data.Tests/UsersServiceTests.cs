@@ -141,5 +141,36 @@ namespace Fitnezz.Web.Services.Data.Tests
 
             Assert.NotNull(userTrainer);
         }
+
+        [Theory]
+        [InlineData(Goals.LoseWeight, 75)]
+        [InlineData(Goals.GainWeight, 75)]
+        [InlineData(Goals.Maintain, 75)]
+        [InlineData(Goals.MiniCut, 75)]
+        public void CalculateCaloriesTest(Goals goal, double weight)
+        {
+            var service = new UsersService(this.userRepository.Object, this.workoutsRepository.Object, this.userWourkoutsRepository.Object, this.foodRepository.Object);
+
+            var actual = service.CalculateCalories(goal, weight);
+            double expected = 0;
+            switch (goal)
+            {
+                case Goals.GainWeight:
+                    expected = weight * 36;
+                    break;
+                case Goals.LoseWeight:
+                    expected = weight * 28;
+                    break;
+                case Goals.Maintain:
+                    expected = weight * 32;
+                    break;
+                case Goals.MiniCut:
+                    expected = weight * 24;
+                    break;
+            }
+
+            Assert.Equal(expected, actual);
+
+        }
     }
 }

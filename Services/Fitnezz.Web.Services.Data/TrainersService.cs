@@ -65,7 +65,6 @@ namespace Fitnezz.Web.Services.Data
 
             trainer.Clients.Add(user);
             user.TrainerId = trainer.Id;
-            var a = trainer.Clients;
             await this.traineRepository.SaveChangesAsync();
         }
 
