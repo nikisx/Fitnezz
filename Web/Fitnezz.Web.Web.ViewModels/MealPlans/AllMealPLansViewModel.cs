@@ -10,10 +10,7 @@ namespace Fitnezz.Web.Web.ViewModels.MealPlans
     {
         public AllMealPLansViewModel()
         {
-            //this.Proteins=new List<int>();
-            //this.Carbs = new List<int>();
-            ////this.Calories = new List<int>();
-            //this.Fats = new List<int>();
+           
         }
 
         public bool IsDeleted { get; set; }

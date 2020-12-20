@@ -189,6 +189,7 @@ namespace Fitnezz.Web.Services.Data
             var allMealPlans = this.mealPlanRepository.AllWithDeleted().OrderByDescending(x => x.CreatedOn).Select(x =>
                 new AllMealPLansViewModel
                 {
+                    IsDeleted = x.IsDeleted,
                     Name = x.Name,
                     Img = x.Img,
                     Calories = this.foodRepository.All().Where(f => f.Meal.MealPlanId == x.Id && f.Meal.IsDeleted == false).Select(c => c.Calories).Sum(),

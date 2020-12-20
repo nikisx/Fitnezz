@@ -42,7 +42,7 @@ namespace Fitnezz.Web.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ClassCreateInputModel input)
         {
-            if (!this.ModelState.IsValid)
+            if (!this.ModelState.IsValid || input.StartHour > input.EndHour)
             {
                 return this.View(input);
             }
